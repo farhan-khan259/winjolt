@@ -50,7 +50,13 @@ function Header() {
         <a href="#support">Support</a>
       </nav>
       <div className="header-actions">
-        <a className="basket-button" href="#basket">Basket</a>
+        <a className="basket-button" href="#basket" aria-label="Shopping cart">
+          <svg className="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 4h2l2.4 10.2a2 2 0 0 0 2 1.5h7.8a2 2 0 0 0 1.9-1.4L21 8H7" />
+            <circle cx="10" cy="19" r="1.4" />
+            <circle cx="18" cy="19" r="1.4" />
+          </svg>
+        </a>
         <a className="sign-in" href="#sign-in">Sign in</a>
         <a className="sign-up" href="#sign-up">Sign up</a>
         <button className="menu-button" type="button" aria-label="Toggle menu" onClick={() => setMenuOpen(!menuOpen)}>
