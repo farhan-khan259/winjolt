@@ -28,7 +28,7 @@
   z-index: 5;
 }
 .brand {
-  border-radius: 10px;
+  border-radius: 16px;
   display: inline-flex;
   flex: 0 0 auto;
   overflow: hidden;
@@ -39,7 +39,7 @@
   display: block;
   height: 76px;
   object-fit: contain;
-  border-radius: 26px;
+  border-radius: 16px;
   width: 220px;
 }
 .main-nav {
@@ -453,7 +453,7 @@ figure figcaption,
   }
   .main-nav a,
   .header-actions a {
-    font-size: 11px;
+    font-size: clamp(11px, 1vw, 15px);
   }
   .basket-button {
     padding: 8px 13px;
@@ -502,131 +502,158 @@ figure figcaption,
     object-fit: cover;
   }
   .trust-bar {
-    font-size: 10px;
-    padding: 10px 2%;
+    font-size: clamp(12px, 1vw, 16px);
+    padding: 13px 2%;
   }
   .section {
     max-width: 1740px;
-    padding: 34px 3.2%;
+    padding: 48px 3.2% 56px;
   }
   .section h2,
   .instant-section h2 {
-    font-size: 25px;
-    margin-bottom: 38px;
+    font-size: clamp(28px, 2.25vw, 40px);
+    margin-bottom: clamp(58px, 6vw, 108px);
   }
   .section h2 span,
   .instant-section h2 span {
-    font-size: 37px;
+    font-size: clamp(38px, 3vw, 54px);
   }
   .competition-grid {
-    gap: 22px;
+    gap: clamp(16px, 1.25vw, 23px);
+    grid-auto-rows: 1fr;
   }
   .competition-card {
-    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    min-height: clamp(380px, 26vw, 466px);
+    padding: 13px;
   }
   .competition-image img {
-    height: 108px;
+    aspect-ratio: 1.86;
+    height: auto;
+    object-fit: cover;
   }
   .image-label {
-    font-size: 12px;
-    padding: 8px 10px;
+    font-size: clamp(12px, 1vw, 17px);
+    padding: 9px 12px;
   }
   .card-kicker {
-    font-size: 10px;
+    font-size: clamp(10px, 0.8vw, 14px);
   }
   .competition-card h3 {
-    font-size: 16px;
+    font-size: clamp(17px, 1.3vw, 24px);
+    min-height: 0;
   }
   .price-row {
-    padding: 10px;
+    margin-top: auto;
+    padding: 13px;
   }
   .price-row span,
   .card-note {
-    font-size: 10px;
+    font-size: clamp(10px, 0.8vw, 14px);
   }
   .price-row strong {
-    font-size: 18px;
+    font-size: clamp(18px, 1.35vw, 25px);
   }
   .card-rule {
-    height: 5px;
+    height: 6px;
   }
   .competition-card .action-button {
-    font-size: 11px;
-    padding: 11px;
+    font-size: clamp(11px, 0.85vw, 15px);
+    padding: 13px;
   }
   .instant-section {
-    min-height: 200px;
-    padding: 20px 7%;
+    min-height: clamp(280px, 24.4vw, 437px);
+    justify-content: flex-start;
+    gap: clamp(60px, 9vw, 160px);
+    padding: 30px 3.2%;
+  }
+  .instant-section > div {
+    width: 42%;
+  }
+  .instant-section h2 {
+    font-size: clamp(32px, 3vw, 54px);
+    margin-bottom: 14px;
   }
   .instant-section p {
-    font-size: 15px;
+    font-size: clamp(15px, 1.25vw, 22px);
+    line-height: 1.25;
+  }
+  .instant-section .action-button {
+    font-size: clamp(11px, 0.9vw, 16px);
+    max-width: 345px;
+    padding: 15px;
   }
   .instant-section img {
-    height: 165px;
-    width: 165px;
+    height: clamp(210px, 18.5vw, 332px);
+    width: clamp(210px, 18.5vw, 332px);
   }
   .how-section {
-    padding-top: 34px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .how-section > h2 {
+    margin-bottom: 18px;
   }
   .steps {
-    gap: 16px;
+    gap: 12px;
   }
   .steps article {
-    min-height: 82px;
-    padding: 18px;
+    min-height: 108px;
+    padding: 17px;
   }
   .steps strong {
-    font-size: 16px;
+    font-size: 20px;
   }
   .steps h3 {
-    font-size: 11px;
+    font-size: 13px;
   }
   .steps p,
   .results-copy > p:not(.yellow-label),
   figure figcaption,
   .newsletter p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .results-grid {
     gap: 16px;
-    margin-top: 52px;
+    margin-top: 82px;
     align-items: start;
   }
   .results-copy {
-    min-height: 190px;
+    min-height: 258px;
     padding: 28px;
-    height: 190px;
+    height: 258px;
   }
   .results-copy h2 {
-    font-size: 20px;
+    font-size: 25px;
   }
   .results-grid figure img {
-    height: 164px;
+    height: 210px;
     object-fit: cover;
   }
   .newsletter {
-    margin-top: 52px;
-    padding: 20px 26px;
+    margin-top: 82px;
+    padding: 24px 26px;
   }
   .newsletter h2 {
-    font-size: 20px;
+    font-size: 24px;
   }
   .site-footer {
-    padding: 38px 4%;
+    padding: 38px 4% 34px;
   }
   .site-footer .brand img {
-    height: 82px;
-    width: 230px;
+    height: 105px;
+    width: 285px;
   }
   .footer-brand {
     max-width: 440px;
   }
   .footer-brand p,
   .footer-links a {
-    font-size: 11px;
+    font-size: 14px;
   }
   .footer-links h3 {
-    font-size: 12px;
+    font-size: 15px;
   }
   .footer-bottom {
     font-size: 13px;
