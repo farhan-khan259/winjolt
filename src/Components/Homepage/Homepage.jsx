@@ -31,6 +31,17 @@ function Brand() {
   );
 }
 
+function NavIcon({ type }) {
+  const icons = {
+    home: <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />,
+    prizes: <path d="m12 3 9 9-9 9-9-9z" />,
+    basket: <><path d="M4 4h2l1.7 11.2a2 2 0 0 0 2 1.7h7.8a2 2 0 0 0 1.9-1.5L21 8H7" /><circle cx="10" cy="20" r="1" /><circle cx="18" cy="20" r="1" /></>,
+    account: <circle cx="12" cy="12" r="9" />,
+  };
+
+  return <svg className="nav-icon" viewBox="0 0 24 24" aria-hidden="true">{icons[type]}</svg>;
+}
+
 function ArrowButton({ children, variant = 'yellow', href = '#' }) {
   return <a className={`action-button ${variant}`} href={href}>{children} <span aria-hidden="true">→</span></a>;
 }
@@ -103,7 +114,7 @@ function Footer() {
         <div className="footer-bottom"><span>© 2026 WinJolt. No purchases, entries or prizes awarded.</span><span>18+ · Free-entry options · Fair results · UK</span></div>
       </footer>
       <nav className="mobile-nav" aria-label="Mobile navigation">
-        <a href="#top"><span>⌂</span>HOME</a><a href="#competitions"><span>◇</span>PRIZES</a><a href="#instant-wins"><span>⚡</span>INSTANT</a><a href="#basket"><span>▣</span>BASKET</a><a href="#account"><span>◉</span>ACCOUNT</a>
+        <a href="#top"><NavIcon type="home" />HOME</a><a href="#competitions"><NavIcon type="prizes" />PRIZES</a><a href="#instant-wins"><span className="instant-nav-icon">⚡</span>INSTANT</a><a href="#basket"><NavIcon type="basket" />BASKET</a><a href="#account"><NavIcon type="account" />ACCOUNT</a>
       </nav>
     </>
   );

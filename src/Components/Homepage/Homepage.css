@@ -689,10 +689,10 @@ figure figcaption,
     transform: scale(1.15);
     transform-origin: left center;
   }
-  .site-header .brand img {
-    height: 82px;
-    width: 248px;
-  }
+     .site-header .brand img {
+        height: 60px;
+        width: 180px;
+    }
   .main-nav {
     background: #03162d;
     display: none;
@@ -940,5 +940,20 @@ figure figcaption,
     color: var(--yellow);
     font-size: 23px;
     line-height: 1;
+  }
+  .mobile-nav .nav-icon {
+    fill: none;
+    height: 23px;
+    stroke: var(--yellow);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+    width: 23px;
+  }
+  .mobile-nav .instant-nav-icon {
+    color: var(--yellow);
+    font-size: 26px;
+    height: 23px;
+    line-height: .85;
   }
 }
