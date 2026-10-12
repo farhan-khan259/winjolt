@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+
+import Homepage from './Components/Homepage/Homepage';
+
+function ScrollToLocation() {
+	const { pathname, hash } = useLocation();
+
+	useEffect(() => {
+		const frame = window.requestAnimationFrame(() => {
+			if (hash) {
+				document.getElementById(hash.slice(1))?.scrollIntoView();
+			} else {
+				window.scrollTo(0, 0);
+			}
+		});
+
+		return () => window.cancelAnimationFrame(frame);
+	}, [pathname, hash]);
+
+	return null;
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ScrollToLocation />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+       
+      </Routes>
+    </BrowserRouter>
   );
 }
 
