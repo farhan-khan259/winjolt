@@ -37,10 +37,8 @@
 }
 .brand img {
   display: block;
-  height: 76px;
-  object-fit: contain;
-  border-radius: 16px;
-  width: 220px;
+  border-radius: 10px;
+  
 }
 .main-nav {
   display: flex;
@@ -345,7 +343,7 @@ figure figcaption,
 }
 .results-copy .action-button {
   margin-top: 14px;
-  max-width: 140px;
+ max-width: 180px;
 }
 .results-grid figure {
   margin: 0;
@@ -449,8 +447,8 @@ figure figcaption,
     padding: 9px 2.4%;
   }
   .brand img {
-    height: clamp(58px, 5vw, 88px);
-    width: clamp(165px, 14vw, 255px);
+    height: clamp(50px, 4vw, 80px);
+    width: clamp(130px, 12vw, 200px);
   }
   .main-nav {
     gap: clamp(22px, 2.4vw, 54px);
@@ -520,7 +518,7 @@ figure figcaption,
   }
   .section h2 span,
   .instant-section h2 span {
-    font-size: clamp(38px, 3vw, 54px);
+    font-size: clamp(33px, 2vw, 54px);
   }
   .competition-grid {
     gap: clamp(16px, 1.25vw, 23px);
@@ -568,7 +566,7 @@ figure figcaption,
   }
   .instant-section {
     min-height: clamp(280px, 24.4vw, 437px);
-    justify-content: flex-start;
+
     gap: clamp(60px, 9vw, 160px);
     padding: 30px 3.2%;
   }
@@ -885,8 +883,8 @@ figure figcaption,
     transform-origin: left center;
   }
   .site-footer .brand img {
-    height: 104px;
-    width: 300px;
+    height: 80px;
+    width: 200px;
   }
   .footer-brand {
     max-width: none;

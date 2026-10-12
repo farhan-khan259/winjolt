@@ -74,7 +74,7 @@ function CompetitionCard({ competition }) {
     <article className="competition-card">
       <div className="competition-image">
         <img src={competition.image} alt="" />
-        <span className="image-label">{competition.label}</span>
+       
       </div>
       <p className="card-kicker">COMING SOON · {competition.label}</p>
       <h3>{competition.title}</h3>
@@ -103,7 +103,7 @@ function Footer() {
         <div className="footer-bottom"><span>© 2026 WinJolt. No purchases, entries or prizes awarded.</span><span>18+ · Free-entry options · Fair results · UK</span></div>
       </footer>
       <nav className="mobile-nav" aria-label="Mobile navigation">
-        <a href="#top"><span>⌂</span>HOME</a><a href="#competitions"><span>◇</span>PRIZES</a><a href="#instant-wins"><span>ϟ</span>INSTANT</a><a href="#basket"><span>▣</span>BASKET</a><a href="#account"><span>◉</span>ACCOUNT</a>
+        <a href="#top"><span>⌂</span>HOME</a><a href="#competitions"><span>◇</span>PRIZES</a><a href="#instant-wins"><span>⚡</span>INSTANT</a><a href="#basket"><span>▣</span>BASKET</a><a href="#account"><span>◉</span>ACCOUNT</a>
       </nav>
     </>
   );
@@ -116,22 +116,22 @@ export default function Homepage() {
       <main>
         <section className="hero">
           <div className="hero-copy">
-            <p className="eyebrow">ϟ BIG PRIZES. BIG BUZZ.</p>
+            <p className="eyebrow">⚡ BIG PRIZES. BIG BUZZ.</p>
             <h1>AMAZING PRIZES.<br /><em>REAL PEOPLE.</em><br />BRIGHTER DAYS.</h1>
             <p className="hero-text">Cars, cash, tech, tools and more. A UK competitions experience with transparent results.</p>
-            <div className="hero-buttons"><ArrowButton href="#competitions">VIEW COMPETITIONS</ArrowButton><ArrowButton variant="blue" href="#instant-wins">ϟ INSTANT WINS</ArrowButton></div>
+            <div className="hero-buttons"><ArrowButton href="#competitions">VIEW COMPETITIONS</ArrowButton><ArrowButton variant="blue" href="#instant-wins"> INSTANT WINS</ArrowButton></div>
           </div>
           <div className="hero-visual"><img src={heroImage} alt="Blue car, cash and technology prizes" /><p>Illustrative prizes · No active entries</p></div>
         </section>
         <div className="trust-bar"><span>✦ 18+ only</span><span>✦ Free entry available</span><span>✦ Fair, recorded results</span><span>✦ Secure checkout planned</span></div>
 
         <section className="section competitions" id="competitions">
-          <h2><span>ϟ</span> FEATURED COMPETITIONS</h2>
+          <h2><span>⚡</span> FEATURED COMPETITIONS</h2>
           <div className="competition-grid">{competitions.map((item) => <CompetitionCard key={item.label} competition={item} />)}</div>
         </section>
 
         <section className="instant-section" id="instant-wins">
-          <div><h2><span>ϟ</span> INSTANT WINS</h2><p>Selected competitions may award instant prizes through verifiable, fair results.</p><ArrowButton>EXPLORE INSTANT WINS</ArrowButton></div>
+          <div><h2><span>⚡</span> INSTANT WINS</h2><p>Selected competitions may award instant prizes through verifiable, fair results.</p><ArrowButton>EXPLORE INSTANT WINS</ArrowButton></div>
           <img src={wheelImage} alt="Instant wins prize wheel" />
         </section>
 
