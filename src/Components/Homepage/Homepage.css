@@ -280,7 +280,7 @@
   align-items: center;
   background: linear-gradient(110deg, #0865ee, #123d8a);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 14%;
   padding: 25px 8%;
 }
@@ -288,9 +288,7 @@
   color: var(--yellow);
   margin-bottom: 10px;
 }
-.instant-section p {
-  max-width: 370px;
-}
+
 .instant-section .action-button {
   max-width: 255px;
   margin-top: 16px;
