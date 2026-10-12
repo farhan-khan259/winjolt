@@ -391,49 +391,53 @@ figure figcaption,
 .site-footer {
   background: #031c34;
   color: var(--muted);
-  padding: 30px 4%;
+  display: grid;
+  grid-template-columns: 1.35fr repeat(3, 1fr);
+  column-gap: 7%;
+  padding: 36px 4%;
 }
 .site-footer .brand {
   margin-bottom: 12px;
 }
 .footer-brand {
-  max-width: 300px;
+  max-width: 440px;
 }
 .footer-brand p {
-  font-size: 11px;
-  margin: 5px 0;
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 12px 0 0;
 }
 .footer-disclaimer {
-  font-size: 9px !important;
+  font-size: 15px !important;
+  line-height: 1.2;
 }
 .footer-links {
-  display: flex;
-  gap: 15%;
-  justify-content: flex-end;
-  margin-top: -100px;
+  display: contents;
 }
 .footer-links div {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 12px;
 }
 .footer-links h3 {
   color: var(--yellow);
-  font-size: 12px;
-  margin: 0 0 3px;
+  font-size: 18px;
+  margin: 0 0 2px;
 }
 .footer-links a {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 16px;
+  line-height: 1.1;
   text-decoration: none;
 }
 .footer-bottom {
   border-top: 1px solid #1b496f;
   display: flex;
-  font-size: 10px;
+  font-size: 15px;
+  grid-column: 1 / -1;
   justify-content: space-between;
-  margin-top: 22px;
-  padding-top: 20px;
+  margin-top: 34px;
+  padding-top: 27px;
 }
 .mobile-nav {
   display: none;
@@ -639,7 +643,7 @@ figure figcaption,
     font-size: 24px;
   }
   .site-footer {
-    padding: 38px 4% 34px;
+    padding: 36px 4% 34px;
   }
   .site-footer .brand img {
     height: 105px;
@@ -648,15 +652,17 @@ figure figcaption,
   .footer-brand {
     max-width: 440px;
   }
-  .footer-brand p,
-  .footer-links a {
-    font-size: 14px;
+  .footer-brand p {
+    font-size: 16px;
   }
   .footer-links h3 {
+    font-size: 16px;
+  }
+  .footer-links a {
     font-size: 15px;
   }
   .footer-bottom {
-    font-size: 13px;
+    font-size: 14px;
     padding-top: 24px;
   }
 }
@@ -857,6 +863,7 @@ figure figcaption,
     width: 100%;
   }
   .site-footer {
+    display: block;
     padding: 30px 24px 78px;
   }
   .site-footer .brand {
