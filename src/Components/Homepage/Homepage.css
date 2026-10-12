@@ -28,16 +28,18 @@
   z-index: 5;
 }
 .brand {
-  background: #344960;
+  border-radius: 10px;
   display: inline-flex;
   flex: 0 0 auto;
-  padding: 5px 8px;
+  overflow: hidden;
+  /* padding: 5px 8px; */
   text-decoration: none;
 }
 .brand img {
   display: block;
   height: 76px;
   object-fit: contain;
+  border-radius: 26px;
   width: 220px;
 }
 .main-nav {
