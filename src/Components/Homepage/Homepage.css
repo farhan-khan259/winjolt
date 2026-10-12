@@ -327,7 +327,7 @@
 .results-copy > p:not(.yellow-label),
 figure figcaption,
 .newsletter p {
-  color: var(--muted);
+
   font-size: 10px;
   margin: 0;
 }
@@ -516,7 +516,7 @@ figure figcaption,
   .section h2,
   .instant-section h2 {
     font-size: clamp(28px, 2.25vw, 40px);
-    margin-bottom: clamp(58px, 6vw, 108px);
+
   }
   .section h2 span,
   .instant-section h2 span {
