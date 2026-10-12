@@ -10,10 +10,10 @@ import wheelImage from '../../Assets/Pictures/jolt-wheel.svg';
 import logoImage from '../../Assets/Pictures/winjolt-logo-transparent.png';
 
 const competitions = [
-  { label: 'CARS', title: 'Performance Car + Cash', image: carImage },
-  { label: 'CASH', title: '£10,000 Cash Prize', image: cashImage },
-  { label: 'TECH', title: 'Gaming & Tech Bundle', image: gamingImage },
-  { label: 'TOOLS', title: 'Ultimate Tools Collection', image: toolsImage },
+  { title: 'Performance Car + Cash', image: carImage },
+  {  title: '£10,000 Cash Prize', image: cashImage },
+  {  title: 'Gaming & Tech Bundle', image: gamingImage },
+  { title: 'Ultimate Tools Collection', image: toolsImage },
 ];
 
 const steps = [

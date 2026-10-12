@@ -593,24 +593,26 @@ figure figcaption,
     width: clamp(210px, 18.5vw, 332px);
   }
   .how-section {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: 46px;
+    padding-bottom: 50px;
   }
   .how-section > h2 {
-    margin-bottom: 18px;
+    font-size: clamp(26px, 2.2vw, 34px);
+    margin-bottom: 12px;
   }
   .steps {
-    gap: 12px;
+    gap: 10px;
   }
   .steps article {
-    min-height: 108px;
-    padding: 17px;
+    min-height: 111px;
+    padding: 16px;
   }
   .steps strong {
     font-size: 20px;
   }
   .steps h3 {
     font-size: 13px;
+    margin: 8px 0;
   }
   .steps p,
   .results-copy > p:not(.yellow-label),
@@ -619,28 +621,40 @@ figure figcaption,
     font-size: 12px;
   }
   .results-grid {
-    gap: 16px;
-    margin-top: 82px;
+    gap: 10px;
+    margin-top: 86px;
     align-items: start;
   }
   .results-copy {
-    min-height: 258px;
-    padding: 28px;
-    height: 258px;
+    min-height: 175px;
+    padding: 23px;
+    height: 175px;
   }
   .results-copy h2 {
-    font-size: 25px;
+    font-size: clamp(21px, 1.8vw, 28px);
+    margin: 12px 0;
+  }
+  .results-copy .action-button {
+    margin-top: 12px;
+  }
+  .results-grid figure {
+    height: 259px;
+    padding: 18px;
   }
   .results-grid figure img {
-    height: 210px;
+    height: 202px;
     object-fit: cover;
   }
+  .results-grid figcaption {
+    margin-top: 7px;
+  }
   .newsletter {
-    margin-top: 82px;
-    padding: 24px 26px;
+    margin-top: 87px;
+    min-height: 102px;
+    padding: 20px 23px;
   }
   .newsletter h2 {
-    font-size: 24px;
+    font-size: clamp(20px, 1.65vw, 26px);
   }
   .site-footer {
     padding: 36px 4% 34px;
