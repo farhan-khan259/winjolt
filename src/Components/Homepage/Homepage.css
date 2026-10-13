@@ -404,7 +404,11 @@ figure figcaption,
   padding: 36px 4%;
 }
 .site-footer .brand {
+  border-radius: 0;
   margin-bottom: 12px;
+}
+.site-footer .brand img {
+  border-radius: 0;
 }
 .footer-brand {
   max-width: 440px;
