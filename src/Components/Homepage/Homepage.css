@@ -76,8 +76,16 @@
   stroke-width: 1.8;
   width: 18px;
 }
-.basket-button .cart-icon { display: none; }
-.basket-button span { margin-left: 0; }
+.basket-button .cart-icon { display: block; }
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
 .sign-in,
 .sign-up {
   border-radius: 6px;
