@@ -54,9 +54,9 @@ export function Header() {
       <Brand />
       <nav className={menuOpen ? 'main-nav open' : 'main-nav'} aria-label="Main navigation">
         <a href="/competitions">Competitions</a>
-        <a href="#instant-wins">Instant Wins</a>
-        <a href="#winners">Winners</a>
-        <a href="#how-it-works">How It Works</a>
+        <a href="/instant-wins">Instant Wins</a>
+        <a href="/winners-and-results">Winners</a>
+        <a href="/how-it-works">How It Works</a>
         <a href="#free-entry">Free Entry</a>
         <a href="#support">Support</a>
       </nav>
@@ -108,8 +108,8 @@ export function Footer() {
           <p className="footer-disclaimer">Every prize and price shown here is illustrative. No live participation.</p>
         </div>
         <div className="footer-links">
-          <div><h3>EXPLORE</h3><a href="#competitions">Competitions</a><a href="#instant-wins">Instant Wins</a><a href="#games">Games &amp; Experiences</a><a href="#competitions">Winners</a><a href="#draws">Live Draws</a><a href="#checker">Ticket Checker</a></div>
-          <div><h3>ABOUT</h3><a href="#about">About Us</a><a href="#how-it-works">How It Works</a><a href="#free-entry">Free Entry</a><a href="#responsible">Responsible Participation</a><a href="#support">Help Centre</a></div>
+          <div><h3>EXPLORE</h3><a href="/competitions">Competitions</a><a href="/instant-wins">Instant Wins</a><a href="/games-and-experiences">Games &amp; Experiences</a><a href="/winners-and-results">Winners</a><a href="/live-draws">Live Draws</a><a href="/ticket-checker">Ticket Checker</a></div>
+          <div><h3>ABOUT</h3><a href="#about">About Us</a><a href="/how-it-works">How It Works</a><a href="#free-entry">Free Entry</a><a href="#responsible">Responsible Participation</a><a href="#support">Help Centre</a></div>
           <div><h3>LEGAL &amp; HELP</h3><a href="#terms">Terms &amp; Conditions</a><a href="#privacy">Privacy Policy</a><a href="#cookies">Cookie Policy</a><a href="#complaints">Complaints</a><a href="#contact">Contact Us</a><a href="#designs">All Page Designs</a></div>
         </div>
         <div className="footer-bottom"><span>© 2026 WinJolt. No purchases, entries or prizes awarded.</span><span>18+ · Free-entry options · Fair results · UK</span></div>

@@ -76,6 +76,8 @@
   stroke-width: 1.8;
   width: 18px;
 }
+.basket-button .cart-icon { display: none; }
+.basket-button span { margin-left: 0; }
 .sign-in,
 .sign-up {
   border-radius: 6px;
@@ -439,6 +441,19 @@ figure figcaption,
 .mobile-nav {
   display: none;
 }
+/* Shared page shell refinements used by the nine reference-led pages. */
+@media (min-width: 761px) {
+  .experience-page .experience-hero {
+    min-height: 214px;
+  }
+  .experience-page .wheel-feature img {
+    height: 270px;
+    width: 270px;
+  }
+  .experience-page .games-stage > .wheel-feature {
+    min-height: 328px;
+  }
+}
 @media (min-width: 761px) {
   .site-header {
     gap: 34px;
@@ -657,40 +672,39 @@ figure figcaption,
     padding: 36px 4% 34px;
   }
   .site-footer .brand img {
-    height: 105px;
-    width: 285px;
+    height: 92px;
+    width: 210px;
   }
   .footer-brand {
     max-width: 440px;
   }
   .footer-brand p {
-    font-size: 16px;
+    font-size: 13px;
   }
   .footer-links h3 {
-    font-size: 16px;
+    font-size: 14px;
   }
   .footer-links a {
-    font-size: 15px;
+    font-size: 12px;
   }
   .footer-bottom {
-    font-size: 14px;
+    font-size: 11px;
     padding-top: 24px;
   }
 }
 @media (max-width: 760px) {
   .site-header {
-    height: 120px;
+    height: 80px;
     justify-content: space-between;
-    padding: 17px 26px;
+    padding: 8px 18px;
   }
   .site-header .brand {
-    padding: 3px 6px;
-    transform: scale(1.15);
-    transform-origin: left center;
+    padding: 0;
+    transform: none;
   }
      .site-header .brand img {
         height: 60px;
-        width: 180px;
+        width: 175px;
     }
   .main-nav {
     background: #03162d;
@@ -700,7 +714,7 @@ figure figcaption,
     padding: 20px 26px;
     position: absolute;
     right: 0;
-    top: 120px;
+    top: 80px;
   }
   .main-nav.open {
     display: flex;
@@ -708,9 +722,10 @@ figure figcaption,
   .header-actions {
     margin-left: auto;
   }
-  .header-actions > a {
+  .header-actions > a:not(.basket-button) {
     display: none;
   }
+  .basket-button { display: inline-flex; font-size: 12px !important; padding: 9px 12px; }
   .menu-button {
     display: block;
   }
@@ -875,44 +890,47 @@ figure figcaption,
   }
   .site-footer {
     display: block;
-    padding: 30px 24px 78px;
+    padding: 25px 16px 78px;
   }
   .site-footer .brand {
     transform: scale(1.05);
     transform-origin: left center;
   }
   .site-footer .brand img {
-    height: 80px;
-    width: 200px;
+    height: 68px;
+    width: 170px;
   }
   .footer-brand {
     max-width: none;
   }
   .footer-brand p {
-    font-size: 16px;
-    margin-top: 22px;
+    font-size: 12px;
+    margin-top: 12px;
   }
   .footer-disclaimer {
     display: none;
   }
   .footer-links {
     display: grid;
-    gap: 24px 35px;
+    gap: 19px 30px;
     grid-template-columns: 1fr 1fr;
-    margin: 32px 0 0;
+    margin: 22px 0 0;
   }
+  .footer-links div { gap: 8px; }
   .footer-links h3 {
-    font-size: 16px;
+    font-size: 12px;
   }
   .footer-links a {
-    font-size: 15px;
+    font-size: 10px;
   }
   .footer-bottom {
     align-items: flex-start;
     flex-direction: column;
-    font-size: 15px;
-    gap: 25px;
+    font-size: 10px;
+    gap: 17px;
     line-height: 1.4;
+    margin-top: 22px;
+    padding-top: 16px;
   }
   .mobile-nav {
     background: #031b34;
