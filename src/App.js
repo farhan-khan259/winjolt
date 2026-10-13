@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 
 import Homepage from './Components/Homepage/Homepage';
+import Competetions from './Components/Competetions/Competetions';
 
 function ScrollToLocation() {
 	const { pathname, hash } = useLocation();
@@ -27,7 +28,7 @@ function App() {
       <ScrollToLocation />
       <Routes>
         <Route path="/" element={<Homepage />} />
-       
+        <Route path="/competitions" element={<Competetions />} />
       </Routes>
     </BrowserRouter>
   );

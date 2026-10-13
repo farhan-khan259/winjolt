@@ -46,14 +46,14 @@ function ArrowButton({ children, variant = 'yellow', href = '#' }) {
   return <a className={`action-button ${variant}`} href={href}>{children} <span aria-hidden="true">→</span></a>;
 }
 
-function Header() {
+export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className="site-header">
       <Brand />
       <nav className={menuOpen ? 'main-nav open' : 'main-nav'} aria-label="Main navigation">
-        <a href="#competitions">Competitions</a>
+        <a href="/competitions">Competitions</a>
         <a href="#instant-wins">Instant Wins</a>
         <a href="#winners">Winners</a>
         <a href="#how-it-works">How It Works</a>
@@ -67,6 +67,7 @@ function Header() {
             <circle cx="10" cy="19" r="1.4" />
             <circle cx="18" cy="19" r="1.4" />
           </svg>
+          <span>Basket</span>
         </a>
         <a className="sign-in" href="#sign-in">Sign in</a>
         <a className="sign-up" href="#sign-up">Sign up</a>
@@ -97,7 +98,7 @@ function CompetitionCard({ competition }) {
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
     <>
       <footer className="site-footer" id="support">
