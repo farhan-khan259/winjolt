@@ -17,6 +17,7 @@ const prizes = [
     category: "Cars",
     image: carImage,
     price: "£0.99",
+    path: "/competitions/performance-car",
   },
   {
     title: "£10,000 Cash Prize",
@@ -24,6 +25,7 @@ const prizes = [
     image: cashImage,
    
     price: "£0.99",
+    path: "/competitions/cash-prize",
   },
   {
     title: "Gaming & Tech Bundle",
@@ -31,6 +33,7 @@ const prizes = [
     image: gamingImage,
    
     price: "£0.99",
+    path: "/competitions/gaming-and-tech",
   },
   {
     title: "Ultimate Tools Collection",
@@ -38,6 +41,7 @@ const prizes = [
     image: toolsImage,
    
     price: "£0.99",
+    path: "/competitions/ultimate-tools-collection",
   },
   {
     title: "Smartphone Instant Win",
@@ -103,7 +107,7 @@ function PrizeCard({ prize }) {
         DEMO ONLY&nbsp; • &nbsp;NO TICKETS ON SALE
       </p>
       <div className="catalogue-rule" />
-      <a href="#notice" className="catalogue-button">
+      <a href={prize.path || '#notice'} className="catalogue-button">
         VIEW COMPETITION <b>→</b>
       </a>
     </article>

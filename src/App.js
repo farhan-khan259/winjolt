@@ -3,6 +3,10 @@ import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 
 import Homepage from './Components/Homepage/Homepage';
 import Competetions from './Components/Competetions/Competetions';
+import PerformanceCar from './Components/PerformanceCar/PerformanceCar';
+import CashPrize from './Components/CashPrize/CashPrize';
+import GamingandTech from './Components/GamingandTech/GamingandTech';
+import UltimateToolsCollection from './Components/UltimateToolsCollection/UltimateToolsCollection';
 
 function ScrollToLocation() {
 	const { pathname, hash } = useLocation();
@@ -29,6 +33,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/competitions" element={<Competetions />} />
+        <Route path="/competitions/performance-car" element={<PerformanceCar />} />
+        <Route path="/competitions/cash-prize" element={<CashPrize />} />
+        <Route path="/competitions/gaming-and-tech" element={<GamingandTech />} />
+        <Route path="/competitions/ultimate-tools-collection" element={<UltimateToolsCollection />} />
       </Routes>
     </BrowserRouter>
   );
