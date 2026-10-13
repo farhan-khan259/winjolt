@@ -1,1 +1,9 @@
-@import '../CommonPages/CommonPages.css';.about-page .info-content{padding-top:48px}@media(max-width:760px){.about-page .info-content{padding-top:20px}}
+@import "../CommonPages/CommonPages.css";
+.about-page .info-content {
+  padding-top: 48px;
+}
+@media (max-width: 760px) {
+  .about-page .info-content {
+    padding-top: 20px;
+  }
+}
