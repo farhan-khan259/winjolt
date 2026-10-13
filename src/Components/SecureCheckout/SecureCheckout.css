@@ -1,1 +1,29 @@
-@import '../CommonPages/CommonPages.css';.checkout-page .info-content{padding-top:44px}.checkout-layout{grid-template-columns:2.1fr 1fr}.checkout-box .form-field{background:transparent;padding:0}.checkout-box .info-note b{color:#ffda13}.checkout-layout>.summary-box{height:max-content}.checkout-layout>.summary-box>p{color:#b9cae2;font-size:13px}@media(max-width:760px){.checkout-layout{grid-template-columns:1fr}.checkout-page .info-content{padding-top:18px}}
+@import "../CommonPages/CommonPages.css";
+.checkout-page .info-content {
+  padding-top: 44px;
+}
+.checkout-layout {
+  grid-template-columns: 2.1fr 1fr;
+}
+.checkout-box .form-field {
+  background: transparent;
+  padding: 0;
+}
+.checkout-box .info-note b {
+  color: #ffda13;
+}
+.checkout-layout > .summary-box {
+  height: max-content;
+}
+.checkout-layout > .summary-box > p {
+  color: #b9cae2;
+  font-size: 13px;
+}
+@media (max-width: 760px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+  .checkout-page .info-content {
+    padding-top: 18px;
+  }
+}
