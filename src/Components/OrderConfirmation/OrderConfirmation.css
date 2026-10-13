@@ -1,1 +1,15 @@
-@import '../CommonPages/CommonPages.css';.confirmation-page .status-content{padding-top:48px}.confirmation-page .status-content .info-panel{background:transparent}@media(max-width:760px){.confirmation-page .status-content{padding-top:18px}.confirmation-page .status-content .info-panel{background:#092449}}
+@import "../CommonPages/CommonPages.css";
+.confirmation-page .status-content {
+  padding-top: 48px;
+}
+.confirmation-page .status-content .info-panel {
+  background: transparent;
+}
+@media (max-width: 760px) {
+  .confirmation-page .status-content {
+    padding-top: 18px;
+  }
+  .confirmation-page .status-content .info-panel {
+    background: #092449;
+  }
+}
