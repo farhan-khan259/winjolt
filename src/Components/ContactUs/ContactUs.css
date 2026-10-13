@@ -1,0 +1,1 @@
+@import '../CommonPages/CommonPages.css';.contact-content form{display:grid;gap:16px;max-width:620px}.contact-content form .info-action{max-width:330px}.contact-content>.info-panel{margin-top:17px}@media(max-width:760px){.contact-content form .info-action{max-width:none}}

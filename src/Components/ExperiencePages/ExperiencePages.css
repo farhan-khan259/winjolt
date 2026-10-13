@@ -1,2 +1,626 @@
-.experience-page{background:#020b20;color:#fff;font-family:Inter,Arial,sans-serif;min-height:100vh}.prototype-bar{background:#03152c;color:#ffda13;font-size:10px;font-weight:900;height:29px;padding:8px}.experience-hero{align-items:center;background:linear-gradient(105deg,#0b428e,#031a3b);display:flex;justify-content:space-between;min-height:180px;overflow:hidden;padding:26px max(3.5%,42px)}.experience-hero p,.featured-label{color:#ffda13;font-size:12px;font-weight:800;margin:0 0 17px}.experience-hero h1{font-size:clamp(35px,3vw,45px);margin:0 0 12px}.experience-hero span{color:#b9cbe4;font-size:17px}.experience-hero>b{color:#1a4d80;font:italic 220px Arial;line-height:.5;margin-right:2%;transform:rotate(-9deg)}.instant-catalogue,.content-page,.wheel-page,.rewards{margin:auto;max-width:1360px;padding:42px 3.5%}.catalogue-top{align-items:end;display:flex;justify-content:space-between}.catalogue-top h2,.instant-promo h2{color:#ffda13;font-size:28px;margin:0 0 16px}.catalogue-top p,.xp-notice,.instant-promo p{color:#aec2dc;font-size:14px}.catalogue-top input,.ticket-page input{background:#082b54;border:1px solid #1a568d;border-radius:8px;color:#fff;font:inherit;padding:13px;width:315px}.xp-filters{display:flex;gap:8px;margin:36px 0 64px}.xp-filters button{background:#082c59;border:1px solid #1d5b96;border-radius:22px;color:#fff;font-weight:700;padding:10px 17px}.xp-filters button:first-child{background:#ffda13;color:#06142c}.xp-grid{display:grid;gap:17px;grid-template-columns:repeat(4,1fr)}.xp-card{background:#0a315f;border:1px solid #1a578e;border-radius:12px;display:flex;flex-direction:column;padding:10px}.xp-card>img{aspect-ratio:1.85;border-radius:6px;object-fit:cover;width:100%}.xp-card p{color:#00c7f6;font-size:10px;font-weight:800;margin:10px 0}.xp-card h3{font-size:17px;margin:0 0 11px}.xp-card>div{align-items:center;background:#021a3a;border-radius:6px;display:flex;justify-content:space-between;padding:11px}.xp-card>div span,.xp-card small{color:#aec2dc;font-size:10px}.xp-card>div b{color:#ffda13;font-size:18px}.xp-card small{margin:12px 0}.xp-card i{background:#32679c;border-radius:4px;height:5px;margin-bottom:10px}.xp-button{background:#ffda13;border:0;border-radius:7px;color:#04142b;cursor:pointer;font-size:12px;font-weight:900;padding:13px;text-align:left}.xp-button b{float:right;font-size:16px}.xp-button.blue{background:#0875f9;color:#fff}.xp-notice{background:#113e76;border:1px solid #245b96;border-radius:7px;margin:64px 0 0;padding:15px}.instant-promo{align-items:center;background:linear-gradient(105deg,#0756bd,#073477);display:grid;gap:35px;grid-template-columns:1fr 1.2fr;padding:45px 3.5%}.instant-promo h3{font-size:16px}.wheel-feature{align-items:center;background:#092449;border:1px solid #285b8e;border-radius:12px;display:flex;gap:28px;padding:24px}.wheel-feature img{height:245px;width:245px}.wheel-feature h2{color:#ffda13;font-size:29px;margin:0 0 10px}.wheel-feature p{color:#c3d0e2;font-size:15px}.wheel-feature .xp-button{margin-top:12px}.games-stage{margin:42px auto;max-width:1335px;padding:0 3.5%}.games-stage>.wheel-feature{background:#092044;border:0;border-radius:0}.games-stage>.xp-button{margin:14px 0}.info-strip{background:#092449;border-radius:12px;margin-top:16px;padding:20px}.info-strip h2{font-size:20px;margin:0 0 10px}.info-strip p{color:#bacbe3;margin:0}.wheel-page{align-items:center;display:grid;gap:45px;grid-template-columns:1fr 1.3fr}.wheel-visual img{display:block;margin:auto;max-width:310px;width:100%}.wheel-visual p,.spin-panel p{color:#b9c9df;font-size:13px}.spin{animation:spin 1.8s ease-out}.spin-panel{background:#0a315f;border:1px solid #1c5b91;border-radius:12px;padding:26px}.spin-panel small,.rewards aside{color:#ffda13;font-weight:800}.spin-panel h2{font-size:32px;margin:17px 0}.commitments{display:grid;gap:10px;grid-template-columns:1fr 1fr;margin:18px 0}.commitments span{border:1px solid #286098;border-radius:8px;color:#b9cae2;font-size:13px;padding:15px}.commitments b{color:#fff;display:block;font-size:16px;margin-bottom:9px}.spin-panel .xp-button{margin:8px 0;width:100%}.fine{font-size:11px!important}.rewards h2{font-size:28px;margin:0}.rewards>p{color:#b9c9df}.rewards>div{display:grid;gap:12px;grid-template-columns:repeat(3,1fr)}.rewards article{background:#0a315f;border:1px solid #1d5b91;border-radius:10px;display:flex;flex-direction:column;gap:7px;padding:21px}.rewards article b{color:#ffda13;font-size:32px}.rewards article span,.rewards article small{color:#b9c9df}.rewards aside{background:#0a315f;border-radius:9px;font-size:12px;margin-top:14px;padding:18px}.rewards aside span{color:#b9c9df;font-weight:400}.content-page{min-height:430px}.winner-empty{background:#0a315f;border:1px solid #255e95;border-radius:12px;padding:48px}.winner-empty>b{font-size:55px}.winner-empty h2{font-size:31px}.winner-empty p,.standard-cards p,.draw-list p{color:#b9cae2}.standard-cards{display:grid;gap:14px;grid-template-columns:repeat(3,1fr);margin-top:18px}.standard-cards article,.draw-list article{background:#0a284d;border:1px solid #1e5a90;border-radius:11px;padding:20px}.standard-cards article>b{color:#ffda13;font-size:21px}.standard-cards h2,.draw-list h2{font-size:20px}.ticket-page{max-width:760px;margin-left:3.5%}.ticket-page label{background:#092449;border-radius:10px;display:flex;flex-direction:column;font-size:14px;font-weight:800;gap:8px;margin-bottom:16px;padding:16px}.ticket-page input{background:#031c40;border:0;width:100%}.ticket-page>.xp-button{margin:1px 0}.ticket-page .info-strip{margin-top:18px}.draw-list{display:grid;gap:16px}.draw-list h2{margin:0}.draw-list p{font-size:14px;margin:10px 0 0}.draw-prizes{display:flex;gap:15px;margin-top:17px}.draw-prizes .xp-card{width:300px}@keyframes spin{to{transform:rotate(1080deg)}}
-@media(max-width:760px){.prototype-bar{font-size:8px;height:23px;padding:6px 7px;white-space:nowrap}.experience-hero{min-height:137px;padding:18px 20px}.experience-hero p{font-size:10px;margin-bottom:13px}.experience-hero h1{font-size:28px;line-height:1.15}.experience-hero span{display:block;font-size:15px;line-height:1.15;max-width:290px}.experience-hero>b{font-size:145px;margin:0 -30px 0 0}.instant-catalogue,.content-page,.wheel-page,.rewards{padding:20px 16px}.catalogue-top{align-items:stretch;flex-direction:column}.catalogue-top h2{font-size:21px;margin-bottom:14px}.catalogue-top input{margin-top:10px;width:100%}.xp-filters{margin:10px 0 22px}.xp-grid{gap:11px;grid-template-columns:repeat(2,minmax(0,1fr))}.xp-card{border-radius:9px;padding:7px}.xp-card>img{aspect-ratio:1.5}.xp-card p{font-size:8px;margin:7px 0}.xp-card h3{font-size:12px;line-height:1.1;margin-bottom:8px}.xp-card>div{padding:8px}.xp-card>div span,.xp-card small{font-size:8px}.xp-card>div b{font-size:13px}.xp-card small{font-size:7px;margin:9px 0}.xp-card .xp-button{font-size:9px;padding:10px 8px}.xp-notice{font-size:12px;line-height:1.2;margin:24px 0 0}.instant-promo{display:block;padding:18px 16px}.instant-promo h2{font-size:26px}.wheel-feature{align-items:stretch;flex-direction:column;padding:15px}.wheel-feature img{align-self:center;height:245px;width:245px}.wheel-feature h2{font-size:24px}.games-stage{margin:16px auto;padding:0 18px}.games-stage>.wheel-feature{border-radius:0;padding:28px 22px}.games-stage>.wheel-feature img{height:235px;width:235px}.info-strip{padding:23px}.wheel-page{display:block}.wheel-visual img{max-width:230px}.wheel-visual p{font-size:12px}.spin-panel{margin-top:26px;padding:16px}.spin-panel h2{font-size:25px;line-height:1.08}.commitments{grid-template-columns:1fr}.rewards h2{font-size:21px;line-height:1.1}.rewards>div{gap:10px;grid-template-columns:1fr 1fr}.rewards article{padding:12px}.rewards article b{font-size:22px}.rewards article span,.rewards article small{font-size:10px}.winner-empty{padding:25px}.winner-empty h2{font-size:25px;line-height:1.08}.standard-cards{grid-template-columns:1fr}.standard-cards article{padding:20px}.ticket-page{margin:0;padding:20px}.draw-prizes{flex-direction:column}.draw-prizes .xp-card{width:100%}.experience-page .site-footer{padding-top:25px}}
+.experience-page {
+  background: #020b20;
+  color: #fff;
+  font-family: Inter, Arial, sans-serif;
+  min-height: 100vh;
+}
+.prototype-bar {
+  background: #03152c;
+  color: #ffda13;
+  font-size: 10px;
+  font-weight: 900;
+  height: 29px;
+  padding: 8px;
+}
+.experience-hero {
+  align-items: center;
+  background: linear-gradient(105deg, #0b428e, #031a3b);
+  display: flex;
+  justify-content: space-between;
+  min-height: 180px;
+  overflow: hidden;
+  padding: 26px max(3.5%, 42px);
+}
+.experience-hero p,
+.featured-label {
+  color: #ffda13;
+  font-size: 12px;
+  font-weight: 800;
+  margin: 0 0 17px;
+}
+.experience-hero h1 {
+  font-size: clamp(35px, 3vw, 45px);
+  margin: 0 0 12px;
+}
+.experience-hero span {
+  color: #b9cbe4;
+  font-size: 17px;
+}
+.experience-hero > b {
+  color: #1a4d80;
+  font: italic 220px Arial;
+  line-height: 0.5;
+  margin-right: 2%;
+  transform: rotate(-9deg);
+}
+.instant-catalogue,
+.content-page,
+.wheel-page,
+.rewards {
+  margin: auto;
+  max-width: 1360px;
+  padding: 42px 3.5%;
+}
+.catalogue-top {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+}
+.catalogue-top h2,
+.instant-promo h2 {
+  color: #ffda13;
+  font-size: 28px;
+  margin: 0 0 16px;
+}
+.catalogue-top p,
+.xp-notice,
+.instant-promo p {
+  color: #aec2dc;
+  font-size: 14px;
+}
+.catalogue-top input,
+.ticket-page input {
+  background: #082b54;
+  border: 1px solid #1a568d;
+  border-radius: 8px;
+  color: #fff;
+  font: inherit;
+  padding: 13px;
+  width: 315px;
+}
+.xp-filters {
+  display: flex;
+  gap: 8px;
+  margin: 36px 0 64px;
+}
+.xp-filters button {
+  background: #082c59;
+  border: 1px solid #1d5b96;
+  border-radius: 22px;
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 17px;
+}
+.xp-filters button:first-child {
+  background: #ffda13;
+  color: #06142c;
+}
+.xp-grid {
+  display: grid;
+  gap: 17px;
+  grid-template-columns: repeat(4, 1fr);
+}
+.xp-card {
+  background: #0a315f;
+  border: 1px solid #1a578e;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.xp-card > img {
+  aspect-ratio: 1.85;
+  border-radius: 6px;
+  object-fit: cover;
+  width: 100%;
+}
+.xp-card p {
+  color: #00c7f6;
+  font-size: 10px;
+  font-weight: 800;
+  margin: 10px 0;
+}
+.xp-card h3 {
+  font-size: 17px;
+  margin: 0 0 11px;
+}
+.xp-card > div {
+  align-items: center;
+  background: #021a3a;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  padding: 11px;
+}
+.xp-card > div span,
+.xp-card small {
+  color: #aec2dc;
+  font-size: 10px;
+}
+.xp-card > div b {
+  color: #ffda13;
+  font-size: 18px;
+}
+.xp-card small {
+  margin: 12px 0;
+}
+.xp-card i {
+  background: #32679c;
+  border-radius: 4px;
+  height: 5px;
+  margin-bottom: 10px;
+}
+.xp-button {
+  background: #ffda13;
+  border: 0;
+  border-radius: 7px;
+  color: #04142b;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 13px;
+  text-align: left;
+}
+.xp-button b {
+  float: right;
+  font-size: 16px;
+}
+.xp-button.blue {
+  background: #0875f9;
+  color: #fff;
+}
+.xp-notice {
+  background: #113e76;
+  border: 1px solid #245b96;
+  border-radius: 7px;
+  margin: 64px 0 0;
+  padding: 15px;
+}
+.instant-promo {
+  align-items: center;
+  background: linear-gradient(105deg, #0756bd, #073477);
+  display: grid;
+  gap: 35px;
+  grid-template-columns: 1fr 1.2fr;
+  padding: 45px 3.5%;
+}
+.instant-promo h3 {
+  font-size: 16px;
+}
+.wheel-feature {
+  align-items: center;
+  background: #092449;
+  border: 1px solid #285b8e;
+  border-radius: 12px;
+  display: flex;
+  gap: 28px;
+  padding: 24px;
+}
+.wheel-feature img {
+  height: 245px;
+  width: 245px;
+}
+.wheel-feature h2 {
+  color: #ffda13;
+  font-size: 29px;
+  margin: 0 0 10px;
+}
+.wheel-feature p {
+  color: #c3d0e2;
+  font-size: 15px;
+}
+.wheel-feature .xp-button {
+  margin-top: 12px;
+}
+.games-stage {
+  margin: 42px auto;
+  max-width: 1335px;
+  padding: 0 3.5%;
+}
+.games-stage > .wheel-feature {
+  background: #092044;
+  border: 0;
+  border-radius: 0;
+}
+.games-stage > .xp-button {
+  margin: 14px 0;
+}
+.info-strip {
+  background: #092449;
+  border-radius: 12px;
+  margin-top: 16px;
+  padding: 20px;
+}
+.info-strip h2 {
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+.info-strip p {
+  color: #bacbe3;
+  margin: 0;
+}
+.wheel-page {
+  align-items: center;
+  display: grid;
+  gap: 45px;
+  grid-template-columns: 1fr 1.3fr;
+}
+.wheel-visual img {
+  display: block;
+  margin: auto;
+  max-width: 310px;
+  width: 100%;
+}
+.wheel-visual p,
+.spin-panel p {
+  color: #b9c9df;
+  font-size: 13px;
+}
+.spin {
+  animation: spin 1.8s ease-out;
+}
+.spin-panel {
+  background: #0a315f;
+  border: 1px solid #1c5b91;
+  border-radius: 12px;
+  padding: 26px;
+}
+.spin-panel small,
+.rewards aside {
+  color: #ffda13;
+  font-weight: 800;
+}
+.spin-panel h2 {
+  font-size: 32px;
+  margin: 17px 0;
+}
+.commitments {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  margin: 18px 0;
+}
+.commitments span {
+  border: 1px solid #286098;
+  border-radius: 8px;
+  color: #b9cae2;
+  font-size: 13px;
+  padding: 15px;
+}
+.commitments b {
+  color: #fff;
+  display: block;
+  font-size: 16px;
+  margin-bottom: 9px;
+}
+.spin-panel .xp-button {
+  margin: 8px 0;
+  width: 100%;
+}
+.fine {
+  font-size: 11px !important;
+}
+.rewards h2 {
+  font-size: 28px;
+  margin: 0;
+}
+.rewards > p {
+  color: #b9c9df;
+}
+.rewards > div {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.rewards article {
+  background: #0a315f;
+  border: 1px solid #1d5b91;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 21px;
+}
+.rewards article b {
+  color: #ffda13;
+  font-size: 32px;
+}
+.rewards article span,
+.rewards article small {
+  color: #b9c9df;
+}
+.rewards aside {
+  background: #0a315f;
+  border-radius: 9px;
+  font-size: 12px;
+  margin-top: 14px;
+  padding: 18px;
+}
+.rewards aside span {
+  color: #b9c9df;
+  font-weight: 400;
+}
+.content-page {
+  min-height: 430px;
+}
+.winner-empty {
+  background: #0a315f;
+  border: 1px solid #255e95;
+  border-radius: 12px;
+  padding: 48px;
+}
+.winner-empty > b {
+  font-size: 55px;
+}
+.winner-empty h2 {
+  font-size: 31px;
+}
+.winner-empty p,
+.standard-cards p,
+.draw-list p {
+  color: #b9cae2;
+}
+.standard-cards {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 18px;
+}
+.standard-cards article,
+.draw-list article {
+  background: #0a284d;
+  border: 1px solid #1e5a90;
+  border-radius: 11px;
+  padding: 20px;
+}
+.standard-cards article > b {
+  color: #ffda13;
+  font-size: 21px;
+}
+.standard-cards h2,
+.draw-list h2 {
+  font-size: 20px;
+}
+.ticket-page {
+  max-width: 760px;
+  margin-left: 3.5%;
+}
+.ticket-page label {
+  background: #092449;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 800;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 16px;
+}
+.ticket-page input {
+  background: #031c40;
+  border: 0;
+  width: 100%;
+}
+.ticket-page > .xp-button {
+  margin: 1px 0;
+}
+.ticket-page .info-strip {
+  margin-top: 18px;
+}
+.draw-list {
+  display: grid;
+  gap: 16px;
+}
+.draw-list h2 {
+  margin: 0;
+}
+.draw-list p {
+  font-size: 14px;
+  margin: 10px 0 0;
+}
+.draw-prizes {
+  display: flex;
+  gap: 15px;
+  margin-top: 17px;
+}
+.draw-prizes .xp-card {
+  width: 300px;
+}
+@keyframes spin {
+  to {
+    transform: rotate(1080deg);
+  }
+}
+@media (max-width: 760px) {
+  .prototype-bar {
+    font-size: 8px;
+    height: 23px;
+    padding: 6px 7px;
+    white-space: nowrap;
+  }
+  .experience-hero {
+    min-height: 137px;
+    padding: 18px 20px;
+  }
+  .experience-hero p {
+    font-size: 10px;
+    margin-bottom: 13px;
+  }
+  .experience-hero h1 {
+    font-size: 28px;
+    line-height: 1.15;
+  }
+  .experience-hero span {
+    display: block;
+    font-size: 15px;
+    line-height: 1.15;
+    max-width: 290px;
+  }
+  .experience-hero > b {
+    font-size: 145px;
+    margin: 0 -30px 0 0;
+  }
+  .instant-catalogue,
+  .content-page,
+  .wheel-page,
+  .rewards {
+    padding: 20px 16px;
+  }
+  .catalogue-top {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .catalogue-top h2 {
+    font-size: 21px;
+    margin-bottom: 14px;
+  }
+  .catalogue-top input {
+    margin-top: 10px;
+    width: 100%;
+  }
+  .xp-filters {
+    margin: 10px 0 22px;
+  }
+  .xp-grid {
+    gap: 11px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .xp-card {
+    border-radius: 9px;
+    padding: 7px;
+  }
+  .xp-card > img {
+    aspect-ratio: 1.5;
+  }
+  .xp-card p {
+    font-size: 8px;
+    margin: 7px 0;
+  }
+  .xp-card h3 {
+    font-size: 12px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .xp-card > div {
+    padding: 8px;
+  }
+  .xp-card > div span,
+  .xp-card small {
+    font-size: 8px;
+  }
+  .xp-card > div b {
+    font-size: 13px;
+  }
+  .xp-card small {
+    font-size: 7px;
+    margin: 9px 0;
+  }
+  .xp-card .xp-button {
+    font-size: 9px;
+    padding: 10px 8px;
+  }
+  .xp-notice {
+    font-size: 12px;
+    line-height: 1.2;
+    margin: 24px 0 0;
+  }
+  .instant-promo {
+    display: block;
+    padding: 18px 16px;
+  }
+  .instant-promo h2 {
+    font-size: 26px;
+  }
+  .wheel-feature {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 15px;
+  }
+  .wheel-feature img {
+    align-self: center;
+    height: 245px;
+    width: 245px;
+  }
+  .wheel-feature h2 {
+    font-size: 24px;
+  }
+  .games-stage {
+    margin: 16px auto;
+    padding: 0 18px;
+  }
+  .games-stage > .wheel-feature {
+    border-radius: 0;
+    padding: 28px 22px;
+  }
+  .games-stage > .wheel-feature img {
+    height: 235px;
+    width: 235px;
+  }
+  .info-strip {
+    padding: 23px;
+  }
+  .wheel-page {
+    display: block;
+  }
+  .wheel-visual img {
+    max-width: 230px;
+  }
+  .wheel-visual p {
+    font-size: 12px;
+  }
+  .spin-panel {
+    margin-top: 26px;
+    padding: 16px;
+  }
+  .spin-panel h2 {
+    font-size: 25px;
+    line-height: 1.08;
+  }
+  .commitments {
+    grid-template-columns: 1fr;
+  }
+  .rewards h2 {
+    font-size: 21px;
+    line-height: 1.1;
+  }
+  .rewards > div {
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .rewards article {
+    padding: 12px;
+  }
+  .rewards article b {
+    font-size: 22px;
+  }
+  .rewards article span,
+  .rewards article small {
+    font-size: 10px;
+  }
+  .winner-empty {
+    padding: 25px;
+  }
+  .winner-empty h2 {
+    font-size: 25px;
+    line-height: 1.08;
+  }
+  .standard-cards {
+    grid-template-columns: 1fr;
+  }
+  .standard-cards article {
+    padding: 20px;
+  }
+  .ticket-page {
+    margin: 0;
+    padding: 20px;
+  }
+  .draw-prizes {
+    flex-direction: column;
+  }
+  .draw-prizes .xp-card {
+    width: 100%;
+  }
+  .experience-page .site-footer {
+    padding-top: 25px;
+  }
+}

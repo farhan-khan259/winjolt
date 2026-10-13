@@ -86,11 +86,11 @@ export function Header() {
         <a href="/instant-wins">Instant Wins</a>
         <a href="/winners-and-results">Winners</a>
         <a href="/how-it-works">How It Works</a>
-        <a href="#free-entry">Free Entry</a>
-        <a href="#support">Support</a>
+        <a href="/free-entry">Free Entry</a>
+        <a href="/help-centre">Support</a>
       </nav>
       <div className="header-actions">
-        <a className="basket-button" href="#basket" aria-label="Shopping cart">
+        <a className="basket-button" href="/your-basket" aria-label="Shopping cart">
           <svg className="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 4h2l2.4 10.2a2 2 0 0 0 2 1.5h7.8a2 2 0 0 0 1.9-1.4L21 8H7" />
             <circle cx="10" cy="19" r="1.4" />
@@ -98,10 +98,10 @@ export function Header() {
           </svg>
           <span className="visually-hidden">Basket</span>
         </a>
-        <a className="sign-in" href="#sign-in">
+        <a className="sign-in" href="/sign-in">
           Sign in
         </a>
-        <a className="sign-up" href="#sign-up">
+        <a className="sign-up" href="/sign-up">
           Sign up
         </a>
         <button
@@ -167,11 +167,11 @@ export function Footer() {
           </div>
           <div>
             <h3>ABOUT</h3>
-            <a href="#about">About Us</a>
+            <a href="/about-winjolt">About Us</a>
             <a href="/how-it-works">How It Works</a>
-            <a href="#free-entry">Free Entry</a>
-            <a href="#responsible">Responsible Participation</a>
-            <a href="#support">Help Centre</a>
+            <a href="/free-entry">Free Entry</a>
+            <a href="/responsible-participation">Responsible Participation</a>
+            <a href="/help-centre">Help Centre</a>
           </div>
           <div>
             <h3>LEGAL &amp; HELP</h3>
@@ -179,8 +179,8 @@ export function Footer() {
             <a href="#privacy">Privacy Policy</a>
             <a href="#cookies">Cookie Policy</a>
             <a href="#complaints">Complaints</a>
-            <a href="#contact">Contact Us</a>
-            <a href="#designs">All Page Designs</a>
+            <a href="/contact-us">Contact Us</a>
+            <a href="/frequently-asked-questions">FAQs</a>
           </div>
         </div>
         <div className="footer-bottom">
@@ -189,22 +189,22 @@ export function Footer() {
         </div>
       </footer>
       <nav className="mobile-nav" aria-label="Mobile navigation">
-        <a href="#top">
+        <a href="/">
           <NavIcon type="home" />
           HOME
         </a>
-        <a href="#competitions">
+        <a href="/competitions">
           <NavIcon type="prizes" />
           PRIZES
         </a>
-        <a href="#instant-wins">
+        <a href="/instant-wins">
           <span className="instant-nav-icon">⚡</span>INSTANT
         </a>
-        <a href="#basket">
+        <a href="/your-basket">
           <NavIcon type="basket" />
           BASKET
         </a>
-        <a href="#account">
+        <a href="/my-winjolt-dashboard">
           <NavIcon type="account" />
           ACCOUNT
         </a>

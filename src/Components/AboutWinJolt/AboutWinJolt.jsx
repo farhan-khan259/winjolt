@@ -1,0 +1,2 @@
+import { PageShell, PlaceholderCards } from '../CommonPages/CommonPages';import './AboutWinJolt.css';
+export default function AboutWinJolt(){return <PageShell className="about-page" eyebrow="ABOUT WINJOLT" title="ABOUT WINJOLT" subtitle="A new UK prize competitions brand."><section className="info-content"><PlaceholderCards items={['About our competitions','Trust and transparent rules','Prize categories','Support and customer care']}/></section></PageShell>}

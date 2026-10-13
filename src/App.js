@@ -16,6 +16,21 @@ import WinnersAndResults from './Components/WinnersAndResults/WinnersAndResults'
 import TicketChecker from './Components/TicketChecker/TicketChecker';
 import LiveDraws from './Components/LiveDraws/LiveDraws';
 import HowItWorks from './Components/HowItWorks/HowItWorks';
+import FreeEntry from './Components/FreeEntry/FreeEntry';
+import AboutWinJolt from './Components/AboutWinJolt/AboutWinJolt';
+import ResponsibleParticipation from './Components/ResponsibleParticipation/ResponsibleParticipation';
+import FrequentlyAskedQuestions from './Components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
+import ContactUs from './Components/ContactUs/ContactUs';
+import HelpCentre from './Components/HelpCentre/HelpCentre';
+import SignIn from './Components/SignIn/SignIn';
+import SignUp from './Components/SignUp/SignUp';
+import ResetPassword from './Components/ResetPassword/ResetPassword';
+import YourBasket from './Components/YourBasket/YourBasket';
+import SecureCheckout from './Components/SecureCheckout/SecureCheckout';
+import PaymentStatus from './Components/PaymentStatus/PaymentStatus';
+import OrderConfirmation from './Components/OrderConfirmation/OrderConfirmation';
+import MyWinjoltDashboard from './Components/MyWinjoltDashboard/MyWinjoltDashboard';
+import MyEntries from './Components/MyEntries/MyEntries';
 
 function ScrollToLocation() {
 	const { pathname, hash } = useLocation();
@@ -55,6 +70,21 @@ function App() {
         <Route path="/ticket-checker" element={<TicketChecker />} />
         <Route path="/live-draws" element={<LiveDraws />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/free-entry" element={<FreeEntry />} />
+        <Route path="/about-winjolt" element={<AboutWinJolt />} />
+        <Route path="/responsible-participation" element={<ResponsibleParticipation />} />
+        <Route path="/frequently-asked-questions" element={<FrequentlyAskedQuestions />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/help-centre" element={<HelpCentre />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/your-basket" element={<YourBasket />} />
+        <Route path="/secure-checkout" element={<SecureCheckout />} />
+        <Route path="/payment-status" element={<PaymentStatus />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
+        <Route path="/my-winjolt-dashboard" element={<MyWinjoltDashboard />} />
+        <Route path="/my-entries" element={<MyEntries />} />
       </Routes>
     </BrowserRouter>
   );

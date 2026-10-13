@@ -1,0 +1,2 @@
+import { PageShell, PlaceholderCards } from '../CommonPages/CommonPages';import './MyEntries.css';
+export default function MyEntries(){return <PageShell preview className="entries-page" eyebrow="MY ENTRIES" title="MY ENTRIES" subtitle="View your entries and results."><section className="info-content"><PlaceholderCards text="No live customer data is connected to this visual design." items={['Upcoming draw entries','Instant-win outcomes','Ticket numbers and results']}/></section></PageShell>}
