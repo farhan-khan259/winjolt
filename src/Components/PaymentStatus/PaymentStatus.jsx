@@ -1,2 +1,24 @@
-import { Action, PageShell } from '../CommonPages/CommonPages';import './PaymentStatus.css';
-export default function PaymentStatus(){return <PageShell preview className="payment-page" eyebrow="PAYMENT STATUS" title="PAYMENT STATUS" subtitle="No entry confirmed until payment succeeds."><section className="info-content status-content"><article className="info-panel"><h2>PAYMENT NOT COMPLETED</h2><p>No entry or ticket has been confirmed. Check transaction status before retrying.</p></article><Action>RETURN TO COMPETITIONS</Action></section></PageShell>}
+import { Action, PageShell } from "../CommonPages/CommonPages";
+import "./PaymentStatus.css";
+export default function PaymentStatus() {
+  return (
+    <PageShell
+      preview
+      className="payment-page"
+      eyebrow="PAYMENT STATUS"
+      title="PAYMENT STATUS"
+      subtitle="No entry confirmed until payment succeeds."
+    >
+      <section className="info-content status-content">
+        <article className="info-panel">
+          <h2>PAYMENT NOT COMPLETED</h2>
+          <p>
+            No entry or ticket has been confirmed. Check transaction status
+            before retrying.
+          </p>
+        </article>
+        <Action>RETURN TO COMPETITIONS</Action>
+      </section>
+    </PageShell>
+  );
+}
