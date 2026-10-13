@@ -1,1 +1,9 @@
-@import '../CommonPages/CommonPages.css';.dashboard-page .info-content{padding-top:49px}@media(max-width:760px){.dashboard-page .info-content{padding:17px}}
+@import "../CommonPages/CommonPages.css";
+.dashboard-page .info-content {
+  padding-top: 49px;
+}
+@media (max-width: 760px) {
+  .dashboard-page .info-content {
+    padding: 17px;
+  }
+}
