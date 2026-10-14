@@ -14,10 +14,12 @@ export function PageShell({
       <Header />
       <main>
         <section className="info-hero">
-          <p>WINJOLT / {eyebrow}</p>
-          <h1>{title}</h1>
-          <span>{subtitle}</span>
-          <i aria-hidden="true">ϟ</i>
+          <div className="info-hero-inner">
+            <p>WINJOLT / {eyebrow}</p>
+            <h1>{title}</h1>
+            <span className="info-subtitle">{subtitle}</span>
+          </div>
+          <i aria-hidden="true" />
         </section>
         {children}
       </main>

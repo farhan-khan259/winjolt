@@ -1,0 +1,6 @@
+.administration-content { min-height: 980px; }
+.admin-title-break { display: none; }
+@media (max-width: 760px) {
+  .administration-content { padding-bottom: 19px; }
+  .admin-title-break { display: inline; }
+}

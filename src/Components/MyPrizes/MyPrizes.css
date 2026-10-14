@@ -1,0 +1,2 @@
+.my-prizes-content { min-height: 440px; }
+@media (max-width: 760px) { .my-prizes-content { padding-bottom: 39px; } }

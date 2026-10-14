@@ -1,0 +1,2 @@
+.policy-content { min-height: 640px; }
+@media (max-width: 760px) { .policy-content { padding-bottom: 19px; } }

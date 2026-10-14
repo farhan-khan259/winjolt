@@ -929,6 +929,12 @@ figure figcaption,
     margin: 22px 0 0;
   }
   .footer-links div { gap: 8px; }
+  .footer-links div:last-child {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-links div:last-child h3 { grid-column: 1 / -1; }
   .footer-links h3 {
     font-size: 12px;
   }

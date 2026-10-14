@@ -91,12 +91,7 @@ export function Header() {
       </nav>
       <div className="header-actions">
         <a className="basket-button" href="/your-basket" aria-label="Shopping cart">
-          <svg className="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M3 4h2l2.4 10.2a2 2 0 0 0 2 1.5h7.8a2 2 0 0 0 1.9-1.4L21 8H7" />
-            <circle cx="10" cy="19" r="1.4" />
-            <circle cx="18" cy="19" r="1.4" />
-          </svg>
-          <span className="visually-hidden">Basket</span>
+          Basket
         </a>
         <a className="sign-in" href="/sign-in">
           Sign in
@@ -158,9 +153,6 @@ export function Footer() {
             <a href="/competitions">Competitions</a>
             <a href="/instant-wins">Instant Wins</a>
             <a href="/games-and-experiences">Games &amp; Experiences</a>
-            <a href="/bingo-future-license">Bingo — Future License</a>
-            <a href="/jolt-reveal-wheel">Jolt Reveal Wheel</a>
-            <a href="/instant-win-result">Instant Win Result</a>
             <a href="/winners-and-results">Winners</a>
             <a href="/live-draws">Live Draws</a>
             <a href="/ticket-checker">Ticket Checker</a>
@@ -175,12 +167,11 @@ export function Footer() {
           </div>
           <div>
             <h3>LEGAL &amp; HELP</h3>
-            <a href="#terms">Terms &amp; Conditions</a>
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#cookies">Cookie Policy</a>
-            <a href="#complaints">Complaints</a>
+            <a href="/terms-and-conditions">Terms &amp; Conditions</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/cookie-policy">Cookie Policy</a>
+            <a href="/complaints-procedure">Complaints</a>
             <a href="/contact-us">Contact Us</a>
-            <a href="/frequently-asked-questions">FAQs</a>
           </div>
         </div>
         <div className="footer-bottom">

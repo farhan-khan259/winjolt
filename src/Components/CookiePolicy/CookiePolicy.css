@@ -1,0 +1,2 @@
+.cookie-content { min-height: 640px; }
+@media (max-width: 760px) { .cookie-content { padding-bottom: 19px; } }

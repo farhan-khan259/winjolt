@@ -1,0 +1,6 @@
+.claim-prize-content { min-height: 585px; }
+.claim-prize-content .info-action { margin-top: 16px; max-width: 365px; }
+@media (max-width: 760px) {
+  .claim-prize-content { padding-bottom: 18px; }
+  .claim-prize-content .info-action { max-width: none; }
+}

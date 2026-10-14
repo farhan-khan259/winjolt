@@ -22,6 +22,15 @@ import FreeEntry from './Components/FreeEntry/FreeEntry';
 // import FrequentlyAskedQuestions from './Components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 // import ContactUs from './Components/ContactUs/ContactUs';
 import HelpCentre from './Components/HelpCentre/HelpCentre';
+// import MyOrders from './Components/MyOrders/MyOrders';
+// import MyPrizes from './Components/MyPrizes/MyPrizes';
+// import AccountSetting from './Components/AccountSetting/AccountSetting';
+// import ClaimPrize from './Components/ClaimPrize/ClaimPrize';
+// import TermsAndConditions from './Components/TermsAndConditions/TermsAndConditions';
+// import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
+// import CookiePolicy from './Components/CookiePolicy/CookiePolicy';
+// import ComplaintsProcedure from './Components/ComplaintsProcedure/ComplaintsProcedure';
+// import AdministrationDashboard from './Components/AdministrationDashboard/AdministrationDashboard';
 // import SignIn from './Components/SignIn/SignIn';
 // import SignUp from './Components/SignUp/SignUp';
 // import ResetPassword from './Components/ResetPassword/ResetPassword';
@@ -76,6 +85,15 @@ function App() {
         <Route path="/frequently-asked-questions" element={<FrequentlyAskedQuestions />} />
         <Route path="/contact-us" element={<ContactUs />} />*/}
         <Route path="/help-centre" element={<HelpCentre />} /> 
+        {/* <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/my-prizes" element={<MyPrizes />} />
+        <Route path="/account-settings" element={<AccountSetting />} />
+        <Route path="/claim-a-prize" element={<ClaimPrize />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
+        <Route path="/complaints-procedure" element={<ComplaintsProcedure />} />
+        <Route path="/administration-dashboard" element={<AdministrationDashboard />} /> */}
         {/* <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />

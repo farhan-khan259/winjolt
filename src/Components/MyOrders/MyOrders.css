@@ -1,0 +1,2 @@
+.my-orders-content { min-height: 440px; }
+@media (max-width: 760px) { .my-orders-content { padding-bottom: 39px; } }
