@@ -1,4 +1,5 @@
 import { Header, Footer } from "../Homepage/Homepage";
+import { Link } from "react-router-dom";
 import wheel from "../../Assets/Pictures/jolt-wheel.png";
 import "./BingoFutureLicense.css";
 export default function BingoFutureLicense() {
@@ -24,7 +25,7 @@ export default function BingoFutureLicense() {
                 The secure result is assigned before the animation. The wheel
                 does not choose winners.
               </p>
-              <button className="xp-button">HOW IT WORKS →</button>
+              <Link className="xp-button" to="/how-it-works">HOW IT WORKS →</Link>
             </div>
           </article>
           <article className="info-strip">

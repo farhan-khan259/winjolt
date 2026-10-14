@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { PageShell } from "../CommonPages/CommonPages";
 import "./ComplaintsProcedure.css";
 
@@ -9,6 +10,7 @@ const fields = [
 ];
 
 export default function ComplaintsProcedure() {
+  const [submitted, setSubmitted] = useState(false);
   return (
     <PageShell
       eyebrow="COMPLAINTS PROCEDURE"
@@ -27,15 +29,16 @@ export default function ComplaintsProcedure() {
       <section className="info-content complaints-content">
         <form
           className="complaints-form"
-          onSubmit={(event) => event.preventDefault()}
+          onSubmit={(event) => { event.preventDefault(); setSubmitted(true); event.currentTarget.reset(); }}
         >
           {fields.map(([label, placeholder, type]) => (
             <label className="form-field" key={label}>
               {label}
-              <input type={type} placeholder={placeholder} />
+              <input type={type} placeholder={placeholder} required />
             </label>
           ))}
-          <button type="submit">SUBMIT REQUEST (DEMO) →</button>
+          <button type="submit">SUBMIT REQUEST →</button>
+          {submitted && <div className="info-note" role="status">Your complaint has been recorded in this demo.</div>}
         </form>
       </section>
     </PageShell>

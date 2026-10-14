@@ -16,7 +16,7 @@ export default function MyPrizes() {
             "Verification and claims",
             "Delivery progress",
           ]}
-          text="No live customer data is connected to this visual design."
+          text="No records are available yet."
         />
       </section>
     </PageShell>

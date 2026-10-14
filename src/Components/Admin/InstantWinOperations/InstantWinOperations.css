@@ -1,0 +1,26 @@
+.instant-cols {
+  grid-template-columns: minmax(0, 1.7fr) minmax(310px, 0.95fr);
+}
+.instant-cols > .admin-panel {
+  min-height: 365px;
+}
+.wheel-panel img {
+  display: block;
+  width: 190px;
+  height: 190px;
+  object-fit: contain;
+  margin: 0 auto 18px;
+}
+.wheel-panel p {
+  color: var(--admin-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+@media (max-width: 900px) {
+  .instant-cols {
+    grid-template-columns: 1fr;
+  }
+  .instant-cols > .admin-panel {
+    min-height: auto;
+  }
+}

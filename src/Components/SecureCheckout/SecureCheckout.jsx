@@ -21,7 +21,7 @@ export default function SecureCheckout() {
       className="checkout-page"
       eyebrow="COMPETITIONS"
       title="SECURE CHECKOUT"
-      subtitle="A proposed customer checkout layout. Payment submission is deliberately disabled."
+      subtitle="Complete your details and payment securely."
     >
       <section className="info-content">
         <div className="checkout-steps">
@@ -57,17 +57,17 @@ export default function SecureCheckout() {
               required before any real payment.
             </div>
             <label className="checkbox-row">
-              <input type="checkbox" required />I have read the demonstration competition
+              <input type="checkbox" required />I have read the competition
               terms and understand that no entry or purchase occurs.
             </label>
             <hr />
             <button className="checkout-continue" type="submit">CONTINUE TO PAYMENT →</button>
           </form>
           <aside className="summary-box">
-            <h2>YOUR DEMO SUMMARY</h2>
+            <h2>YOUR ORDER SUMMARY</h2>
             <p>Your basket is currently empty.</p>
             <p className="summary-line">
-              <b>Example subtotal</b>
+              <b>Subtotal</b>
               <span>£0.00</span>
             </p>
             <p className="summary-line">

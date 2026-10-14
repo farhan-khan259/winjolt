@@ -50,6 +50,7 @@ const prizes = [
   
     price: "£0.50",
     instant: true,
+    path: "/instant-win-result",
   },
   {
     title: "Wireless Earbuds Instant Win",
@@ -58,6 +59,7 @@ const prizes = [
 
     price: "£0.50",
     instant: true,
+    path: "/instant-win-result",
   },
   {
     title: "£100 Cash Instant Win",
@@ -66,6 +68,7 @@ const prizes = [
    
     price: "£0.50",
     instant: true,
+    path: "/instant-win-result",
   },
   {
     title: "Gift Card Instant Win",
@@ -74,6 +77,7 @@ const prizes = [
 
     price: "£0.50",
     instant: true,
+    path: "/instant-win-result",
   },
 ];
 
@@ -95,7 +99,7 @@ function PrizeCard({ prize }) {
       </div>
       <p className="catalogue-kicker">
         {prize.instant
-          ? "⚡ INSTANT WIN · PREVIEW"
+          ? "⚡ INSTANT WIN"
           : `COMING SOON · ${prize.label}`}
       </p>
       <h2>{prize.title}</h2>
@@ -104,7 +108,7 @@ function PrizeCard({ prize }) {
         <strong>{prize.price}</strong>
       </div>
       <p className="catalogue-note">
-        DEMO ONLY&nbsp; • &nbsp;NO TICKETS ON SALE
+        COMPETITIONS OPEN&nbsp; • &nbsp;ENTER NOW
       </p>
       <div className="catalogue-rule" />
       <a href={prize.path || '#notice'} className="catalogue-button">
@@ -136,7 +140,7 @@ export default function Competetions() {
             <p>WINJOLT / ALL COMPETITIONS</p>
             <h1>LIVE &amp; UPCOMING COMPETITIONS</h1>
             <span>
-              Cars, cash, tech, tools and more. Browse the prelaunch competition
+              Cars, cash, tech, tools and more. Browse the current competition
               catalogue.
             </span>
           </div>
@@ -146,7 +150,7 @@ export default function Competetions() {
           <div className="catalogue-heading">
             <div>
               <h1>EXPLORE ALL PRIZES</h1>
-              <p>Select a category or search the sample catalogue.</p>
+              <p>Select a category or search the competition catalogue.</p>
             </div>
             <input
               value={query}
@@ -173,12 +177,12 @@ export default function Competetions() {
           </div>
           {displayedPrizes.length === 0 && (
             <p className="no-results">
-              No sample competitions match that search.
+              No competitions match that search.
             </p>
           )}
           <p className="prelaunch-notice" id="notice">
-            Prelaunch notice: All example ticket prices, images and competitions
-            are mock content. We do not currently accept entries.
+            Competition prices, images, entry limits and closing dates are shown
+            on each competition page.
           </p>
         </section>
       </main>

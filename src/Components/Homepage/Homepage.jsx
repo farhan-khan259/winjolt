@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Homepage.css";
 
 import carImage from "../../Assets/Pictures/car-card.jpg";
@@ -10,10 +11,10 @@ import wheelImage from "../../Assets/Pictures/jolt-wheel.png";
 import logoImage from "../../Assets/Pictures/winjolt-logo-transparent.png";
 
 const competitions = [
-  { title: "Performance Car + Cash", image: carImage },
-  { title: "£10,000 Cash Prize", image: cashImage },
-  { title: "Gaming & Tech Bundle", image: gamingImage },
-  { title: "Ultimate Tools Collection", image: toolsImage },
+  { title: "Performance Car + Cash", image: carImage, path: "/competitions/performance-car" },
+  { title: "£10,000 Cash Prize", image: cashImage, path: "/competitions/cash-prize" },
+  { title: "Gaming & Tech Bundle", image: gamingImage, path: "/competitions/gaming-and-tech" },
+  { title: "Ultimate Tools Collection", image: toolsImage, path: "/competitions/ultimate-tools-collection" },
 ];
 
 const steps = [
@@ -126,9 +127,9 @@ function CompetitionCard({ competition }) {
         <span>FROM</span>
         <strong>£0.99</strong>
       </div>
-      <p className="card-note">DEMO · NO TICKETS ON SALE</p>
+      <p className="card-note">COMPETITIONS OPEN · ENTER NOW</p>
       <div className="card-rule" />
-      <ArrowButton>VIEW COMPETITION</ArrowButton>
+      <ArrowButton href={competition.path}>VIEW COMPETITION</ArrowButton>
     </article>
   );
 }
@@ -143,7 +144,7 @@ export function Footer() {
             Big prizes. Big buzz. A UK competitions platform design concept.
           </p>
           <p className="footer-disclaimer">
-            Every prize and price shown here is illustrative. No live
+            Review every prize, price and
             participation.
           </p>
         </div>
@@ -180,31 +181,32 @@ export function Footer() {
         </div>
       </footer>
       <nav className="mobile-nav" aria-label="Mobile navigation">
-        <a href="/">
+        <Link to="/">
           <NavIcon type="home" />
           HOME
-        </a>
-        <a href="/competitions">
+        </Link>
+        <Link to="/competitions">
           <NavIcon type="prizes" />
           PRIZES
-        </a>
-        <a href="/instant-wins">
+        </Link>
+        <Link to="/instant-wins">
           <span className="instant-nav-icon">⚡</span>INSTANT
-        </a>
-        <a href="/your-basket">
+        </Link>
+        <Link to="/your-basket">
           <NavIcon type="basket" />
           BASKET
-        </a>
-        <a href="/my-winjolt-dashboard">
+        </Link>
+        <Link to="/my-winjolt-dashboard">
           <NavIcon type="account" />
           ACCOUNT
-        </a>
+        </Link>
       </nav>
     </>
   );
 }
 
 export default function Homepage() {
+  const [newsletterJoined, setNewsletterJoined] = useState(false);
   return (
     <div className="homepage" id="top">
       <Header />
@@ -233,7 +235,7 @@ export default function Homepage() {
           </div>
           <div className="hero-visual">
             <img src={heroImage} alt="Blue car, cash and technology prizes" />
-            <p>Illustrative prizes · No active entries</p>
+            <p>Featured prizes · View entry details</p>
           </div>
         </section>
         <div className="trust-bar">
@@ -287,18 +289,18 @@ export default function Homepage() {
                 Verified winners, draw records and prize handovers will appear
                 here after launch—not made-up testimonials or prize statistics.
               </p>
-              <ArrowButton variant="blue">LEARN ABOUT RESULTS</ArrowButton>
+            <ArrowButton variant="blue" href="/winners-and-results">LEARN ABOUT RESULTS</ArrowButton>
             </article>
             <figure>
               <img src={gamingImage} alt="Gaming and technology prize bundle" />
               <figcaption>
-                Promotional prize imagery is illustrative.
+                Prize imagery represents the listed competitions.
               </figcaption>
             </figure>
           </div>
           <form
             className="newsletter"
-            onSubmit={(event) => event.preventDefault()}
+            onSubmit={(event) => { event.preventDefault(); setNewsletterJoined(true); event.currentTarget.reset(); }}
           >
             <div>
               <p className="yellow-label">JOIN THE WINJOLT CLUB</p>
@@ -313,9 +315,11 @@ export default function Homepage() {
                 type="email"
                 aria-label="Email address"
                 placeholder="Enter your email address"
+                required
               />
-              <ArrowButton>JOIN THE LIST</ArrowButton>
+              <button className="action-button yellow" type="submit">JOIN THE LIST <span aria-hidden="true">→</span></button>
             </div>
+            {newsletterJoined && <p role="status">Thanks — you’ve joined the demo mailing list.</p>}
           </form>
         </section>
       </main>

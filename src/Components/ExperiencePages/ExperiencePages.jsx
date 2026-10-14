@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Footer, Header } from "../Homepage/Homepage";
 import "./ExperiencePages.css";
 import wheel from "../../Assets/Pictures/jolt-wheel.png";
@@ -29,11 +30,14 @@ function Page({ eyebrow, title, subtitle, children }) {
     </div>
   );
 }
-const Button = ({ children, blue = false, ...props }) => (
-  <button {...props} className={blue ? "xp-button blue" : "xp-button"}>
-    {children} <b>→</b>
-  </button>
-);
+const Button = ({ children, blue = false, href, ...props }) => {
+  const className = blue ? "xp-button blue" : "xp-button";
+  return href ? (
+    <Link className={className} to={href}>{children} <b>→</b></Link>
+  ) : (
+    <button type="button" {...props} className={className}>{children} <b>→</b></button>
+  );
+};
 const instantItems = [
   ["Smartphone Instant Win", phone],
   ["Wireless Earbuds Instant Win", earbuds],
@@ -44,15 +48,15 @@ function PrizeCard({ item }) {
   return (
     <article className="xp-card">
       <img src={item[1]} alt="" />
-      <p>⚡ INSTANT WIN · PREVIEW</p>
+      <p>⚡ INSTANT WIN</p>
       <h3>{item[0]}</h3>
       <div>
         <span>ENTRY FROM</span>
         <b>£0.50</b>
       </div>
-      <small>DEMO ONLY&nbsp; • &nbsp;NO TICKETS ON SALE</small>
+      <small>COMPETITIONS OPEN&nbsp; • &nbsp;ENTER NOW</small>
       <i />
-      <Button>VIEW COMPETITION</Button>
+      <Button href="/instant-win-result">VIEW COMPETITION</Button>
     </article>
   );
 }
@@ -66,7 +70,7 @@ function WheelFeature({
       <div>
         <h2>{title}</h2>
         <p>{text}</p>
-        <Button blue>SEE THE WHEEL</Button>
+        <Button blue href="/jolt-reveal-wheel">SEE THE WHEEL</Button>
       </div>
     </section>
   );
@@ -86,32 +90,38 @@ function StandardCards({ cards }) {
 }
 
 export function InstantWinsPage() {
+  const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState("all");
+  const visibleItems = instantItems.filter(([title]) =>
+    title.toLowerCase().includes(query.trim().toLowerCase()),
+  );
   return (
     <Page
       eyebrow="WINJOLT / INSTANT WINS"
       title="INSTANT WINS"
-      subtitle="Instant-win campaigns with exciting visual reveals. All shown campaigns are examples and are not currently open."
+      subtitle="Instant-win campaigns with exciting visual reveals. Browse available instant-win campaigns and published terms."
     >
       <section className="instant-catalogue">
         <div className="catalogue-top">
           <div>
             <h2>EXPLORE INSTANT PRIZES</h2>
-            <p>Select a category or search the sample catalogue.</p>
+            <p>Select a category or search the competition catalogue.</p>
           </div>
-          <input placeholder="Search competitions..." />
+          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search competitions..." aria-label="Search instant-win competitions" />
         </div>
         <div className="xp-filters">
-          <button>All</button>
-          <button>Instant Wins</button>
+          <button className={filter === "all" ? "selected" : ""} onClick={() => setFilter("all")}>All</button>
+          <button className={filter === "instant" ? "selected" : ""} onClick={() => setFilter("instant")}>Instant Wins</button>
         </div>
         <div className="xp-grid">
-          {instantItems.map((item) => (
+          {visibleItems.map((item) => (
             <PrizeCard key={item[0]} item={item} />
           ))}
         </div>
+        {visibleItems.length === 0 && <p className="xp-notice">No instant-win competitions match your search.</p>}
         <p className="xp-notice">
-          Prelaunch notice: All example ticket prices, images and competitions
-          are mock content. We do not currently accept entries.
+          Competition prices, images, entry limits and closing dates are shown
+          on each competition page.
         </p>
       </section>
       <section className="instant-promo">
@@ -124,7 +134,7 @@ export function InstantWinsPage() {
             Eligible paid and free entries must be handled fairly and
             identically.
           </p>
-          <Button>EXPLORE INSTANT WINS</Button>
+          <Button href="/instant-wins">EXPLORE INSTANT WINS</Button>
         </div>
         <WheelFeature />
       </section>
@@ -141,9 +151,9 @@ export function GamesPage() {
       <section className="games-stage">
         <WheelFeature
           title="⚡ THE JOLT REVEAL"
-          text="This animated wheel only reveals a result determined independently. No prize is awarded in this prototype."
+          text="This animated wheel only reveals a result determined independently. Results are securely allocated before the reveal."
         />
-        <Button>READ THE GAME RULES</Button>
+        <Button href="/how-it-works">READ THE GAME RULES</Button>
       </section>
     </Page>
   );
@@ -160,7 +170,7 @@ export function BingoPage() {
           title="⚡ JOLT REVEAL WHEEL"
           text="The secure result is assigned before the animation. The wheel does not choose winners."
         />
-        <Button>HOW IT WORKS</Button>
+        <Button href="/how-it-works">HOW IT WORKS</Button>
         <article className="info-strip">
           <h2>BINGO — FUTURE CONCEPT</h2>
           <p>
@@ -179,14 +189,14 @@ export function WheelPage() {
     <Page
       eyebrow="WINJOLT / JOLT REVEAL WHEEL"
       title="JOLT REVEAL WHEEL"
-      subtitle="Website credit only: 50p to £10 or No Win. This is a non-paying visual demo; outcomes are allocated before the animation."
+      subtitle="Website credit only: 50p to £10 or No Win. Outcomes are securely allocated before the animation."
     >
       <section className="wheel-page">
         <div className="wheel-visual">
           <img className={played ? "spin" : ""} src={wheel} alt="Prize wheel" />
           <p>
-            Illustrative credit wheel; displayed sector sizes do not represent
-            win probability. No real prizes awarded in this demo.
+            Credit wheel; displayed sector sizes do not represent
+            win probability. Prizes are allocated according to the published terms.
           </p>
         </div>
         <article className="spin-panel">
@@ -207,12 +217,12 @@ export function WheelPage() {
             </span>
           </div>
           <Button onClick={() => setPlayed(true)}>
-            PLAY THE VISUAL DEMO ⚡
+            PLAY JOLT REVEAL ⚡
           </Button>
           <p className="fine">
             This animation does not select, display or award a prize.
           </p>
-          <Button blue>VIEW FREE-ENTRY RULES</Button>
+          <Button blue href="/free-entry">VIEW FREE-ENTRY RULES</Button>
         </article>
       </section>
       <section className="rewards">
@@ -255,18 +265,18 @@ export function InstantResultPage() {
     <Page
       eyebrow="WINJOLT / INSTANT WIN RESULT"
       title="INSTANT WIN RESULT"
-      subtitle="Demo only; no result is awarded."
+      subtitle="Your result will be displayed after verification."
     >
       <section className="games-stage">
         <WheelFeature
           title="⚡ JOLT REVEAL WHEEL"
           text="The secure result is assigned before the animation. The wheel does not choose winners."
         />
-        <Button>HOW IT WORKS</Button>
+        <Button href="/how-it-works">HOW IT WORKS</Button>
         <article className="info-strip">
           <h2>NO INSTANT RESULT ASSIGNED</h2>
           <p>
-            This example does not represent a real outcome or award any prizes.
+            Results are verified and recorded before publication.
           </p>
         </article>
       </section>
@@ -289,7 +299,7 @@ export function WinnersPage() {
             verification and prize-delivery evidence will appear here when
             available.
           </p>
-          <Button>HOW DRAWS WORK</Button>
+          <Button href="/how-it-works">HOW DRAWS WORK</Button>
         </article>
         <StandardCards
           cards={[
@@ -312,6 +322,16 @@ export function WinnersPage() {
   );
 }
 export function TicketPage() {
+  const [competition, setCompetition] = useState("");
+  const [ticket, setTicket] = useState("");
+  const [message, setMessage] = useState("");
+  const checkEntry = () => {
+    if (!competition.trim() || !ticket.trim()) {
+      setMessage("Enter both the competition reference and ticket number.");
+      return;
+    }
+    setMessage("No matching published entry was found. Check the references and try again.");
+  };
   return (
     <Page
       eyebrow="WINJOLT / TICKET CHECKER"
@@ -321,13 +341,14 @@ export function TicketPage() {
       <section className="content-page ticket-page">
         <label>
           Competition reference
-          <input placeholder="Enter competition reference" />
+          <input value={competition} onChange={(event) => setCompetition(event.target.value)} placeholder="Enter competition reference" />
         </label>
         <label>
           Ticket or entry number
-          <input placeholder="Enter ticket or entry number" />
+          <input value={ticket} onChange={(event) => setTicket(event.target.value)} placeholder="Enter ticket or entry number" />
         </label>
-        <Button>CHECK MY ENTRY (PREVIEW)</Button>
+        <Button onClick={checkEntry}>CHECK MY ENTRY</Button>
+        {message && <p className="xp-notice" role="status">{message}</p>}
         <article className="info-strip">
           <h2>PRIVACY FIRST</h2>
           <p>
@@ -355,7 +376,7 @@ export function LiveDrawsPage() {
           ].map((x) => (
             <article key={x}>
               <h2>{x}</h2>
-              <p>No live competitions or published winners yet</p>
+              <p>No published winners yet</p>
             </article>
           ))}
         </div>

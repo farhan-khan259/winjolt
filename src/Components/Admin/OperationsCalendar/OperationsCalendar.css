@@ -1,0 +1,46 @@
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 23px;
+}
+.day-card {
+  border: 1px solid var(--admin-line);
+  border-radius: 10px;
+  padding: 12px 9px;
+  min-width: 0;
+}
+.day-card > strong {
+  font-size: 10px;
+  color: #006df5;
+}
+.day-card > div {
+  background: var(--admin-soft);
+  border-radius: 7px;
+  margin: 20px 0 12px;
+  padding: 18px;
+  color: #8ba3c1;
+}
+.day-card small {
+  color: var(--admin-muted);
+}
+.milestone-title {
+  margin-top: 18px !important;
+  font-size: 18px !important;
+}
+.calendar-cols {
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+}
+@media (max-width: 1050px) {
+  .week-grid {
+    overflow-x: auto;
+  }
+  .day-card {
+    min-width: 95px;
+  }
+}
+@media (max-width: 800px) {
+  .calendar-cols {
+    grid-template-columns: 1fr;
+  }
+}

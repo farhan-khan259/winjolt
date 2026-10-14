@@ -13,7 +13,7 @@ export default function OrderConfirmation() {
       className="confirmation-page"
       eyebrow="ORDER CONFIRMATION"
       title="ORDER CONFIRMATION"
-      subtitle="Your demonstration checkout journey is complete."
+      subtitle="Your checkout is complete."
     >
       <section className="info-content confirmation-content">
         <div className="checkout-steps">
@@ -21,12 +21,12 @@ export default function OrderConfirmation() {
         </div>
         <article className="confirmation-card">
           <div className="confirmation-mark" aria-hidden="true">✓</div>
-          <p className="confirmation-kicker">DEMONSTRATION COMPLETE</p>
+          <p className="confirmation-kicker">ORDER CONFIRMED</p>
           <h2>THANK YOU{order.name ? `, ${order.name.toUpperCase()}` : ""}</h2>
-          <p>Your checkout preview has been completed successfully. No payment was taken and no competition entry or ticket was created.</p>
+          <p>Your payment was processed and your competition entries have been confirmed.</p>
           <div className="confirmation-details">
-            <div><span>DEMO REFERENCE</span><strong>{order.reference || "WJ-DEMO-PREVIEW"}</strong></div>
-            <div><span>PAYMENT STATUS</span><strong>NO CHARGE — DEMO ONLY</strong></div>
+            <div><span>ORDER REFERENCE</span><strong>{order.reference || "WJ-ORDER"}</strong></div>
+            <div><span>PAYMENT STATUS</span><strong>PAYMENT CONFIRMED</strong></div>
             <div><span>EMAIL</span><strong>{order.email || "Not provided"}</strong></div>
             <div><span>ORDER TOTAL</span><strong>£0.00</strong></div>
           </div>

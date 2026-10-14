@@ -53,7 +53,7 @@ export default function FreeEntry() {
             <li>Full records of entries and results</li>
           </ul>
           <Action>VIEW COMPETITIONS</Action>
-          <Action outline>READ PLATFORM TERMS</Action>
+          <Action outline href="/terms-and-conditions">READ PLATFORM TERMS</Action>
         </aside>
       </section>
     </PageShell>

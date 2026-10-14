@@ -1,0 +1,1 @@
+.campaign-list{margin-top:20px}.campaign-row{display:grid;grid-template-columns:1fr 105px 100px;align-items:center;gap:12px;padding:23px 10px;border-bottom:1px solid var(--admin-line)}@media(max-width:560px){.campaign-row{grid-template-columns:1fr 80px}.campaign-row>.action-link{grid-column:2}}

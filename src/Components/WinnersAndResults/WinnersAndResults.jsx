@@ -1,4 +1,5 @@
 import { Header, Footer } from "../Homepage/Homepage";
+import { Link } from "react-router-dom";
 import "./WinnersAndResults.css";
 export default function WinnersAndResults() {
   const cards = [
@@ -36,7 +37,7 @@ export default function WinnersAndResults() {
               verification and prize-delivery evidence will appear here when
               available.
             </p>
-            <button className="xp-button">HOW DRAWS WORK →</button>
+            <Link className="xp-button" to="/how-it-works">HOW DRAWS WORK →</Link>
           </article>
           <div className="standard-cards">
             {cards.map(([title, text], i) => (

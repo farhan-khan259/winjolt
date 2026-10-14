@@ -21,10 +21,10 @@ export default function MyWinjoltDashboard() {
         <nav className="dashboard-nav">
           <a href="/my-winjolt-dashboard">▣ Dashboard</a>
           <a href="/my-entries">◆ My Entries</a>
-          <a href="#orders">▤ Order History</a>
-          <a href="#claims">🏆 Prize Claims</a>
-          <a href="#settings">⚙ Account Settings</a>
-          <a href="#controls">♡ Spending Controls</a>
+          <a href="/my-orders">▤ Order History</a>
+          <a href="/my-prizes">🏆 Prize Claims</a>
+          <a href="/account-settings">⚙ Account Settings</a>
+          <a href="/responsible-participation">♡ Spending Controls</a>
           <a href="/help-centre">✉ Support</a>
         </nav>
         <div>
@@ -44,7 +44,7 @@ export default function MyWinjoltDashboard() {
               ))}
             </div>
             <div className="info-note">
-              This is a demonstration dashboard. There is no login session or
+              Your account dashboard displays your current
               real customer information.
             </div>
           </article>
@@ -55,9 +55,9 @@ export default function MyWinjoltDashboard() {
                 <img src={image} alt="" />
                 <div>
                   <h3>{name}</h3>
-                  <p>PRELAUNCH EXAMPLE · No active entry</p>
+                  <p>No active entry</p>
                 </div>
-                <Action outline>DETAILS</Action>
+                <Action outline href="/competitions">DETAILS</Action>
               </article>
             ))}
           </section>

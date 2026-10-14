@@ -1,4 +1,5 @@
 import { Header, Footer } from "../Homepage/Homepage";
+import { Link } from "react-router-dom";
 import wheel from "../../Assets/Pictures/jolt-wheel.png";
 import "./GamesAndExperiences.css";
 export default function GamesAndExperiences() {
@@ -22,9 +23,9 @@ export default function GamesAndExperiences() {
               <h2>⚡ THE JOLT REVEAL</h2>
               <p>
                 This animated wheel only reveals a result determined
-                independently. No prize is awarded in this prototype.
+                independently. Results are securely allocated before the reveal.
               </p>
-              <button className="xp-button">READ THE GAME RULES →</button>
+              <Link className="xp-button" to="/how-it-works">READ THE GAME RULES →</Link>
             </div>
           </article>
         </section>

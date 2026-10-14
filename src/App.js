@@ -30,7 +30,7 @@ import TermsAndConditions from './Components/TermsAndConditions/TermsAndConditio
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
 import CookiePolicy from './Components/CookiePolicy/CookiePolicy';
 import ComplaintsProcedure from './Components/ComplaintsProcedure/ComplaintsProcedure';
-import AdministrationDashboard from './Components/AdministrationDashboard/AdministrationDashboard';
+// import AdministrationDashboard from './Components/AdministrationDashboard/AdministrationDashboard';
 import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp/SignUp';
 import ResetPassword from './Components/ResetPassword/ResetPassword';
@@ -40,6 +40,35 @@ import PaymentStatus from './Components/PaymentStatus/PaymentStatus';
 import OrderConfirmation from './Components/OrderConfirmation/OrderConfirmation';
 import MyWinjoltDashboard from './Components/MyWinjoltDashboard/MyWinjoltDashboard';
 import MyEntries from './Components/MyEntries/MyEntries';
+/* Admin imports are temporarily disabled.
+import CommandCentre from './Components/Admin/CommandCentre/CommandCentre';
+import OperationsCalendar from './Components/Admin/OperationsCalendar/OperationsCalendar';
+import CompetitionManagement from './Components/Admin/CompetitionManagement/CompetitionManagement';
+import CreateCompetition from './Components/Admin/CreateCompetition/CreateCompetition';
+import CampaignControlCentre from './Components/Admin/CampaignControlCentre/CampaignControlCentre';
+import InstantWinOperations from './Components/Admin/InstantWinOperations/InstantWinOperations';
+import GamesBingoControls from './Components/Admin/GamesBingoControls/GamesBingoControls';
+import EntryTicketLedger from './Components/Admin/EntryTicketLedger/EntryTicketLedger';
+import FreeEntryProcessing from './Components/Admin/FreeEntryProcessing/FreeEntryProcessing';
+import DrawsResults from './Components/Admin/DrawsResults/DrawsResults';
+import OrdersPayments from './Components/Admin/OrdersPayments/OrdersPayments';
+import PrizeInventory from './Components/Admin/PrizeInventory/PrizeInventory';
+import WinnersClaims from './Components/Admin/WinnersClaims/WinnersClaims';
+import Customers from './Components/Admin/Customers/Customers';
+import SupportComplaints from './Components/Admin/SupportComplaints/SupportComplaints';
+import AnalyticsReports from './Components/Admin/AnalyticsReports/AnalyticsReports';
+import WebsiteContent from './Components/Admin/WebsiteContent/WebsiteContent';
+import StaffPermissions from './Components/Admin/StaffPermissions/StaffPermissions';
+import AuditCompliance from './Components/Admin/AuditCompliance/AuditCompliance';
+import PlatformSettings from './Components/Admin/PlatformSettings/PlatformSettings';
+import CompetitionLaunchApproval from './Components/Admin/CompetitionLaunchApproval/CompetitionLaunchApproval';
+import PaymentRefundRecord from './Components/Admin/PaymentRefundRecord/PaymentRefundRecord';
+import CustomerProfile from './Components/Admin/CustomerProfile/CustomerProfile';
+import ComplaintInvestigation from './Components/Admin/ComplaintInvestigation/ComplaintInvestigation';
+import PrizeAssetVerification from './Components/Admin/PrizeAssetVerification/PrizeAssetVerification';
+import DrawResultRelease from './Components/Admin/DrawResultRelease/DrawResultRelease';
+import JoltCreditPrizes from './Components/Admin/JoltCreditPrizes/JoltCreditPrizes';
+*/
 
 function ScrollToLocation() {
 	const { pathname, hash } = useLocation();
@@ -93,7 +122,9 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/complaints-procedure" element={<ComplaintsProcedure />} />
+        {/* Admin access is temporarily disabled.
         <Route path="/administration-dashboard" element={<AdministrationDashboard />} />
+        */}
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
@@ -103,6 +134,36 @@ function App() {
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="/my-winjolt-dashboard" element={<MyWinjoltDashboard />} />
         <Route path="/my-entries" element={<MyEntries />} />
+        {/* Admin routes are temporarily disabled.
+        <Route path="/admin" element={<CommandCentre />} />
+        <Route path="/admin/command-centre" element={<CommandCentre />} />
+        <Route path="/admin/operations-calendar" element={<OperationsCalendar />} />
+        <Route path="/admin/competitions" element={<CompetitionManagement />} />
+        <Route path="/admin/create-competition" element={<CreateCompetition />} />
+        <Route path="/admin/campaign-control-centre" element={<CampaignControlCentre />} />
+        <Route path="/admin/instant-wins" element={<InstantWinOperations />} />
+        <Route path="/admin/games-bingo" element={<GamesBingoControls />} />
+        <Route path="/admin/entries-tickets" element={<EntryTicketLedger />} />
+        <Route path="/admin/free-entry-processing" element={<FreeEntryProcessing />} />
+        <Route path="/admin/draws-results" element={<DrawsResults />} />
+        <Route path="/admin/orders-payments" element={<OrdersPayments />} />
+        <Route path="/admin/prize-inventory" element={<PrizeInventory />} />
+        <Route path="/admin/winners-claims" element={<WinnersClaims />} />
+        <Route path="/admin/customers" element={<Customers />} />
+        <Route path="/admin/support-complaints" element={<SupportComplaints />} />
+        <Route path="/admin/analytics" element={<AnalyticsReports />} />
+        <Route path="/admin/website-content" element={<WebsiteContent />} />
+        <Route path="/admin/staff-permissions" element={<StaffPermissions />} />
+        <Route path="/admin/audit-compliance" element={<AuditCompliance />} />
+        <Route path="/admin/settings" element={<PlatformSettings />} />
+        <Route path="/admin/competition-launch-approval" element={<CompetitionLaunchApproval />} />
+        <Route path="/admin/payment-refund-record" element={<PaymentRefundRecord />} />
+        <Route path="/admin/customer-profile" element={<CustomerProfile />} />
+        <Route path="/admin/complaint-investigation" element={<ComplaintInvestigation />} />
+        <Route path="/admin/prize-asset-verification" element={<PrizeAssetVerification />} />
+        <Route path="/admin/draw-result-release" element={<DrawResultRelease />} />
+        <Route path="/admin/jolt-credit-prizes" element={<JoltCreditPrizes />} />
+        */}
       </Routes>
     </BrowserRouter>
   );

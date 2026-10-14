@@ -1,1 +1,74 @@
-@import '../CommonPages/CommonPages.css';.basket-page .basket-box .info-action{margin-top:18px;max-width:250px}.summary-help{color:#b9cae2;font-size:11px}.summary-box .info-action{margin-top:14px}@media(max-width:760px){.basket-page .basket-box .info-action{max-width:none}}
+@import '../CommonPages/CommonPages.css';
+
+.basket-page .basket-box .info-action {
+  margin-top: 18px;
+  max-width: 250px;
+}
+
+.basket-page .empty-box strong {
+  color: #fff;
+  display: block;
+  font-size: 18px;
+}
+
+.basket-page .empty-box p {
+  margin: 10px 0 22px;
+}
+
+.remove-entry {
+  align-items: center;
+  background: rgba(255, 218, 19, 0.08);
+  border: 1px solid #ffda13;
+  border-radius: 7px;
+  color: #ffda13;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  gap: 8px;
+  letter-spacing: 0.04em;
+  padding: 11px 15px;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.remove-entry span {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 0.8;
+}
+
+.remove-entry:hover {
+  background: #ffda13;
+  color: #04142b;
+  transform: translateY(-1px);
+}
+
+.remove-entry:active {
+  transform: translateY(0);
+}
+
+.remove-entry:focus-visible {
+  outline: 3px solid rgba(16, 168, 242, 0.55);
+  outline-offset: 3px;
+}
+
+.summary-help {
+  color: #b9cae2;
+  font-size: 11px;
+}
+
+.summary-box .info-action {
+  margin-top: 14px;
+}
+
+@media (max-width: 760px) {
+  .basket-page .basket-box .info-action {
+    max-width: none;
+  }
+
+  .remove-entry {
+    justify-content: center;
+    width: 100%;
+  }
+}

@@ -1,6 +1,8 @@
-import { Action, Logo, PageShell } from "../CommonPages/CommonPages";
+import { useNavigate } from "react-router-dom";
+import { Logo, PageShell } from "../CommonPages/CommonPages";
 import "./SignIn.css";
 export default function SignIn() {
+  const navigate = useNavigate();
   return (
     <PageShell
       className="sign-in-page"
@@ -9,18 +11,18 @@ export default function SignIn() {
       subtitle="Sign in to track entries and prizes when WinJolt launches."
     >
       <section className="auth-wrap">
-        <form className="auth-card" onSubmit={(e) => e.preventDefault()}>
+        <form className="auth-card" onSubmit={(e) => { e.preventDefault(); navigate("/my-winjolt-dashboard"); }}>
           <Logo />
           <h2>SIGN IN</h2>
           <label className="form-field">
             EMAIL ADDRESS
-            <input type="email" placeholder="you@example.com" />
+            <input type="email" placeholder="you@example.com" required />
           </label>
           <label className="form-field">
             PASSWORD
-            <input type="password" placeholder="Password" />
+            <input type="password" placeholder="Password" required />
           </label>
-          <Action>PREVIEW SIGN IN</Action>
+          <button className="info-action" type="submit">SIGN IN →</button>
           <p className="auth-links">
             New to WinJolt? <a href="/sign-up">Create an account</a>
             <br />

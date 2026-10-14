@@ -1,4 +1,5 @@
 import { Header, Footer } from "../Homepage/Homepage";
+import { Link } from "react-router-dom";
 import logo from "../../Assets/Pictures/winjolt-logo-transparent.png";
 import "./CommonPages.css";
 
@@ -33,9 +34,9 @@ export const Action = ({
   href = "/competitions",
   outline = false,
 }) => (
-  <a className={`info-action${outline ? " outline" : ""}`} href={href}>
+  <Link className={`info-action${outline ? " outline" : ""}`} to={href}>
     {children} →
-  </a>
+  </Link>
 );
 export const Logo = () => (
   <img className="form-logo" src={logo} alt="WinJolt Competitions" />

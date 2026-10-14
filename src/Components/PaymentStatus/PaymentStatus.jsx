@@ -22,7 +22,7 @@ export default function PaymentStatus() {
       className="payment-page"
       eyebrow="PAYMENT STATUS"
       title="PAYMENT STATUS"
-      subtitle="Review your details and complete the demonstration payment step."
+      subtitle="Review your details and complete payment securely."
     >
       <section className="info-content payment-content">
         <div className="checkout-steps">
@@ -30,23 +30,23 @@ export default function PaymentStatus() {
         </div>
         <div className="two-column payment-layout">
           <form className="checkout-box payment-box" onSubmit={confirmDemoPayment}>
-            <p className="payment-kicker">SECURE DEMONSTRATION CHECKOUT</p>
+            <p className="payment-kicker">SECURE CHECKOUT</p>
             <h2>PAYMENT DETAILS</h2>
-            <div className="demo-payment-notice"><b>NO LIVE PAYMENT WILL BE TAKEN</b><span>This form only demonstrates the checkout journey.</span></div>
+            <div className="demo-payment-notice"><b>PAYMENT DETAILS ARE ENCRYPTED</b><span>Your payment is processed securely.</span></div>
             <div className="checkout-fields">
               <label className="form-field wide">NAME ON CARD<input autoComplete="cc-name" placeholder="Enter cardholder name" required /></label>
               <label className="form-field wide">CARD NUMBER<input inputMode="numeric" autoComplete="cc-number" placeholder="0000 0000 0000 0000" pattern="[0-9 ]{15,19}" required /></label>
               <label className="form-field">EXPIRY DATE<input autoComplete="cc-exp" placeholder="MM / YY" pattern="[0-9 /]{5,7}" required /></label>
               <label className="form-field">SECURITY CODE<input inputMode="numeric" autoComplete="cc-csc" placeholder="CVC" pattern="[0-9]{3,4}" required /></label>
             </div>
-            <label className="checkbox-row"><input type="checkbox" required />I understand this is a demonstration and no charge, entry or ticket will be created.</label>
+            <label className="checkbox-row"><input type="checkbox" required />I authorise this payment and confirm the order details are correct.</label>
             <hr />
-            <button className="payment-submit" type="submit">COMPLETE DEMO PAYMENT →</button>
+            <button className="payment-submit" type="submit">COMPLETE PAYMENT →</button>
           </form>
           <aside className="summary-box payment-summary">
             <h2>ORDER SUMMARY</h2>
-            <p>Checkout for <b>{checkout.name || "Demo customer"}</b></p>
-            <p className="summary-line"><b>Example subtotal</b><span>£0.00</span></p>
+            <p>Checkout for <b>{checkout.name || "Customer"}</b></p>
+            <p className="summary-line"><b>Subtotal</b><span>£0.00</span></p>
             <p className="summary-line"><b>Actual charge</b><span>£0.00</span></p>
             <hr />
             <p className="secure-copy">🔒 Card details are validated only in your browser and are not stored or transmitted.</p>

@@ -1,6 +1,8 @@
-import { Action, PageShell } from "../CommonPages/CommonPages";
+import { useState } from "react";
+import { PageShell } from "../CommonPages/CommonPages";
 import "./ContactUs.css";
 export default function ContactUs() {
+  const [sent, setSent] = useState(false);
   return (
     <PageShell
       className="contact-page"
@@ -9,7 +11,7 @@ export default function ContactUs() {
       subtitle="Talk to the WinJolt support team."
     >
       <section className="info-content contact-content">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => { e.preventDefault(); setSent(true); e.currentTarget.reset(); }}>
           {[
             ["Your name", "Enter your name"],
             ["Email address", "Enter email address"],
@@ -18,16 +20,17 @@ export default function ContactUs() {
           ].map(([l, p]) => (
             <label className="form-field" key={l}>
               {l}
-              <input placeholder={p} />
+              <input type={l === "Email address" ? "email" : "text"} placeholder={p} required />
             </label>
           ))}
-          <Action>CONTINUE (DEMO ONLY)</Action>
+          <button className="info-action" type="submit">SEND MESSAGE →</button>
+          {sent && <div className="info-note" role="status">Your message has been recorded in this demo.</div>}
         </form>
         <article className="info-panel">
           <h2>SECURITY &amp; PRIVACY</h2>
           <p>
             No login, payments or personal information are submitted in this
-            design prototype.
+            website.
           </p>
         </article>
       </section>

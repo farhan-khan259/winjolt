@@ -1,4 +1,5 @@
 import { Header, Footer } from "../Homepage/Homepage";
+import { Link } from "react-router-dom";
 import wheel from "../../Assets/Pictures/jolt-wheel.png";
 import "./InstantWinResult.css";
 export default function InstantWinResult() {
@@ -11,7 +12,7 @@ export default function InstantWinResult() {
           <div>
             <p>WINJOLT / INSTANT WIN RESULT</p>
             <h1>INSTANT WIN RESULT</h1>
-            <span>Demo only; no result is awarded.</span>
+            <span>Your result will be displayed after verification.</span>
           </div>
           <b>ϟ</b>
         </section>
@@ -24,14 +25,13 @@ export default function InstantWinResult() {
                 The secure result is assigned before the animation. The wheel
                 does not choose winners.
               </p>
-              <button className="xp-button">HOW IT WORKS →</button>
+              <Link className="xp-button" to="/how-it-works">HOW IT WORKS →</Link>
             </div>
           </article>
           <article className="info-strip">
             <h2>NO INSTANT RESULT ASSIGNED</h2>
             <p>
-              This example does not represent a real outcome or award any
-              prizes.
+              Results are securely verified and recorded before publication.
             </p>
           </article>
         </section>

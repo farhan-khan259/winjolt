@@ -30,7 +30,7 @@ export default function AdministrationDashboard() {
       <section className="info-content administration-content">
         <PlaceholderCards
           items={panels}
-          text="No live customer data is connected to this visual design."
+          text="No records are available yet."
         />
       </section>
     </PageShell>

@@ -1,0 +1,21 @@
+.command-grid {
+  margin-bottom: 18px;
+}
+.empty-chart {
+  height: 185px;
+  margin-top: 22px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #f8faff 0,
+    #f8faff 40px,
+    #dce7f3 41px,
+    #f8faff 42px
+  );
+  display: grid;
+  place-items: center;
+  color: #6c819f;
+  font-size: 13px;
+}
+.audit-panel {
+  margin-top: 18px;
+}
