@@ -1,4 +1,4 @@
-import { Action, PageShell } from "../CommonPages/CommonPages";
+import { AccountNav, Action, PageShell } from "../CommonPages/CommonPages";
 import car from "../../Assets/Pictures/car-card.jpg";
 import cash from "../../Assets/Pictures/cash-card.jpg";
 import gaming from "../../Assets/Pictures/gaming-card.jpg";
@@ -18,15 +18,7 @@ export default function MyWinjoltDashboard() {
       subtitle="A central home for entries, orders, prize claims and account settings."
     >
       <section className="info-content dashboard-layout">
-        <nav className="dashboard-nav">
-          <a href="/my-winjolt-dashboard">▣ Dashboard</a>
-          <a href="/my-entries">◆ My Entries</a>
-          <a href="/my-orders">▤ Order History</a>
-          <a href="/my-prizes">🏆 Prize Claims</a>
-          <a href="/account-settings">⚙ Account Settings</a>
-          <a href="/responsible-participation">♡ Spending Controls</a>
-          <a href="/help-centre">✉ Support</a>
-        </nav>
+        <AccountNav active="dashboard" />
         <div>
           <article className="overview">
             <small>WELCOME TO WINJOLT</small>

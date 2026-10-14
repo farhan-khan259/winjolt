@@ -4,14 +4,6 @@
   min-height: 520px;
   padding-top: 49px;
 }
-.my-orders-page .dashboard-nav a:first-child {
-  background: transparent;
-  color: #fff;
-}
-.my-orders-page .dashboard-nav a.active {
-  background: #ffda13;
-  color: #04142b;
-}
 .orders-panel {
   min-width: 0;
 }

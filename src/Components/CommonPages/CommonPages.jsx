@@ -54,3 +54,30 @@ export const PlaceholderCards = ({
     ))}
   </div>
 );
+
+const accountLinks = [
+  ["dashboard", "▣", "Dashboard", "/my-winjolt-dashboard"],
+  ["entries", "◆", "My Entries", "/my-entries"],
+  ["orders", "▤", "Order History", "/my-orders"],
+  ["prizes", "🏆", "Prize Claims", "/my-prizes"],
+  ["settings", "⚙", "Account Settings", "/account-settings"],
+  ["controls", "♡", "Spending Controls", "/responsible-participation"],
+  ["support", "✉", "Support", "/help-centre"],
+];
+
+export function AccountNav({ active }) {
+  return (
+    <nav className="dashboard-nav" aria-label="Account navigation">
+      {accountLinks.map(([key, icon, label, to]) => (
+        <Link
+          className={active === key ? "active" : ""}
+          aria-current={active === key ? "page" : undefined}
+          key={key}
+          to={to}
+        >
+          <span aria-hidden="true">{icon}</span> {label}
+        </Link>
+      ))}
+    </nav>
+  );
+}

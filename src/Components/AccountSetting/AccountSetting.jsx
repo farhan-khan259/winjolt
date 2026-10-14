@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PageShell } from "../CommonPages/CommonPages";
+import { AccountNav, PageShell } from "../CommonPages/CommonPages";
 import "./AccountSetting.css";
 
 const fields = [
@@ -13,9 +13,11 @@ const fields = [
 export default function AccountSetting() {
   const [saved, setSaved] = useState(false);
   return (
-    <PageShell eyebrow="ACCOUNT SETTINGS" title="ACCOUNT SETTINGS" subtitle="Personal data, password, limits." className="account-setting-page">
-      <section className="info-content account-setting-content">
-        <form className="settings-form" onSubmit={(event) => { event.preventDefault(); setSaved(true); }}>
+    <PageShell eyebrow="MY WINJOLT / ACCOUNT SETTINGS" title="ACCOUNT SETTINGS" subtitle="Manage your personal data, password and preferences." className="account-setting-page">
+      <section className="info-content dashboard-layout account-setting-content">
+        <AccountNav active="settings" />
+        <form className="settings-form account-page-panel" onSubmit={(event) => { event.preventDefault(); setSaved(true); }}>
+          <small>YOUR PROFILE</small><h2>ACCOUNT SETTINGS</h2><p>Keep your account and communication preferences up to date.</p>
           {fields.map(([label, placeholder, type]) => (
             <label className="form-field" key={label}>{label}<input type={type} placeholder={placeholder} /></label>
           ))}

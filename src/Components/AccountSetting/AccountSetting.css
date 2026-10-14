@@ -4,7 +4,7 @@
 .settings-form {
   display: grid;
   gap: 16px;
-  max-width: 680px;
+  max-width: none;
 }
 .settings-form button {
   background: #ffda13;

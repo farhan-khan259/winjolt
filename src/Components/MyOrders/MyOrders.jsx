@@ -1,4 +1,4 @@
-import { Action, PageShell } from "../CommonPages/CommonPages";
+import { AccountNav, Action, PageShell } from "../CommonPages/CommonPages";
 import "./MyOrders.css";
 
 export default function MyOrders() {
@@ -10,15 +10,7 @@ export default function MyOrders() {
       className="my-orders-page"
     >
       <section className="info-content dashboard-layout my-orders-content">
-        <nav className="dashboard-nav" aria-label="Account navigation">
-          <a href="/my-winjolt-dashboard">▣ Dashboard</a>
-          <a href="/my-entries">◆ My Entries</a>
-          <a className="active" href="/my-orders" aria-current="page">▤ Order History</a>
-          <a href="/my-prizes">🏆 Prize Claims</a>
-          <a href="/account-settings">⚙ Account Settings</a>
-          <a href="/responsible-participation">♡ Spending Controls</a>
-          <a href="/help-centre">✉ Support</a>
-        </nav>
+        <AccountNav active="orders" />
 
         <div className="orders-panel">
           <div className="orders-heading">
