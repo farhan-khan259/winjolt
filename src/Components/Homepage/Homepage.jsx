@@ -266,7 +266,7 @@ export default function Homepage() {
               Selected competitions may award instant prizes through verifiable,
               fair results.
             </p>
-            <ArrowButton>EXPLORE INSTANT WINS</ArrowButton>
+            <ArrowButton href="/instant-wins">EXPLORE INSTANT WINS</ArrowButton>
           </div>
           <img src={wheelImage} alt="Instant wins prize wheel" />
         </section>

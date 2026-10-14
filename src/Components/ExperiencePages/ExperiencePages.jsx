@@ -101,7 +101,7 @@ export function InstantWinsPage() {
       title="INSTANT WINS"
       subtitle="Instant-win campaigns with exciting visual reveals. Browse available instant-win campaigns and published terms."
     >
-      <section className="instant-catalogue">
+      <section className="instant-catalogue" id="instant-prizes">
         <div className="catalogue-top">
           <div>
             <h2>EXPLORE INSTANT PRIZES</h2>
@@ -134,7 +134,15 @@ export function InstantWinsPage() {
             Eligible paid and free entries must be handled fairly and
             identically.
           </p>
-          <Button href="/instant-wins">EXPLORE INSTANT WINS</Button>
+          <Button
+            onClick={() =>
+              document
+                .getElementById("instant-prizes")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+          >
+            EXPLORE INSTANT WINS
+          </Button>
         </div>
         <WheelFeature />
       </section>
