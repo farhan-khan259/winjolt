@@ -83,6 +83,7 @@ export function Header() {
         className={menuOpen ? "main-nav open" : "main-nav"}
         aria-label="Main navigation"
       >
+        <Link to="/">Home</Link>
         <a href="/competitions">Competitions</a>
         <a href="/instant-wins">Instant Wins</a>
         <a href="/winners-and-results">Winners</a>

@@ -41,6 +41,7 @@
   
 }
 .main-nav {
+  align-items: center;
   display: flex;
   flex: 1;
   gap: 28px;
@@ -719,6 +720,7 @@ figure figcaption,
         width: 175px;
     }
   .main-nav {
+    align-items: flex-start;
     background: #03162d;
     display: none;
     flex-direction: column;
