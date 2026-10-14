@@ -144,8 +144,19 @@
   margin: 12px 0;
 }
 .auth-links a {
-  color: #fff;
+  color: #ffda13;
+  font-weight: 800;
   text-decoration: none;
+}
+.auth-links a:hover {
+  color: #ffe75f;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.auth-links a:focus-visible {
+  border-radius: 2px;
+  outline: 3px solid rgba(16, 168, 242, 0.55);
+  outline-offset: 3px;
 }
 .info-note {
   background: #17477f;
@@ -220,15 +231,28 @@
   grid-column: 1/-1;
 }
 .checkbox-row {
-  align-items: flex-start;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
   display: flex;
-  font-size: 12px;
-  gap: 10px;
+  font-size: 14px;
+  gap: 12px;
+  line-height: 1.35;
   margin: 17px 0;
 }
 .checkbox-row input {
-  height: 18px;
-  width: 18px;
+  accent-color: #ffda13;
+  cursor: pointer;
+  flex: 0 0 20px;
+  height: 20px;
+  margin: 0;
+  min-height: 20px;
+  padding: 0;
+  width: 20px;
+}
+.checkbox-row input:focus-visible {
+  outline: 3px solid rgba(16, 168, 242, 0.55);
+  outline-offset: 3px;
 }
 .status-content {
   min-height: 245px;
