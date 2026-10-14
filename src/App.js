@@ -8,13 +8,13 @@ import CashPrize from './Components/CashPrize/CashPrize';
 import GamingandTech from './Components/GamingandTech/GamingandTech';
 import UltimateToolsCollection from './Components/UltimateToolsCollection/UltimateToolsCollection';
 import InstantWins from './Components/InstantWins/InstantWins';
-// import GamesAndExperiences from './Components/GamesAndExperiences/GamesAndExperiences';
-// import BingoFutureLicense from './Components/BingoFutureLicense/BingoFutureLicense';
-// import JoltRevealWheel from './Components/JoltRevealWheel/JoltRevealWheel';
-// import InstantWinResult from './Components/InstantWinResult/InstantWinResult';
+import GamesAndExperiences from './Components/GamesAndExperiences/GamesAndExperiences';
+import BingoFutureLicense from './Components/BingoFutureLicense/BingoFutureLicense';
+import JoltRevealWheel from './Components/JoltRevealWheel/JoltRevealWheel';
+import InstantWinResult from './Components/InstantWinResult/InstantWinResult';
 import WinnersAndResults from './Components/WinnersAndResults/WinnersAndResults';
-// import TicketChecker from './Components/TicketChecker/TicketChecker';
-// import LiveDraws from './Components/LiveDraws/LiveDraws';
+import TicketChecker from './Components/TicketChecker/TicketChecker';
+import LiveDraws from './Components/LiveDraws/LiveDraws';
 import HowItWorks from './Components/HowItWorks/HowItWorks';
 import FreeEntry from './Components/FreeEntry/FreeEntry';
 // import AboutWinJolt from './Components/AboutWinJolt/AboutWinJolt';
@@ -62,13 +62,13 @@ function App() {
         <Route path="/competitions/gaming-and-tech" element={<GamingandTech />} />
         <Route path="/competitions/ultimate-tools-collection" element={<UltimateToolsCollection />} />
         <Route path="/instant-wins" element={<InstantWins />} />
-        {/* <Route path="/games-and-experiences" element={<GamesAndExperiences />} />
+         <Route path="/games-and-experiences" element={<GamesAndExperiences />} />
         <Route path="/bingo-future-license" element={<BingoFutureLicense />} />
         <Route path="/jolt-reveal-wheel" element={<JoltRevealWheel />} />
-        <Route path="/instant-win-result" element={<InstantWinResult />} />*/}
+        <Route path="/instant-win-result" element={<InstantWinResult />} />
         <Route path="/winners-and-results" element={<WinnersAndResults />} />
-        {/* <Route path="/ticket-checker" element={<TicketChecker />} />
-        <Route path="/live-draws" element={<LiveDraws />} />  */}
+        <Route path="/ticket-checker" element={<TicketChecker />} />
+        <Route path="/live-draws" element={<LiveDraws />} /> 
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/free-entry" element={<FreeEntry />} />
         {/* <Route path="/about-winjolt" element={<AboutWinJolt />} />

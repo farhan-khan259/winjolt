@@ -1,5 +1,5 @@
 import { Header, Footer } from "../Homepage/Homepage";
-import wheel from "../../Assets/Pictures/jolt-wheel.svg";
+import wheel from "../../Assets/Pictures/jolt-wheel.png";
 import "./InstantWinResult.css";
 export default function InstantWinResult() {
   return (

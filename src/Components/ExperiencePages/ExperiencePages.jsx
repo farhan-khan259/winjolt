@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Footer, Header } from "../Homepage/Homepage";
 import "./ExperiencePages.css";
-import wheel from "../../Assets/Pictures/jolt-wheel.svg";
+import wheel from "../../Assets/Pictures/jolt-wheel.png";
 import phone from "../../Assets/Pictures/instant-phone.jpg";
 import earbuds from "../../Assets/Pictures/instant-earbuds.jpg";
 import cash from "../../Assets/Pictures/instant-cash.jpg";

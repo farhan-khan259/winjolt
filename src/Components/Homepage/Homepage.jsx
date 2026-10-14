@@ -6,7 +6,7 @@ import cashImage from "../../Assets/Pictures/cash-card.jpg";
 import gamingImage from "../../Assets/Pictures/gaming-card.jpg";
 import heroImage from "../../Assets/Pictures/hero-prize-montage.jpg";
 import toolsImage from "../../Assets/Pictures/tools-card.jpg";
-import wheelImage from "../../Assets/Pictures/jolt-wheel.svg";
+import wheelImage from "../../Assets/Pictures/jolt-wheel.png";
 import logoImage from "../../Assets/Pictures/winjolt-logo-transparent.png";
 
 const competitions = [
