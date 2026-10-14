@@ -1,15 +1,18 @@
 @import "../CommonPages/CommonPages.css";
-.confirmation-page .status-content {
-  padding-top: 48px;
-}
-.confirmation-page .status-content .info-panel {
-  background: transparent;
-}
+.confirmation-content { padding-top: 44px; }
+.confirmation-card { background: #103260; border: 1px solid #286197; border-radius: 12px; margin: 0 auto; max-width: 920px; padding: 38px; text-align: center; }
+.confirmation-mark { align-items: center; background: #ffda13; border-radius: 50%; color: #03142c; display: flex; font-size: 31px; font-weight: 900; height: 64px; justify-content: center; margin: 0 auto 17px; width: 64px; }
+.confirmation-kicker { color: #ffda13 !important; font-size: 12px !important; font-weight: 900; }
+.confirmation-card h2 { font-size: 31px; margin: 8px 0 13px; }
+.confirmation-card > p { color: #b9cae2; line-height: 1.5; margin-left: auto; margin-right: auto; max-width: 650px; }
+.confirmation-details { background: #031a38; border-radius: 9px; display: grid; gap: 1px; grid-template-columns: 1fr 1fr; margin: 27px 0; overflow: hidden; text-align: left; }
+.confirmation-details div { border: 1px solid #174777; display: flex; flex-direction: column; gap: 7px; min-height: 84px; padding: 17px; }
+.confirmation-details span { color: #9eb3cf; font-size: 11px; font-weight: 800; }
+.confirmation-details strong { color: #fff; font-size: 14px; word-break: break-word; }
+.confirmation-actions { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
 @media (max-width: 760px) {
-  .confirmation-page .status-content {
-    padding-top: 18px;
-  }
-  .confirmation-page .status-content .info-panel {
-    background: #092449;
-  }
+  .confirmation-content { padding-top: 18px; }
+  .confirmation-card { padding: 25px 18px; }
+  .confirmation-card h2 { font-size: 24px; }
+  .confirmation-details, .confirmation-actions { grid-template-columns: 1fr; }
 }

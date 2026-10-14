@@ -1,6 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import { Action, PageShell } from "../CommonPages/CommonPages";
 import "./SecureCheckout.css";
 export default function SecureCheckout() {
+  const navigate = useNavigate();
+
+  const continueToPayment = (event) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    sessionStorage.setItem("winjolt-checkout", JSON.stringify({
+      name: form.get("name"),
+      email: form.get("email"),
+      postcode: form.get("postcode"),
+    }));
+    navigate("/payment-status");
+  };
+
   return (
     <PageShell
       preview
@@ -17,22 +31,22 @@ export default function SecureCheckout() {
           <span>4 · CONFIRMATION</span>
         </div>
         <div className="two-column checkout-layout">
-          <form className="checkout-box" onSubmit={(e) => e.preventDefault()}>
+          <form className="checkout-box" onSubmit={continueToPayment}>
             <h2>YOUR DELIVERY &amp; CONTACT DETAILS</h2>
             <div className="checkout-fields">
               {[
-                ["FULL NAME", "Enter full name"], 
-                ["EMAIL ADDRESS", "you@example.com"],
-                ["CONTACT NUMBER", "Mobile telephone"],
-                ["POSTCODE", "UK postcode"],
-                ["ADDRESS", "Address line 1"],
-              ].map(([l, p], i) => (
+                ["FULL NAME", "Enter full name", "name", "text"], 
+                ["EMAIL ADDRESS", "you@example.com", "email", "email"],
+                ["CONTACT NUMBER", "Mobile telephone", "phone", "tel"],
+                ["POSTCODE", "UK postcode", "postcode", "text"],
+                ["ADDRESS", "Address line 1", "address", "text"],
+              ].map(([l, p, name, type], i) => (
                 <label
                   className={`form-field${i === 4 ? " wide" : ""}`}
                   key={l}
                 >
                   {l}
-                  <input placeholder={p} />
+                  <input name={name} type={type} placeholder={p} required />
                 </label>
               ))}
             </div>
@@ -43,13 +57,11 @@ export default function SecureCheckout() {
               required before any real payment.
             </div>
             <label className="checkbox-row">
-              <input type="checkbox" />I have read the demonstration competition
+              <input type="checkbox" required />I have read the demonstration competition
               terms and understand that no entry or purchase occurs.
             </label>
             <hr />
-            <Action href="/order-confirmation">
-              SHOW ORDER CONFIRMATION PREVIEW
-            </Action>
+            <button className="checkout-continue" type="submit">CONTINUE TO PAYMENT →</button>
           </form>
           <aside className="summary-box">
             <h2>YOUR DEMO SUMMARY</h2>
