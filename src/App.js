@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { isAuthenticated } from './auth';
 
 import Homepage from './Components/Homepage/Homepage';
 import Competetions from './Components/Competetions/Competetions';
@@ -88,6 +89,17 @@ function ScrollToLocation() {
 	return null;
 }
 
+function ProtectedRoute({ children }) {
+  const location = useLocation();
+
+  if (!isAuthenticated()) {
+    const from = `${location.pathname}${location.search}${location.hash}`;
+    return <Navigate to="/sign-in" replace state={{ from }} />;
+  }
+
+  return children;
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -114,10 +126,10 @@ function App() {
         <Route path="/frequently-asked-questions" element={<FrequentlyAskedQuestions />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/help-centre" element={<HelpCentre />} /> 
-        <Route path="/my-orders" element={<MyOrders />} />
-        <Route path="/my-prizes" element={<MyPrizes />} />
-        <Route path="/account-settings" element={<AccountSetting />} />
-        <Route path="/claim-a-prize" element={<ClaimPrize />} />
+        <Route path="/my-orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
+        <Route path="/my-prizes" element={<ProtectedRoute><MyPrizes /></ProtectedRoute>} />
+        <Route path="/account-settings" element={<ProtectedRoute><AccountSetting /></ProtectedRoute>} />
+        <Route path="/claim-a-prize" element={<ProtectedRoute><ClaimPrize /></ProtectedRoute>} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
@@ -132,8 +144,8 @@ function App() {
         <Route path="/secure-checkout" element={<SecureCheckout />} />
         <Route path="/payment-status" element={<PaymentStatus />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
-        <Route path="/my-winjolt-dashboard" element={<MyWinjoltDashboard />} />
-        <Route path="/my-entries" element={<MyEntries />} />
+        <Route path="/my-winjolt-dashboard" element={<ProtectedRoute><MyWinjoltDashboard /></ProtectedRoute>} />
+        <Route path="/my-entries" element={<ProtectedRoute><MyEntries /></ProtectedRoute>} />
         {/* Admin routes are temporarily disabled.
         <Route path="/admin" element={<CommandCentre />} />
         <Route path="/admin/command-centre" element={<CommandCentre />} />

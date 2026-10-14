@@ -1,8 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { createAuthenticatedSession } from "../../auth";
 import { Logo, PageShell } from "../CommonPages/CommonPages";
 import "./SignIn.css";
 export default function SignIn() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const destination = location.state?.from || "/my-winjolt-dashboard";
   return (
     <PageShell
       className="sign-in-page"
@@ -11,7 +14,11 @@ export default function SignIn() {
       subtitle="Sign in to track entries and prizes when WinJolt launches."
     >
       <section className="auth-wrap">
-        <form className="auth-card" onSubmit={(e) => { e.preventDefault(); navigate("/my-winjolt-dashboard"); }}>
+        <form className="auth-card" onSubmit={(e) => {
+          e.preventDefault();
+          createAuthenticatedSession();
+          navigate(destination, { replace: true });
+        }}>
           <Logo />
           <h2>SIGN IN</h2>
           <label className="form-field">
@@ -29,8 +36,8 @@ export default function SignIn() {
             <a href="/reset-password">Forgot your password?</a>
           </p>
           <div className="info-note">
-            Registration and authentication require a secure production backend.
-            No details entered here are stored or transmitted.
+            This prototype keeps only a signed-in flag for the current browser
+            tab. Production authentication requires a secure backend.
           </div>
         </form>
       </section>
