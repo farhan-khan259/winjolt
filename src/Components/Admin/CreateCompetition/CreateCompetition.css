@@ -13,9 +13,27 @@
   font-weight: 800;
 }
 .form-grid .field {
+  box-sizing: border-box;
+  width: 100%;
   margin-top: 10px;
   font-size: 13px;
   font-weight: 400;
+  font-family: inherit;
+  border: 1px solid transparent;
+  outline: none;
+}
+.form-grid textarea.field {
+  min-height: 72px;
+  padding-top: 16px;
+  resize: vertical;
+}
+.form-grid .field:hover {
+  border-color: var(--admin-line);
+}
+.form-grid .field:focus {
+  background: #fff;
+  border-color: #0874f9;
+  box-shadow: 0 0 0 3px rgba(8, 116, 249, 0.12);
 }
 .form-grid .wide {
   grid-column: 1/-1;
@@ -25,12 +43,22 @@
   gap: 12px;
   margin: 18px 0;
 }
-.check-list div {
+.check-list label {
   background: var(--admin-soft);
   padding: 18px;
   border-radius: 8px;
   font-size: 13px;
   color: #526983;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.check-list input {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: #0874f9;
 }
 .save-button {
   width: 100%;

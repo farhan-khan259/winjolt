@@ -9,6 +9,16 @@ import {
 import car from "../../../Assets/Pictures/car-card.jpg";
 import "./CreateCompetition.css";
 export default function CreateCompetition() {
+  const saveDraft = (event) => {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(event.currentTarget));
+    localStorage.setItem(
+      "winjolt-draft:/admin/create-competition",
+      JSON.stringify({ ...values, savedAt: new Date().toISOString() }),
+    );
+    window.alert("Campaign draft saved locally.");
+  };
+
   return (
     <AdminLayout>
       <PageHeading
@@ -38,27 +48,33 @@ export default function CreateCompetition() {
       <FilterBar filters={["Campaign type", "Category", "Date range"]} />
       <div className="two-col builder-cols">
         <Panel title="Step 1 · Prize and campaign details">
+          <form onSubmit={saveDraft}>
           <div className="form-grid">
             <label>
               COMPETITION TITLE
-              <span className="field">e.g. Performance Car + Cash</span>
+              <input className="field" name="competitionTitle" placeholder="e.g. Performance Car + Cash" />
             </label>
             <label>
               PRIZE CATEGORY
-              <span className="field">Cars / Cash / Tech / Tools</span>
+              <input className="field" name="prizeCategory" placeholder="Cars / Cash / Tech / Tools" list="prize-categories" />
+              <datalist id="prize-categories">
+                <option value="Cars" />
+                <option value="Cash" />
+                <option value="Tech" />
+                <option value="Tools" />
+              </datalist>
             </label>
             <label className="wide">
               PRIZE DESCRIPTION
-              <span className="field">
-                Enter exact prize specifications, conditions and delivery
-                information
-              </span>
+              <textarea className="field" name="prizeDescription" placeholder="Enter exact prize specifications, conditions and delivery information" />
             </label>
             <label>
-              ENTRY PRICE<span className="field">Not yet set</span>
+              ENTRY PRICE
+              <input className="field" name="entryPrice" type="number" min="0" step="0.01" placeholder="Not yet set" />
             </label>
             <label>
-              ENTRY CAP<span className="field">Not yet set</span>
+              ENTRY CAP
+              <input className="field" name="entryCap" type="number" min="1" step="1" placeholder="Not yet set" />
             </label>
           </div>
           <h2>Step 2 · Entry eligibility and selection</h2>
@@ -69,10 +85,14 @@ export default function CreateCompetition() {
               "Closing time & draw date",
               "Random-draw verification and dispute handling",
             ].map((x) => (
-              <div key={x}>□ &nbsp;&nbsp; {x}</div>
+              <label key={x}>
+                <input type="checkbox" name="eligibilityChecks" value={x} />
+                <span>{x}</span>
+              </label>
             ))}
           </div>
-          <button className="save-button" onClick={() => { localStorage.setItem("winjolt-draft:/admin/create-competition", new Date().toISOString()); window.alert("Campaign draft saved locally."); }}>Save campaign as draft →</button>
+          <button className="save-button" type="submit">Save campaign as draft →</button>
+          </form>
         </Panel>
         <Panel title="Prize preview">
           <img className="preview-image" src={car} alt="Blue performance car" />
