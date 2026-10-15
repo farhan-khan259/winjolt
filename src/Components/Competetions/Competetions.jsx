@@ -100,7 +100,7 @@ function PrizeCard({ prize }) {
       <p className="catalogue-kicker">
         {prize.instant
           ? "⚡ INSTANT WIN"
-          : `COMING SOON · ${prize.label}`}
+          : "FEATURED COMPETITION"}
       </p>
       <h2>{prize.title}</h2>
       <div className="catalogue-price">

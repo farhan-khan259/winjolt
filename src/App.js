@@ -41,6 +41,8 @@ import PaymentStatus from './Components/PaymentStatus/PaymentStatus';
 import OrderConfirmation from './Components/OrderConfirmation/OrderConfirmation';
 import MyWinjoltDashboard from './Components/MyWinjoltDashboard/MyWinjoltDashboard';
 import MyEntries from './Components/MyEntries/MyEntries';
+import TicketNumberSelection from './Components/TicketNumberSelection/TicketNumberSelection';
+import RegistrationConfirmation from './Components/RegistrationConfirmation/RegistrationConfirmation';
 /* Admin imports are temporarily disabled.
 import CommandCentre from './Components/Admin/CommandCentre/CommandCentre';
 import OperationsCalendar from './Components/Admin/OperationsCalendar/OperationsCalendar';
@@ -139,6 +141,8 @@ function App() {
         */}
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/ticket-number-selection" element={<TicketNumberSelection />} />
+        <Route path="/registration-confirmation" element={<RegistrationConfirmation />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/your-basket" element={<YourBasket />} />
         <Route path="/secure-checkout" element={<SecureCheckout />} />

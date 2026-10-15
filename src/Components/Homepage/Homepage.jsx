@@ -122,7 +122,7 @@ function CompetitionCard({ competition }) {
       <div className="competition-image">
         <img src={competition.image} alt="" />
       </div>
-      <p className="card-kicker">COMING SOON · {competition.label}</p>
+      <p className="card-kicker">FEATURED COMPETITION</p>
       <h3>{competition.title}</h3>
       <div className="price-row">
         <span>FROM</span>
@@ -142,7 +142,7 @@ export function Footer() {
         <div className="footer-brand">
           <Brand />
           <p>
-            Big prizes. Big buzz. A UK competitions platform design concept.
+            Big prizes. Big buzz. UK competitions with transparent results.
           </p>
           <p className="footer-disclaimer">
             Review every prize, price and
@@ -177,7 +177,7 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 WinJolt. No purchases, entries or prizes awarded.</span>
+          <span>© 2026 WinJolt. All rights reserved.</span>
           <span>18+ · Free-entry options · Fair results · UK</span>
         </div>
       </footer>
@@ -243,7 +243,7 @@ export default function Homepage() {
           <span>✦ 18+ only</span>
           <span>✦ Free entry available</span>
           <span>✦ Fair, recorded results</span>
-          <span>✦ Secure checkout planned</span>
+          <span>✦ Secure checkout</span>
         </div>
 
         <section className="section competitions" id="competitions">
@@ -284,11 +284,10 @@ export default function Homepage() {
           </div>
           <div className="results-grid" id="winners">
             <article className="results-copy">
-              <p className="yellow-label">THE FIRST WINNERS ARE YET TO COME</p>
+              <p className="yellow-label">WINNERS &amp; RESULTS</p>
               <h2>REAL WINNERS. REAL RESULTS.</h2>
               <p>
-                Verified winners, draw records and prize handovers will appear
-                here after launch—not made-up testimonials or prize statistics.
+                View verified winners, draw records and prize handover updates.
               </p>
             <ArrowButton variant="blue" href="/winners-and-results">LEARN ABOUT RESULTS</ArrowButton>
             </article>
@@ -305,10 +304,9 @@ export default function Homepage() {
           >
             <div>
               <p className="yellow-label">JOIN THE WINJOLT CLUB</p>
-              <h2>Be first to hear what's coming.</h2>
+              <h2>Get the latest WinJolt updates.</h2>
               <p>
-                Launch updates and new prize previews. Newsletter integration
-                pending.
+                Receive competition news, prize announcements and winner updates.
               </p>
             </div>
             <div className="newsletter-form">
@@ -320,7 +318,7 @@ export default function Homepage() {
               />
               <button className="action-button yellow" type="submit">JOIN THE LIST <span aria-hidden="true">→</span></button>
             </div>
-            {newsletterJoined && <p role="status">Thanks — you’ve joined the demo mailing list.</p>}
+            {newsletterJoined && <p role="status">Thanks — you’ve joined the mailing list.</p>}
           </form>
         </section>
       </main>

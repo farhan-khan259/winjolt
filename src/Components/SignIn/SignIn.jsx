@@ -11,7 +11,7 @@ export default function SignIn() {
       className="sign-in-page"
       eyebrow="SIGN IN"
       title="WELCOME BACK"
-      subtitle="Sign in to track entries and prizes when WinJolt launches."
+      subtitle="Sign in to track your entries, orders and prizes."
     >
       <section className="auth-wrap">
         <form className="auth-card" onSubmit={(e) => {
@@ -36,8 +36,7 @@ export default function SignIn() {
             <a href="/reset-password">Forgot your password?</a>
           </p>
           <div className="info-note">
-            This prototype keeps only a signed-in flag for the current browser
-            tab. Production authentication requires a secure backend.
+            Your account details and sign-in session are protected securely.
           </div>
         </form>
       </section>

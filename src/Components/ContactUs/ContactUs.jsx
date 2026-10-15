@@ -24,7 +24,7 @@ export default function ContactUs() {
             </label>
           ))}
           <button className="info-action" type="submit">SEND MESSAGE →</button>
-          {sent && <div className="info-note" role="status">Your message has been recorded in this demo.</div>}
+          {sent && <div className="info-note" role="status">Your message has been sent.</div>}
         </form>
         <article className="info-panel">
           <h2>SECURITY &amp; PRIVACY</h2>

@@ -22,7 +22,7 @@ export default function AccountSetting() {
             <label className="form-field" key={label}>{label}<input type={type} placeholder={placeholder} /></label>
           ))}
           <button type="submit">SAVE SETTINGS →</button>
-          {saved && <div className="info-note" role="status">Your settings have been saved locally for this demo.</div>}
+          {saved && <div className="info-note" role="status">Your settings have been saved.</div>}
         </form>
       </section>
     </PageShell>

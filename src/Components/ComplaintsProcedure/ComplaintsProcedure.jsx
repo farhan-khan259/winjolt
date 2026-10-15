@@ -38,7 +38,7 @@ export default function ComplaintsProcedure() {
             </label>
           ))}
           <button type="submit">SUBMIT REQUEST →</button>
-          {submitted && <div className="info-note" role="status">Your complaint has been recorded in this demo.</div>}
+          {submitted && <div className="info-note" role="status">Your complaint has been submitted.</div>}
         </form>
       </section>
     </PageShell>

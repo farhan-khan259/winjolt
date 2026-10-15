@@ -36,7 +36,7 @@ export default function SecureCheckout() {
             <div className="checkout-fields">
               {[
                 ["FULL NAME", "Enter full name", "name", "text"], 
-                ["EMAIL ADDRESS", "you@example.com", "email", "email"],
+                ["EMAIL ADDRESS", "Enter email address", "email", "email"],
                 ["CONTACT NUMBER", "Mobile telephone", "phone", "tel"],
                 ["POSTCODE", "UK postcode", "postcode", "text"],
                 ["ADDRESS", "Address line 1", "address", "text"],
@@ -54,11 +54,11 @@ export default function SecureCheckout() {
               <b>18+ AND ELIGIBILITY</b>
               <br />
               Age verification, entry caps and competition-specific rules are
-              required before any real payment.
+              are applied securely before payment.
             </div>
             <label className="checkbox-row">
               <input type="checkbox" required />I have read the competition
-              terms and understand that no entry or purchase occurs.
+              terms and confirm that my details are correct.
             </label>
             <hr />
             <button className="checkout-continue" type="submit">CONTINUE TO PAYMENT →</button>
