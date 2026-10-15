@@ -31,7 +31,7 @@ import TermsAndConditions from './Components/TermsAndConditions/TermsAndConditio
 import PrivacyPolicy from './Components/PrivacyPolicy/PrivacyPolicy';
 import CookiePolicy from './Components/CookiePolicy/CookiePolicy';
 import ComplaintsProcedure from './Components/ComplaintsProcedure/ComplaintsProcedure';
-// import AdministrationDashboard from './Components/AdministrationDashboard/AdministrationDashboard';
+import AdministrationDashboard from './Components/AdministrationDashboard/AdministrationDashboard';
 import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp/SignUp';
 import ResetPassword from './Components/ResetPassword/ResetPassword';
@@ -43,7 +43,7 @@ import MyWinjoltDashboard from './Components/MyWinjoltDashboard/MyWinjoltDashboa
 import MyEntries from './Components/MyEntries/MyEntries';
 import TicketNumberSelection from './Components/TicketNumberSelection/TicketNumberSelection';
 import RegistrationConfirmation from './Components/RegistrationConfirmation/RegistrationConfirmation';
-/* Admin imports are temporarily disabled.
+
 import CommandCentre from './Components/Admin/CommandCentre/CommandCentre';
 import OperationsCalendar from './Components/Admin/OperationsCalendar/OperationsCalendar';
 import CompetitionManagement from './Components/Admin/CompetitionManagement/CompetitionManagement';
@@ -71,7 +71,7 @@ import ComplaintInvestigation from './Components/Admin/ComplaintInvestigation/Co
 import PrizeAssetVerification from './Components/Admin/PrizeAssetVerification/PrizeAssetVerification';
 import DrawResultRelease from './Components/Admin/DrawResultRelease/DrawResultRelease';
 import JoltCreditPrizes from './Components/Admin/JoltCreditPrizes/JoltCreditPrizes';
-*/
+
 
 function ScrollToLocation() {
 	const { pathname, hash } = useLocation();
@@ -136,9 +136,9 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/complaints-procedure" element={<ComplaintsProcedure />} />
-        {/* Admin access is temporarily disabled.
+        {/* Admin access is temporarily disabled. */}
         <Route path="/administration-dashboard" element={<AdministrationDashboard />} />
-        */}
+       
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/ticket-number-selection" element={<TicketNumberSelection />} />
@@ -150,7 +150,6 @@ function App() {
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="/my-winjolt-dashboard" element={<ProtectedRoute><MyWinjoltDashboard /></ProtectedRoute>} />
         <Route path="/my-entries" element={<ProtectedRoute><MyEntries /></ProtectedRoute>} />
-        {/* Admin routes are temporarily disabled.
         <Route path="/admin" element={<CommandCentre />} />
         <Route path="/admin/command-centre" element={<CommandCentre />} />
         <Route path="/admin/operations-calendar" element={<OperationsCalendar />} />
@@ -179,7 +178,7 @@ function App() {
         <Route path="/admin/prize-asset-verification" element={<PrizeAssetVerification />} />
         <Route path="/admin/draw-result-release" element={<DrawResultRelease />} />
         <Route path="/admin/jolt-credit-prizes" element={<JoltCreditPrizes />} />
-        */}
+       
       </Routes>
     </BrowserRouter>
   );

@@ -1,1 +1,2 @@
 /* Screen-specific styles inherit from the shared responsive admin system. */
+.payment-record-link{align-items:center;background:#0874f9;border-radius:8px;color:#fff;display:flex;font-size:12px;font-weight:900;justify-content:space-between;margin-top:16px;padding:15px 17px;text-decoration:none;width:100%}.payment-record-link:hover{background:#0868de}.payment-record-link:focus-visible{outline:3px solid #ffda13;outline-offset:3px}
