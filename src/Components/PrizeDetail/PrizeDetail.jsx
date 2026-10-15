@@ -65,9 +65,9 @@ function EntryPanel({ prize }) {
       <div className="entry-divider" />
       <button className="add-basket" onClick={() => {
         localStorage.setItem("winjoltBasket", JSON.stringify({ title: prize.title, quantity, unitPrice: 0.99 }));
-        navigate("/your-basket");
+        navigate("/ticket-number-selection", { state: { quantity } });
       }}>
-        ADD ENTRIES TO BASKET <span>→</span>
+        CHOOSE TICKET NUMBERS <span>→</span>
       </button>
       <button className="free-route" onClick={() => navigate("/free-entry")}>
         VIEW FREE ENTRY ROUTE <span>→</span>
