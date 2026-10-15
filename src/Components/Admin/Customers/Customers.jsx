@@ -15,6 +15,6 @@ export default function Customers(){
     sideTitle="Privacy & participation"
     sideItems={["Data minimisation","Identity and age checks","Spending and exclusion","Access and erasure requests"].map(x=>[`○ ${x}`,"Controlled production workflow required"])}
   >
-    <Link className="customer-profile-link" to="/admin/customer-profile">OPEN CUSTOMER 360° PROFILE <span>→</span></Link>
+    <div className="customer-workflow-links"><Link className="customer-profile-link" to="/admin/customer-profile">OPEN CUSTOMER 360° PROFILE <span>→</span></Link><Link className="customer-profile-link age-check-link" to="/admin/automatic-age-checks">OPEN AUTOMATIC 18+ AGE CHECKS <span>→</span></Link></div>
   </StandardAdminPage>;
 }

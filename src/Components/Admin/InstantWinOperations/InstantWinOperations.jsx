@@ -17,6 +17,8 @@ export default function InstantWinOperations() {
         eyebrow="WINJOLT CONTROL  /  FAIR RESULT ALLOCATION"
         title="Instant-win operations"
         subtitle="Manage the instant-win catalogue and auditable, preassigned outcomes."
+        secondary="Global Jolt controls"
+        secondaryTo="/admin/jolt-reveal-controls"
         primary="+ Draft instant campaign"
       />
       <StatGrid

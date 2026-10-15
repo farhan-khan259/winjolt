@@ -72,6 +72,9 @@ import ComplaintInvestigation from './Components/Admin/ComplaintInvestigation/Co
 import PrizeAssetVerification from './Components/Admin/PrizeAssetVerification/PrizeAssetVerification';
 import DrawResultRelease from './Components/Admin/DrawResultRelease/DrawResultRelease';
 import JoltCreditPrizes from './Components/Admin/JoltCreditPrizes/JoltCreditPrizes';
+import JoltRevealControls from './Components/Admin/JoltRevealControls/JoltRevealControls';
+import CompetitionInstantWins from './Components/Admin/CompetitionInstantWins/CompetitionInstantWins';
+import AutomaticAgeChecks from './Components/Admin/AutomaticAgeChecks/AutomaticAgeChecks';
 
 
 function ScrollToLocation() {
@@ -191,6 +194,9 @@ function App() {
         <Route path="/admin/prize-asset-verification" element={<AdminProtectedRoute><PrizeAssetVerification /></AdminProtectedRoute>} />
         <Route path="/admin/draw-result-release" element={<AdminProtectedRoute><DrawResultRelease /></AdminProtectedRoute>} />
         <Route path="/admin/jolt-credit-prizes" element={<AdminProtectedRoute><JoltCreditPrizes /></AdminProtectedRoute>} />
+        <Route path="/admin/jolt-reveal-controls" element={<AdminProtectedRoute><JoltRevealControls /></AdminProtectedRoute>} />
+        <Route path="/admin/competition-instant-wins" element={<AdminProtectedRoute><CompetitionInstantWins /></AdminProtectedRoute>} />
+        <Route path="/admin/automatic-age-checks" element={<AdminProtectedRoute><AutomaticAgeChecks /></AdminProtectedRoute>} />
        
       </Routes>
     </BrowserRouter>

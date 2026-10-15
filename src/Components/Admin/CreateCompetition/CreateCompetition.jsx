@@ -15,6 +15,8 @@ export default function CreateCompetition() {
         eyebrow="WINJOLT CONTROL  /  CAMPAIGN BUILDER"
         title="Create a competition"
         subtitle="Configure prizes, rules, entry routes and release checks before publication."
+        secondary="Configure instant wins"
+        secondaryTo="/admin/competition-instant-wins"
         primary="Save draft"
       />
       <StatGrid
