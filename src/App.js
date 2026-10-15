@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { isAuthenticated } from './auth';
+import { isAdminAuthenticated, isAuthenticated } from './auth';
 
 import Homepage from './Components/Homepage/Homepage';
 import Competetions from './Components/Competetions/Competetions';
@@ -43,6 +43,7 @@ import MyWinjoltDashboard from './Components/MyWinjoltDashboard/MyWinjoltDashboa
 import MyEntries from './Components/MyEntries/MyEntries';
 import TicketNumberSelection from './Components/TicketNumberSelection/TicketNumberSelection';
 import RegistrationConfirmation from './Components/RegistrationConfirmation/RegistrationConfirmation';
+import AdminLogin from './Components/Admin/AdminLogin/AdminLogin';
 
 import CommandCentre from './Components/Admin/CommandCentre/CommandCentre';
 import OperationsCalendar from './Components/Admin/OperationsCalendar/OperationsCalendar';
@@ -102,6 +103,17 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
+function AdminProtectedRoute({ children }) {
+  const location = useLocation();
+
+  if (!isAdminAuthenticated()) {
+    const from = `${location.pathname}${location.search}${location.hash}`;
+    return <Navigate to="/admin/login" replace state={{ from }} />;
+  }
+
+  return children;
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -137,7 +149,7 @@ function App() {
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/complaints-procedure" element={<ComplaintsProcedure />} />
         {/* Admin access is temporarily disabled. */}
-        <Route path="/administration-dashboard" element={<AdministrationDashboard />} />
+        <Route path="/administration-dashboard" element={<AdminProtectedRoute><AdministrationDashboard /></AdminProtectedRoute>} />
        
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
@@ -150,34 +162,35 @@ function App() {
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="/my-winjolt-dashboard" element={<ProtectedRoute><MyWinjoltDashboard /></ProtectedRoute>} />
         <Route path="/my-entries" element={<ProtectedRoute><MyEntries /></ProtectedRoute>} />
-        <Route path="/admin" element={<CommandCentre />} />
-        <Route path="/admin/command-centre" element={<CommandCentre />} />
-        <Route path="/admin/operations-calendar" element={<OperationsCalendar />} />
-        <Route path="/admin/competitions" element={<CompetitionManagement />} />
-        <Route path="/admin/create-competition" element={<CreateCompetition />} />
-        <Route path="/admin/campaign-control-centre" element={<CampaignControlCentre />} />
-        <Route path="/admin/instant-wins" element={<InstantWinOperations />} />
-        <Route path="/admin/games-bingo" element={<GamesBingoControls />} />
-        <Route path="/admin/entries-tickets" element={<EntryTicketLedger />} />
-        <Route path="/admin/free-entry-processing" element={<FreeEntryProcessing />} />
-        <Route path="/admin/draws-results" element={<DrawsResults />} />
-        <Route path="/admin/orders-payments" element={<OrdersPayments />} />
-        <Route path="/admin/prize-inventory" element={<PrizeInventory />} />
-        <Route path="/admin/winners-claims" element={<WinnersClaims />} />
-        <Route path="/admin/customers" element={<Customers />} />
-        <Route path="/admin/support-complaints" element={<SupportComplaints />} />
-        <Route path="/admin/analytics" element={<AnalyticsReports />} />
-        <Route path="/admin/website-content" element={<WebsiteContent />} />
-        <Route path="/admin/staff-permissions" element={<StaffPermissions />} />
-        <Route path="/admin/audit-compliance" element={<AuditCompliance />} />
-        <Route path="/admin/settings" element={<PlatformSettings />} />
-        <Route path="/admin/competition-launch-approval" element={<CompetitionLaunchApproval />} />
-        <Route path="/admin/payment-refund-record" element={<PaymentRefundRecord />} />
-        <Route path="/admin/customer-profile" element={<CustomerProfile />} />
-        <Route path="/admin/complaint-investigation" element={<ComplaintInvestigation />} />
-        <Route path="/admin/prize-asset-verification" element={<PrizeAssetVerification />} />
-        <Route path="/admin/draw-result-release" element={<DrawResultRelease />} />
-        <Route path="/admin/jolt-credit-prizes" element={<JoltCreditPrizes />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<AdminProtectedRoute><CommandCentre /></AdminProtectedRoute>} />
+        <Route path="/admin/command-centre" element={<AdminProtectedRoute><CommandCentre /></AdminProtectedRoute>} />
+        <Route path="/admin/operations-calendar" element={<AdminProtectedRoute><OperationsCalendar /></AdminProtectedRoute>} />
+        <Route path="/admin/competitions" element={<AdminProtectedRoute><CompetitionManagement /></AdminProtectedRoute>} />
+        <Route path="/admin/create-competition" element={<AdminProtectedRoute><CreateCompetition /></AdminProtectedRoute>} />
+        <Route path="/admin/campaign-control-centre" element={<AdminProtectedRoute><CampaignControlCentre /></AdminProtectedRoute>} />
+        <Route path="/admin/instant-wins" element={<AdminProtectedRoute><InstantWinOperations /></AdminProtectedRoute>} />
+        <Route path="/admin/games-bingo" element={<AdminProtectedRoute><GamesBingoControls /></AdminProtectedRoute>} />
+        <Route path="/admin/entries-tickets" element={<AdminProtectedRoute><EntryTicketLedger /></AdminProtectedRoute>} />
+        <Route path="/admin/free-entry-processing" element={<AdminProtectedRoute><FreeEntryProcessing /></AdminProtectedRoute>} />
+        <Route path="/admin/draws-results" element={<AdminProtectedRoute><DrawsResults /></AdminProtectedRoute>} />
+        <Route path="/admin/orders-payments" element={<AdminProtectedRoute><OrdersPayments /></AdminProtectedRoute>} />
+        <Route path="/admin/prize-inventory" element={<AdminProtectedRoute><PrizeInventory /></AdminProtectedRoute>} />
+        <Route path="/admin/winners-claims" element={<AdminProtectedRoute><WinnersClaims /></AdminProtectedRoute>} />
+        <Route path="/admin/customers" element={<AdminProtectedRoute><Customers /></AdminProtectedRoute>} />
+        <Route path="/admin/support-complaints" element={<AdminProtectedRoute><SupportComplaints /></AdminProtectedRoute>} />
+        <Route path="/admin/analytics" element={<AdminProtectedRoute><AnalyticsReports /></AdminProtectedRoute>} />
+        <Route path="/admin/website-content" element={<AdminProtectedRoute><WebsiteContent /></AdminProtectedRoute>} />
+        <Route path="/admin/staff-permissions" element={<AdminProtectedRoute><StaffPermissions /></AdminProtectedRoute>} />
+        <Route path="/admin/audit-compliance" element={<AdminProtectedRoute><AuditCompliance /></AdminProtectedRoute>} />
+        <Route path="/admin/settings" element={<AdminProtectedRoute><PlatformSettings /></AdminProtectedRoute>} />
+        <Route path="/admin/competition-launch-approval" element={<AdminProtectedRoute><CompetitionLaunchApproval /></AdminProtectedRoute>} />
+        <Route path="/admin/payment-refund-record" element={<AdminProtectedRoute><PaymentRefundRecord /></AdminProtectedRoute>} />
+        <Route path="/admin/customer-profile" element={<AdminProtectedRoute><CustomerProfile /></AdminProtectedRoute>} />
+        <Route path="/admin/complaint-investigation" element={<AdminProtectedRoute><ComplaintInvestigation /></AdminProtectedRoute>} />
+        <Route path="/admin/prize-asset-verification" element={<AdminProtectedRoute><PrizeAssetVerification /></AdminProtectedRoute>} />
+        <Route path="/admin/draw-result-release" element={<AdminProtectedRoute><DrawResultRelease /></AdminProtectedRoute>} />
+        <Route path="/admin/jolt-credit-prizes" element={<AdminProtectedRoute><JoltCreditPrizes /></AdminProtectedRoute>} />
        
       </Routes>
     </BrowserRouter>

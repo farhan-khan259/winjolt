@@ -135,6 +135,7 @@
   font-size: 11px;
   color: var(--admin-muted);
 }
+.admin-user{position:relative}.admin-user button{background:none;border:0;color:#0874f9;cursor:pointer;font-size:10px;font-weight:900;padding:0;text-align:left;width:max-content}.admin-user button:hover{text-decoration:underline}
 .global-search {
   height: 49px;
   background: var(--admin-soft);

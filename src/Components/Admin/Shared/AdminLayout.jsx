@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import logo from "../../../Assets/Pictures/winjolt-logo-transparent.png";
+import { clearAdminSession } from "../../../auth";
 import "./AdminLayout.css";
 
 const groups = [
@@ -141,6 +142,7 @@ export function AdminLayout({ children }) {
           <div className="admin-user">
             <strong>OPERATIONS ADMIN</strong>
             <span>Restricted staff access</span>
+            <button type="button" onClick={()=>{clearAdminSession();navigate("/admin/login",{replace:true})}}>SIGN OUT</button>
           </div>
         </header>
         <main className="admin-main">{children}</main>
