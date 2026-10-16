@@ -4,6 +4,7 @@ import { isAdminAuthenticated, isAuthenticated } from './auth';
 
 import Homepage from './Components/Homepage/Homepage';
 import Competetions from './Components/Competetions/Competetions';
+import PrizeDetail from './Components/PrizeDetail/PrizeDetail';
 import PerformanceCar from './Components/PerformanceCar/PerformanceCar';
 import CashPrize from './Components/CashPrize/CashPrize';
 import GamingandTech from './Components/GamingandTech/GamingandTech';
@@ -128,6 +129,7 @@ function App() {
         <Route path="/competitions/cash-prize" element={<CashPrize />} />
         <Route path="/competitions/gaming-and-tech" element={<GamingandTech />} />
         <Route path="/competitions/ultimate-tools-collection" element={<UltimateToolsCollection />} />
+        <Route path="/competitions/:slug" element={<PrizeDetail prize={{ title: "Competition", category: "Prize", image: null }} />} />
         <Route path="/instant-wins" element={<InstantWins />} />
          <Route path="/games-and-experiences" element={<GamesAndExperiences />} />
         <Route path="/bingo-future-license" element={<BingoFutureLicense />} />

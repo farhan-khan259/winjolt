@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { api } from "../../../services/api";
 import {
   AdminLayout,
   DesignFooter,
@@ -11,13 +13,11 @@ import gaming from "../../../Assets/Pictures/gaming-card.jpg";
 import "./CommandCentre.css";
 import { Link, useNavigate } from "react-router-dom";
 
-const campaigns = [
-  ["Performance car + cash", "Car prize", "Draft", car],
-  ["£10,000 cash prize", "Cash prize", "Concept", cash],
-  ["Gaming & technology", "Technology", "Concept", gaming],
-];
+const campaignImages = [car, cash, gaming];
 export default function CommandCentre() {
   const navigate = useNavigate();
+  const [metrics, setMetrics] = useState({}); const [campaigns, setCampaigns] = useState([]); const [audits,setAudits]=useState([]); const [error, setError] = useState("");
+  useEffect(() => { Promise.all([api.get("/admin/dashboard"), api.get("/admin/competitions?limit=5"),api.get("/admin/audit-events?limit=5")]).then(([dashboard, list,auditList]) => { setMetrics(dashboard.metrics); setCampaigns(list.items); setAudits(auditList.items); }).catch((requestError) => setError(requestError.message)); }, []);
   return (
     <AdminLayout>
       <PageHeading
@@ -31,9 +31,7 @@ export default function CommandCentre() {
         <div>
           <strong>ϟ &nbsp; OPERATIONS STATUS · ACTION REQUIRED</strong>
           <p>
-            No customers, tickets, payments or draws are connected. Legal
-            structure, payment onboarding and verified result processes must be
-            approved before launch.
+            Live values below come from the authoritative backend. Campaign release remains blocked until every required gate is approved.
           </p>
         </div>
         <button className="btn primary" onClick={() => navigate("/admin/competition-launch-approval")}>Review readiness →</button>
@@ -42,26 +40,26 @@ export default function CommandCentre() {
         items={[
           {
             label: "ACTIVE COMPETITIONS",
-            value: "0",
-            note: "Nothing live yet",
+            value: String(metrics.live_campaigns || 0),
+            note: "Authoritative live count",
             icon: "◇",
           },
           {
             label: "TICKETS ISSUED",
-            value: "0",
-            note: "No paid or free entries",
+            value: String((metrics.paid_entries || 0) + (metrics.free_entries || 0)),
+            note: `${metrics.paid_entries || 0} paid · ${metrics.free_entries || 0} free`,
             icon: "▣",
           },
           {
             label: "FREE ENTRIES IN QUEUE",
-            value: "0",
-            note: "No applications received",
+            value: String(metrics.free_entries || 0),
+            note: "Issued qualifying free entries",
             icon: "✉",
           },
           {
             label: "GROSS PAYMENTS",
-            value: "£0.00",
-            note: "Payment system disconnected",
+            value: `£${((metrics.gross_minor || 0) / 100).toFixed(2)}`,
+            note: "Settled orders with tickets issued",
             icon: "£",
           },
         ]}
@@ -79,21 +77,22 @@ export default function CommandCentre() {
                 <span>STATUS</span>
                 <span>ACTIONS</span>
               </div>
-              {campaigns.map((c) => (
-                <div className="table-row" key={c[0]}>
+              {campaigns.map((c, index) => (
+                <div className="table-row" key={c.publicId}>
                   <div className="prize-cell">
-                    <img src={c[3]} alt="" />
+                    <img src={c.images?.[0] || campaignImages[index % campaignImages.length]} alt="" />
                     <div>
-                      <strong>{c[0]}</strong>
+                      <strong>{c.title}</strong>
                       <small>Prize campaign · entries pending</small>
                     </div>
                   </div>
-                  <small>{c[1]}</small>
-                  <span className={`status ${c[2].toLowerCase()}`}>{c[2]}</span>
+                  <small>{c.category}</small>
+                  <span className={`status ${c.status.toLowerCase()}`}>{c.status}</span>
                   <Link className="action-link" to="/admin/campaign-control-centre">Review →</Link>
                 </div>
               ))}
             </div>
+            {error && <p role="alert">{error}</p>}
           </Panel>
           <Panel
             title="Entry activity"
@@ -145,9 +144,7 @@ export default function CommandCentre() {
         subtitle="Every change to competitions, free entries, ticket allocation and draws should create a traceable event."
         className="audit-panel"
       >
-        <div className="soft-row">
-          No operational events are currently available.
-        </div>
+        {audits.length===0?<div className="soft-row">No operational events are currently available.</div>:audits.map((event)=><div className="soft-row" key={event.publicId}><strong>{event.eventType}</strong><p>{event.aggregateType} · {event.aggregateId} · {new Date(event.occurredAt).toLocaleString("en-GB")}</p></div>)}
       </Panel>
       <DesignFooter />
     </AdminLayout>

@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { api } from '../../../services/api';
 import { AdminLayout, DesignFooter, FilterBar, PageHeading, Panel, StatGrid } from './AdminLayout';
 import './AdminPatterns.css';
 
@@ -5,7 +8,16 @@ export function Steps({ items }) { return <div className="admin-steps">{items.ma
 export function SoftItems({ items }) { return <div className="soft-list">{items.map(x=><div className="soft-row" key={x[0] || x}><strong>{Array.isArray(x)?x[0]:x}</strong>{Array.isArray(x)&&<p>{x[1]}</p>}</div>)}</div> }
 
 export function StandardAdminPage({ heading, stats, filters, mainTitle, mainSubtitle, tabs, empty, details=[], sideTitle, sideSubtitle='Approval gates and controls for the production system', sideItems=[], children }) {
- return <AdminLayout><PageHeading {...heading}/><StatGrid items={stats}/>{filters!==false&&<FilterBar filters={filters}/>}<div className="two-col standard-cols"><Panel title={mainTitle} subtitle={mainSubtitle}>{tabs&&<div className="admin-tabs">{tabs.map(x=><span key={x}>{x}</span>)}</div>}{empty&&<div className="admin-empty"><strong>{empty[0]}</strong><p>{empty[1]}</p></div>}{children}{details.length>0&&<div className="detail-list">{details.map(x=><div key={x[0]}><strong>{x[0]}</strong><span>{x[1]}</span></div>)}</div>}</Panel><Panel title={sideTitle} subtitle={sideSubtitle}><SoftItems items={sideItems}/></Panel></div><DesignFooter/></AdminLayout>
+ const { pathname }=useLocation(); const [records,setRecords]=useState(null); const [loadError,setLoadError]=useState('');
+ const endpoints={
+  '/admin/entries-tickets':'/admin/tickets','/admin/free-entry-processing':'/admin/free-entries','/admin/draws-results':'/admin/draws','/admin/orders-payments':'/admin/orders','/admin/prize-inventory':'/admin/prizes','/admin/winners-claims':'/admin/claims','/admin/customers':'/admin/customers','/admin/support-complaints':'/admin/support-cases','/admin/analytics':'/admin/analytics','/admin/website-content':'/admin/content','/admin/staff-permissions':'/admin/staff','/admin/audit-compliance':'/admin/audit-events','/admin/instant-wins':'/admin/instant-results'
+ };
+ useEffect(()=>{const endpoint=endpoints[pathname];if(!endpoint)return;api.get(endpoint).then((result)=>setRecords(result.items||result)).catch((error)=>setLoadError(error.message));},[pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+ const list=Array.isArray(records)?records:records&&typeof records==='object'?Object.entries(records).map(([key,value])=>({_label:key.replaceAll('_',' '),_detail:typeof value==='string'?value:JSON.stringify(value)})):[];
+ const label=(item)=>item._label||item.title||item.publicId||item.eventType||item.email||item.key||item.status||'Operational record';
+ const detail=(item)=>item._detail||[item.status,item.category,item.sourceRoute,item.type,item.amountMinor!=null?`£${(item.amountMinor/100).toFixed(2)}`:null,item.createdAt?new Date(item.createdAt).toLocaleString('en-GB'):null].filter(Boolean).join(' · ');
+ const displayedStats=endpoints[pathname]?stats.map((item,index)=>({...item,value:records===null?'…':index===0?String(list.length):'—',note:index===0?'Records returned by the backend':'Use the reconciled report for this metric'})):stats.map((item)=>({...item,value:'—',note:'No authoritative metric endpoint configured'}));
+ return <AdminLayout><PageHeading {...heading}/><StatGrid items={displayedStats}/>{filters!==false&&<FilterBar filters={filters}/>}<div className="two-col standard-cols"><Panel title={mainTitle} subtitle={mainSubtitle}>{tabs&&<div className="admin-tabs">{tabs.map(x=><span key={x}>{x}</span>)}</div>}{records===null&&endpoints[pathname]&&<div className="admin-empty"><strong>Loading authoritative records…</strong></div>}{loadError&&<div className="admin-empty"><strong>Backend unavailable</strong><p>{loadError}</p></div>}{list.length>0&&<div className="detail-list">{list.map((item,index)=><div key={item.publicId||item._id||index}><strong>{label(item)}</strong><span>{detail(item)||'Authoritative backend record'}</span></div>)}</div>}{records&&list.length===0&&empty&&<div className="admin-empty"><strong>{empty[0]}</strong><p>{empty[1]}</p></div>}{!endpoints[pathname]&&empty&&<div className="admin-empty"><strong>{empty[0]}</strong><p>{empty[1]}</p></div>}{children}{details.length>0&&<div className="detail-list">{details.map(x=><div key={x[0]}><strong>{x[0]}</strong><span>{x[1]}</span></div>)}</div>}</Panel><Panel title={sideTitle} subtitle={sideSubtitle}><SoftItems items={sideItems}/></Panel></div><DesignFooter/></AdminLayout>
 }
 
 export function RecordReviewPage({ heading, notice, fields, reviews }) {

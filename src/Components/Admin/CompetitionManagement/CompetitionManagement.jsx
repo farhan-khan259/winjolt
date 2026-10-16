@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { api } from "../../../services/api";
 import {
   AdminLayout,
   DesignFooter,
@@ -10,13 +13,12 @@ import car from "../../../Assets/Pictures/car-card.jpg";
 import cash from "../../../Assets/Pictures/cash-card.jpg";
 import gaming from "../../../Assets/Pictures/gaming-card.jpg";
 import "./CompetitionManagement.css";
-import { Link } from "react-router-dom";
-const rows = [
-  ["Performance Car + Cash", "Vehicle competition", car],
-  ["£10,000 Cash Prize", "Cash campaign", cash],
-  ["Technology & Gaming Bundle", "Technology", gaming],
-];
+
+const campaignImages = [car, cash, gaming];
 export default function CompetitionManagement() {
+  const [rows, setRows] = useState([]); const [error, setError] = useState("");
+  useEffect(() => { api.get("/admin/competitions?limit=100").then((result) => setRows(result.items)).catch((requestError) => setError(requestError.message)); }, []);
+  const count = (status) => rows.filter((row) => status.includes(row.status)).length;
   return (
     <AdminLayout>
       <PageHeading
@@ -27,14 +29,14 @@ export default function CompetitionManagement() {
       />
       <StatGrid
         items={[
-          { label: "LIVE CAMPAIGNS", value: "0", note: "No published prizes" },
+          { label: "LIVE CAMPAIGNS", value: String(count(["LIVE"])), note: "Published prizes" },
           {
             label: "DRAFT CONCEPTS",
-            value: "3",
+            value: String(count(["DRAFT", "REVIEW_REQUIRED", "APPROVED", "SCHEDULED"])),
             note: "Campaign drafts",
           },
-          { label: "CLOSED DRAWS", value: "0", note: "No results published" },
-          { label: "ARCHIVED", value: "0", note: "Nothing archived" },
+          { label: "CLOSED DRAWS", value: String(count(["COMPLETED"])), note: "Completed campaigns" },
+          { label: "ARCHIVED", value: String(count(["ARCHIVED"])), note: "Archived campaigns" },
         ]}
       />
       <FilterBar />
@@ -44,20 +46,21 @@ export default function CompetitionManagement() {
           subtitle="Draft concepts · No campaign is currently published"
         >
           <div className="campaign-list">
-            {rows.map((r) => (
-              <div className="campaign-row" key={r[0]}>
+            {rows.map((r, index) => (
+              <div className="campaign-row" key={r.publicId}>
                 <div className="prize-cell">
-                  <img src={r[2]} alt="" />
+                  <img src={r.images?.[0] || campaignImages[index % campaignImages.length]} alt="" />
                   <div>
-                    <strong>{r[0]}</strong>
-                    <small>{r[1]} &nbsp;·&nbsp; Managed campaign record</small>
+                    <strong>{r.title}</strong>
+                    <small>{r.category} &nbsp;·&nbsp; {r.publicId}</small>
                   </div>
                 </div>
-                <span className="status">Draft</span>
+                <span className="status">{r.status}</span>
                 <Link className="action-link" to="/admin/campaign-control-centre">Edit →</Link>
               </div>
             ))}
           </div>
+          {error && <p role="alert">{error}</p>}
         </Panel>
         <Panel title="Publish requirements">
           <div className="requirement-list">

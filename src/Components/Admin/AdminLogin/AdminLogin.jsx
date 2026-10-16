@@ -8,17 +8,16 @@ export default function AdminLogin() {
   const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const destination = location.state?.from || "/admin/command-centre";
   if (isAdminAuthenticated())
     return <Navigate to="/admin/command-centre" replace />;
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (!authenticateAdmin(data.get("email"), data.get("password"))) {
-      setError("The email address or password is incorrect.");
-      return;
-    }
-    navigate(destination, { replace: true });
+    try { setSubmitting(true); setError(""); await authenticateAdmin(data.get("email"), data.get("password"), data.get("mfaCode")); navigate(destination, { replace: true }); }
+    catch (requestError) { setError(requestError.message); }
+    finally { setSubmitting(false); }
   };
   return (
     <main className="admin-login-page">
@@ -45,6 +44,10 @@ export default function AdminLogin() {
             />
           </label>
           <label>
+            MFA CODE
+            <input name="mfaCode" inputMode="numeric" autoComplete="one-time-code" placeholder="6-digit code" pattern="[0-9]{6}" required />
+          </label>
+          <label>
             PASSWORD
             <input
               name="password"
@@ -59,7 +62,7 @@ export default function AdminLogin() {
               {error}
             </div>
           )}
-          <button type="submit">SIGN IN TO ADMIN →</button>
+          <button type="submit" disabled={submitting}>{submitting ? "SIGNING IN…" : "SIGN IN TO ADMIN →"}</button>
           <a href="/">← Return to WinJolt</a>
         </form>
       </section>

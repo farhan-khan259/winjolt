@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { api } from "../../services/api";
 import { Footer, Header } from "../Homepage/Homepage";
 import "./PrizeDetail.css";
 
@@ -7,7 +8,9 @@ function EntryPanel({ prize }) {
   const navigate = useNavigate();
   const [selected, setSelected] = useState(5);
   const [quantity, setQuantity] = useState(5);
-  const prices = { 1: "£0.99", 5: "£4.95", 10: "£9.90" };
+  const unitPrice = Number.isInteger(prize.priceMinor) ? prize.priceMinor : 99;
+  const money = (minor) => new Intl.NumberFormat("en-GB", { style: "currency", currency: prize.currency || "GBP" }).format(minor / 100);
+  const prices = { 1: money(unitPrice), 5: money(unitPrice * 5), 10: money(unitPrice * 10) };
   return (
     <aside className="entry-panel">
       <p className="featured-label">FEATURED COMPETITION</p>
@@ -15,11 +18,11 @@ function EntryPanel({ prize }) {
       <p className="demo-copy">Select your entries and continue to checkout.</p>
       <div className="entry-price">
         <span>ENTRY FROM</span>
-        <strong>£0.99</strong>
+        <strong>{money(unitPrice)}</strong>
       </div>
       <div className="closing-date">
         <span>DRAW CLOSING DATE</span>
-        <strong>TO BE ANNOUNCED</strong>
+        <strong>{prize.closesAt ? new Date(prize.closesAt).toLocaleString("en-GB", { timeZone: prize.timezone || "Europe/London" }) : "TO BE ANNOUNCED"}</strong>
       </div>
       <div className="entry-benefits">
         <div>
@@ -64,7 +67,7 @@ function EntryPanel({ prize }) {
       </div>
       <div className="entry-divider" />
       <button className="add-basket" onClick={() => {
-        localStorage.setItem("winjoltBasket", JSON.stringify({ title: prize.title, quantity, unitPrice: 0.99 }));
+        localStorage.setItem("winjoltBasket", JSON.stringify({ competitionId: prize.publicId || prize.slug, slug: prize.slug, title: prize.title, quantity, unitPriceMinor: unitPrice, currency: prize.currency || "GBP" }));
         navigate("/ticket-number-selection", { state: { quantity } });
       }}>
         CHOOSE TICKET NUMBERS <span>→</span>
@@ -81,7 +84,14 @@ function EntryPanel({ prize }) {
 }
 
 export default function PrizeDetail({ prize }) {
+  const params = useParams();
+  const [livePrize, setLivePrize] = useState(prize);
+  const [loadError, setLoadError] = useState("");
+  const [checking, setChecking] = useState(true);
   const [activeTab, setActiveTab] = useState("OVERVIEW");
+  const identifier = params.slug || prize.slug;
+  useEffect(() => { if (!identifier) { setChecking(false); return; } api.get(`/competitions/${identifier}`).then(({ item }) => setLivePrize({ ...prize, ...item, image: item.images?.[0] || prize.image })).catch((error) => setLoadError(error.message)).finally(()=>setChecking(false)); }, [identifier]); // eslint-disable-line react-hooks/exhaustive-deps
+  const displayed = livePrize || prize;
   return (
     <div className="prize-detail-page" id="top">
       <Header />
@@ -90,9 +100,9 @@ export default function PrizeDetail({ prize }) {
           <div>
             <p>
               HOME&nbsp; / &nbsp;COMPETITIONS&nbsp; / &nbsp;
-              {prize.category.toUpperCase()}
+              {displayed.category.toUpperCase()}
             </p>
-            <h1>{prize.title}</h1>
+            <h1>{displayed.title}</h1>
             <span>
               Everything you need to know about this prize, eligibility and your
               entry options.
@@ -103,11 +113,11 @@ export default function PrizeDetail({ prize }) {
         <section className="detail-layout">
           <div className="detail-left">
             <figure className="prize-gallery">
-              <img src={prize.image} alt={prize.title} />
+              <img src={displayed.image} alt={displayed.title} />
               <div>
                 {[1, 2, 3, 4].map((item) => (
                   <button key={item} aria-label={`View prize image ${item}`}>
-                    <img src={prize.image} alt="" />
+                    <img src={displayed.image} alt="" />
                   </button>
                 ))}
               </div>
@@ -141,7 +151,7 @@ export default function PrizeDetail({ prize }) {
               </ul>
             </article>
           </div>
-          <EntryPanel prize={prize} />
+          {checking ? <aside className="entry-panel"><h2>CHECKING AVAILABILITY…</h2></aside> : loadError ? <aside className="entry-panel"><h2>NOT OPEN FOR ENTRY</h2><p role="alert">{loadError}</p><button className="free-route" onClick={()=>window.location.assign("/competitions")}>VIEW CURRENT COMPETITIONS →</button></aside> : <EntryPanel prize={displayed} />}
         </section>
       </main>
       <Footer />

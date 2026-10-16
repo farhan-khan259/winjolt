@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { api } from "../../services/api";
 import { Footer, Header } from "../Homepage/Homepage";
 import "./Competetions.css";
 
@@ -11,75 +12,7 @@ import earbudsImage from "../../Assets/Pictures/instant-earbuds.jpg";
 import instantCashImage from "../../Assets/Pictures/instant-cash.jpg";
 import giftcardImage from "../../Assets/Pictures/instant-giftcard.jpg";
 
-const prizes = [
-  {
-    title: "Performance Car + Cash",
-    category: "Cars",
-    image: carImage,
-    price: "£0.99",
-    path: "/competitions/performance-car",
-  },
-  {
-    title: "£10,000 Cash Prize",
-    category: "Cash",
-    image: cashImage,
-   
-    price: "£0.99",
-    path: "/competitions/cash-prize",
-  },
-  {
-    title: "Gaming & Tech Bundle",
-    category: "Technology",
-    image: gamingImage,
-   
-    price: "£0.99",
-    path: "/competitions/gaming-and-tech",
-  },
-  {
-    title: "Ultimate Tools Collection",
-    category: "Tools",
-    image: toolsImage,
-   
-    price: "£0.99",
-    path: "/competitions/ultimate-tools-collection",
-  },
-  {
-    title: "Smartphone Instant Win",
-    category: "Instant Wins",
-    image: phoneImage,
-  
-    price: "£0.50",
-    instant: true,
-    path: "/instant-win-result",
-  },
-  {
-    title: "Wireless Earbuds Instant Win",
-    category: "Instant Wins",
-    image: earbudsImage,
-
-    price: "£0.50",
-    instant: true,
-    path: "/instant-win-result",
-  },
-  {
-    title: "£100 Cash Instant Win",
-    category: "Instant Wins",
-    image: instantCashImage,
-   
-    price: "£0.50",
-    instant: true,
-    path: "/instant-win-result",
-  },
-  {
-    title: "Gift Card Instant Win",
-    category: "Instant Wins",
-    image: giftcardImage,
-
-    price: "£0.50",
-    instant: true,
-    path: "/instant-win-result",
-  },
-];
+const imageBySlug = { "performance-car": carImage, "cash-prize": cashImage, "gaming-and-tech": gamingImage, "ultimate-tools-collection": toolsImage, "smartphone-instant-win": phoneImage, "wireless-earbuds-instant-win": earbudsImage, "cash-instant-win": instantCashImage, "gift-card-instant-win": giftcardImage };
 
 const categories = [
   "All",
@@ -94,7 +27,7 @@ function PrizeCard({ prize }) {
   return (
     <article className="catalogue-card">
       <div className="catalogue-image">
-        <img src={prize.image} alt="" />
+        <img src={prize.image || imageBySlug[prize.slug] || carImage} alt="" />
         
       </div>
       <p className="catalogue-kicker">
@@ -105,13 +38,13 @@ function PrizeCard({ prize }) {
       <h2>{prize.title}</h2>
       <div className="catalogue-price">
         <span>ENTRY FROM</span>
-        <strong>{prize.price}</strong>
+        <strong>{new Intl.NumberFormat("en-GB", { style: "currency", currency: prize.currency || "GBP" }).format((prize.priceMinor || 0) / 100)}</strong>
       </div>
       <p className="catalogue-note">
         COMPETITIONS OPEN&nbsp; • &nbsp;ENTER NOW
       </p>
       <div className="catalogue-rule" />
-      <a href={prize.path || '#notice'} className="catalogue-button">
+      <a href={prize.path || `/competitions/${prize.slug}`} className="catalogue-button">
         VIEW COMPETITION <b>→</b>
       </a>
     </article>
@@ -121,6 +54,10 @@ function PrizeCard({ prize }) {
 export default function Competetions() {
   const [category, setCategory] = useState("All");
   const [query, setQuery] = useState("");
+  const [prizes, setPrizes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  useEffect(() => { api.get("/competitions?limit=50").then(({ items }) => setPrizes(items.map((item) => ({ ...item, instant: item.instant?.enabled, image: item.images?.[0] || imageBySlug[item.slug] })))).catch((requestError) => setError(requestError.message)).finally(() => setLoading(false)); }, []);
   const displayedPrizes = useMemo(
     () =>
       prizes.filter(
@@ -128,7 +65,7 @@ export default function Competetions() {
           (category === "All" || prize.category === category) &&
           prize.title.toLowerCase().includes(query.toLowerCase()),
       ),
-    [category, query],
+    [category, query, prizes],
   );
 
   return (
@@ -175,9 +112,11 @@ export default function Competetions() {
               <PrizeCard prize={prize} key={prize.title} />
             ))}
           </div>
+          {loading && <p className="no-results">Loading current competitions…</p>}
+          {error && <p className="no-results" role="alert">{error}</p>}
           {displayedPrizes.length === 0 && (
             <p className="no-results">
-              No competitions match that search.
+              {loading ? "" : "No live or scheduled competitions match that search."}
             </p>
           )}
           <p className="prelaunch-notice" id="notice">

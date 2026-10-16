@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PageShell } from "../CommonPages/CommonPages";
+import { api } from "../../services/api";
 import "./ComplaintsProcedure.css";
 
 const fields = [
@@ -11,6 +12,7 @@ const fields = [
 
 export default function ComplaintsProcedure() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
   return (
     <PageShell
       eyebrow="COMPLAINTS PROCEDURE"
@@ -29,16 +31,17 @@ export default function ComplaintsProcedure() {
       <section className="info-content complaints-content">
         <form
           className="complaints-form"
-          onSubmit={(event) => { event.preventDefault(); setSubmitted(true); event.currentTarget.reset(); }}
+          onSubmit={async (event) => { event.preventDefault(); const form=event.currentTarget; const data=new FormData(form); try{setError(""); await api.post("/support-cases",{name:data.get("Full name"),email:data.get("Email address"),reference:data.get("Complaint reference"),message:data.get("Describe the issue"),type:"COMPLAINT"}); setSubmitted(true); form.reset();}catch(requestError){setError(requestError.message);} }}
         >
           {fields.map(([label, placeholder, type]) => (
             <label className="form-field" key={label}>
               {label}
-              <input type={type} placeholder={placeholder} required />
+              <input name={label} type={type} placeholder={placeholder} required />
             </label>
           ))}
           <button type="submit">SUBMIT REQUEST →</button>
           {submitted && <div className="info-note" role="status">Your complaint has been submitted.</div>}
+          {error && <div className="info-note" role="alert">{error}</div>}
         </form>
       </section>
     </PageShell>

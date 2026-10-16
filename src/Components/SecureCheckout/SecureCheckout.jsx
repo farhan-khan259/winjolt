@@ -1,18 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { api } from "../../services/api";
 import { Action, PageShell } from "../CommonPages/CommonPages";
 import "./SecureCheckout.css";
 export default function SecureCheckout() {
-  const navigate = useNavigate();
+  const basket = useMemo(() => { try { return JSON.parse(localStorage.getItem("winjoltBasket") || "{}"); } catch { return {}; } }, []);
+  const [error, setError] = useState(""); const [submitting, setSubmitting] = useState(false);
 
-  const continueToPayment = (event) => {
+  const continueToPayment = async (event) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    sessionStorage.setItem("winjolt-checkout", JSON.stringify({
-      name: form.get("name"),
-      email: form.get("email"),
-      postcode: form.get("postcode"),
-    }));
-    navigate("/payment-status");
+    try {
+      setSubmitting(true); setError("");
+      sessionStorage.setItem("winjolt-checkout", JSON.stringify({ name: form.get("name"), email: form.get("email"), postcode: form.get("postcode") }));
+      const order = await api.post("/orders", { reservation_id: basket.reservationId }, { headers: { "Idempotency-Key": api.idempotencyKey() } });
+      sessionStorage.setItem("winjolt-order", JSON.stringify({ ...order, name: form.get("name"), email: form.get("email") }));
+      if (!order.checkout_url) throw new Error("Checkout is disabled until the approved payment provider is configured.");
+      window.location.assign(order.checkout_url);
+    } catch (requestError) { setError(requestError.message); setSubmitting(false); }
   };
 
   return (
@@ -61,23 +65,23 @@ export default function SecureCheckout() {
               terms and confirm that my details are correct.
             </label>
             <hr />
-            <button className="checkout-continue" type="submit">CONTINUE TO PAYMENT →</button>
+            {error && <div className="info-note" role="alert">{error}</div>}
+            <button className="checkout-continue" type="submit" disabled={submitting}>{submitting ? "OPENING SECURE PAYMENT…" : "CONTINUE TO SECURE PAYMENT →"}</button>
           </form>
           <aside className="summary-box">
             <h2>YOUR ORDER SUMMARY</h2>
-            <p>Your basket is currently empty.</p>
+            <p>{basket.title || "Your basket is empty."}</p>
             <p className="summary-line">
               <b>Subtotal</b>
-              <span>£0.00</span>
+              <span>£{((basket.quantity || 0) * (basket.unitPriceMinor || 0) / 100).toFixed(2)}</span>
             </p>
             <p className="summary-line">
               <b>Actual charge</b>
-              <span>£0.00</span>
+              <span>Calculated by the server</span>
             </p>
             <hr />
             <p>
-              🔒 Real payment processing requires separate integration, provider
-              approval and server-side ticket allocation.
+              🔒 Card details are collected only by the approved payment provider. WinJolt never receives raw card data.
             </p>
             <Action outline href="/free-entry">
               FREE ENTRY RULES

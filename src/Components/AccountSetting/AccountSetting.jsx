@@ -1,50 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { api } from "../../services/api";
+import { clearAuthenticatedSession, getCurrentUser } from "../../auth";
 import { AccountNav, PageShell } from "../CommonPages/CommonPages";
 import "./AccountSetting.css";
 
-const fields = [
-  ["Full name", "Enter full name", "text"],
-  ["Email address", "Enter email address", "email"],
-  ["Password", "Enter password", "password"],
-  ["Participation controls", "Enter participation controls", "text"],
-  ["Newsletter preferences", "Enter newsletter preferences", "text"],
-];
-
-export default function AccountSetting() {
-  const [saved, setSaved] = useState(false);
-  return (
-    <PageShell
-      eyebrow="MY WINJOLT / ACCOUNT SETTINGS"
-      title="ACCOUNT SETTINGS"
-      subtitle="Manage your personal data, password and preferences."
-      className="account-setting-page"
-    >
-      <section className="info-content dashboard-layout account-setting-content">
-        <AccountNav active="settings" />
-        <form
-          className="settings-form account-page-panel"
-          onSubmit={(event) => {
-            event.preventDefault();
-            setSaved(true);
-          }}
-        >
-          <small>YOUR PROFILE</small>
-          <h2>ACCOUNT SETTINGS</h2>
-          <p>Keep your account and communication preferences up to date.</p>
-          {fields.map(([label, placeholder, type]) => (
-            <label className="form-field" key={label}>
-              {label}
-              <input type={type} placeholder={placeholder} />
-            </label>
-          ))}
-          <button type="submit">SAVE SETTINGS →</button>
-          {saved && (
-            <div className="info-note" role="status">
-              Your settings have been saved.
-            </div>
-          )}
-        </form>
-      </section>
-    </PageShell>
-  );
+export default function AccountSetting(){
+  const navigate=useNavigate(); const [user,setUser]=useState(getCurrentUser()); const [message,setMessage]=useState("");
+  useEffect(()=>{api.get("/accounts/me").then(({user:item})=>setUser(item)).catch((error)=>setMessage(error.message));},[]);
+  const save=async(event)=>{event.preventDefault();const data=new FormData(event.currentTarget);try{await api.patch("/accounts/me",{firstName:data.get("firstName"),lastName:data.get("lastName"),phone:data.get("phone"),marketingConsent:data.get("marketingConsent")==="on",address:{...user?.address,line1:data.get("line1"),line2:data.get("line2"),city:data.get("city"),county:data.get("county"),postcode:data.get("postcode"),country:data.get("country")}});setMessage("Your settings have been saved.");}catch(error){setMessage(error.message);}};
+  const signOut=async()=>{try{await api.post("/accounts/logout",{});}catch{}clearAuthenticatedSession();navigate("/sign-in",{replace:true});};
+  const selfExclude=async()=>{if(!window.confirm("Block this account from new paid and free entries? Reinstatement requires the approved support process."))return;try{await api.post("/accounts/self-exclude",{confirm:true,reason:"Customer self-service request"});clearAuthenticatedSession();navigate("/sign-in",{replace:true});}catch(error){setMessage(error.message);}};
+  return <PageShell eyebrow="MY WINJOLT / ACCOUNT SETTINGS" title="ACCOUNT SETTINGS" subtitle="Manage your personal data and preferences." className="account-setting-page"><section className="info-content dashboard-layout account-setting-content"><AccountNav active="settings"/><form className="settings-form account-page-panel" onSubmit={save}><small>YOUR PROFILE</small><h2>ACCOUNT SETTINGS</h2><div className="signup-grid"><label className="form-field">First name<input name="firstName" defaultValue={user?.first_name||""}/></label><label className="form-field">Last name<input name="lastName" defaultValue={user?.last_name||""}/></label></div><label className="form-field">Email address<input value={user?.email||""} disabled/></label><label className="form-field">Phone<input name="phone" defaultValue={user?.phone||""}/></label><label className="form-field">Address line 1<input name="line1" defaultValue={user?.address?.line1||""}/></label><label className="form-field">Address line 2<input name="line2" defaultValue={user?.address?.line2||""}/></label><label className="form-field">Town / city<input name="city" defaultValue={user?.address?.city||""}/></label><label className="form-field">County<input name="county" defaultValue={user?.address?.county||""}/></label><label className="form-field">Postcode<input name="postcode" defaultValue={user?.address?.postcode||""}/></label><label className="form-field">Country<input name="country" defaultValue={user?.address?.country||"United Kingdom"}/></label><label className="checkbox-row"><input name="marketingConsent" type="checkbox" defaultChecked={user?.marketing_consent}/>Receive optional marketing email</label><button type="submit">SAVE SETTINGS →</button><button type="button" onClick={signOut}>SIGN OUT</button><button type="button" onClick={selfExclude}>BLOCK NEW PARTICIPATION</button>{message&&<div className="info-note" role="status">{message}</div>}</form></section></PageShell>;
 }

@@ -7,6 +7,7 @@ export default function PerformanceCar() {
     <PrizeDetail
       prize={{
         title: "Performance Car + Cash",
+        slug: "performance-car",
         category: "Cars",
         image: carImage,
       }}

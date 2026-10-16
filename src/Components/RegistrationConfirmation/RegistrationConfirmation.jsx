@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { api } from "../../services/api";
 import { Footer, Header } from "../Homepage/Homepage";
 import "./RegistrationConfirmation.css";
 
@@ -14,12 +17,14 @@ const workings = [
 ];
 
 export default function RegistrationConfirmation() {
+  const [params] = useSearchParams(); const [verification, setVerification] = useState(params.get("token") ? "Verifying your email…" : "Check your email to verify the address before entering a competition.");
+  useEffect(() => { const token=params.get("token"); if(token) api.post("/accounts/verify-email",{token}).then(()=>setVerification("Email verified. Your account can now proceed to campaign eligibility checks.")).catch((error)=>setVerification(error.message)); }, [params]);
   return <div className="confirm-page" id="top"><Header/><main>
-    <section className="confirm-hero"><div><p>WINJOLT ACCOUNT / REGISTRATION</p><h1>ACCOUNT CREATED · 18+ DOB CHECK</h1><span>Your date of birth indicates that you are aged 18 or over. This check was completed automatically during registration.</span></div><i aria-hidden="true"/></section>
+    <section className="confirm-hero"><div><p>WINJOLT ACCOUNT / REGISTRATION</p><h1>ACCOUNT CREATED · VERIFY YOUR EMAIL</h1><span>Your entered date of birth passed the server-side 18+ gate. Email verification and any campaign-specific checks remain separate.</span></div><i aria-hidden="true"/></section>
     <section className="confirm-content">
       <div className="confirm-steps"><article><b>1 · DETAILS ENTERED</b><span>Name, address, DOB, contacts</span></article><article><b>2 · AUTOMATIC AGE CHECK</b><span>Server calculates full years from DOB</span></article><article><b>3 · REGISTRATION COMPLETED</b><span>When DOB indicates adult age</span></article></div>
       <div className="confirm-columns">
-        <article className="confirm-card result"><small>AUTOMATIC AGE CHECK RESULT</small><h2>REGISTRATION ACCEPTED</h2><p>The submitted date of birth indicates an age of 18 or over, so the automatic registration age check has passed. This does not independently prove the customer’s real age; further checks may apply under the approved participation policy.</p><div className="pass-box"><b>18+ DATE-OF-BIRTH CHECK PASSED</b><span>Registration DOB: 18+ · Check: PASSED · Entry eligibility: subject to account and competition rules.</span></div>{items.map(([h,p,c])=><div className="confirm-row" key={h}><b className={c}>{h}</b><span>{p}</span></div>)}</article>
+        <article className="confirm-card result"><small>AUTOMATIC AGE CHECK RESULT</small><h2>REGISTRATION ACCEPTED</h2><p>{verification}</p><div className="pass-box"><b>18+ DATE-OF-BIRTH CHECK PASSED</b><span>Entered DOB gate: PASSED · Identity: not independently verified · Entry eligibility: subject to email, account and competition rules.</span></div>{items.map(([h,p,c])=><div className="confirm-row" key={h}><b className={c}>{h}</b><span>{p}</span></div>)}</article>
         <article className="confirm-card working"><h2>HOW THE DOB CHECK WORKS</h2>{workings.map(([h,p])=><div className="confirm-row" key={h}><b>{h}</b><span>{p}</span></div>)}<div className="pass-box"><b>WHY WE ASK FOR DETAILS</b><span>We collect information for eligibility, account security and prize fulfilment only when proportionate. Terms and privacy policies explain lawful purpose, retention and sharing.</span></div></article>
       </div>
     </section>

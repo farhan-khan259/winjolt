@@ -1,30 +1,40 @@
-const AUTH_KEY = "winjolt-authenticated";
-const ADMIN_AUTH_KEY = "winjolt-admin-authenticated";
+import { api } from "./services/api";
 
-export function isAuthenticated() {
-  return sessionStorage.getItem(AUTH_KEY) === "true";
+const AUTH_TOKEN_KEY = "winjolt-auth-token";
+const ADMIN_TOKEN_KEY = "winjolt-admin-token";
+const USER_KEY = "winjolt-user";
+const ADMIN_USER_KEY = "winjolt-admin-user";
+
+export const getAuthToken = () => sessionStorage.getItem(AUTH_TOKEN_KEY);
+export const getAdminToken = () => sessionStorage.getItem(ADMIN_TOKEN_KEY);
+export const isAuthenticated = () => Boolean(getAuthToken());
+export const isAdminAuthenticated = () => Boolean(getAdminToken());
+export const getCurrentUser = () => { try { return JSON.parse(sessionStorage.getItem(USER_KEY)); } catch { return null; } };
+export const getCurrentAdmin = () => { try { return JSON.parse(sessionStorage.getItem(ADMIN_USER_KEY)); } catch { return null; } };
+
+function storeSession(result, admin = false) {
+  sessionStorage.setItem(admin ? ADMIN_TOKEN_KEY : AUTH_TOKEN_KEY, result.token);
+  sessionStorage.setItem(admin ? ADMIN_USER_KEY : USER_KEY, JSON.stringify(result.user));
+  window.dispatchEvent(new Event("winjolt-auth-change"));
+  return result.user;
 }
 
-export function createAuthenticatedSession() {
-  sessionStorage.setItem(AUTH_KEY, "true");
+export async function registerCustomer(payload) {
+  return storeSession(await api.post("/accounts/register", payload));
+}
+
+export async function authenticateCustomer(email, password) {
+  return storeSession(await api.post("/accounts/login", { email, password }));
+}
+
+export async function authenticateAdmin(email, password, mfaCode) {
+  return storeSession(await api.post("/admin/auth/login", { email, password, mfa_code: mfaCode }), true);
 }
 
 export function clearAuthenticatedSession() {
-  sessionStorage.removeItem(AUTH_KEY);
-}
-
-export function isAdminAuthenticated() {
-  return sessionStorage.getItem(ADMIN_AUTH_KEY) === "true";
-}
-
-export function authenticateAdmin(email, password) {
-  const adminEmail = process.env.REACT_APP_ADMIN_EMAIL || "admin@winjolt.co.uk";
-  const adminPassword = process.env.REACT_APP_ADMIN_PASSWORD || "WinJoltAdmin2026!";
-  const valid = email.trim().toLowerCase() === adminEmail.toLowerCase() && password === adminPassword;
-  if (valid) sessionStorage.setItem(ADMIN_AUTH_KEY, "true");
-  return valid;
+  sessionStorage.removeItem(AUTH_TOKEN_KEY); sessionStorage.removeItem(USER_KEY); window.dispatchEvent(new Event("winjolt-auth-change"));
 }
 
 export function clearAdminSession() {
-  sessionStorage.removeItem(ADMIN_AUTH_KEY);
+  sessionStorage.removeItem(ADMIN_TOKEN_KEY); sessionStorage.removeItem(ADMIN_USER_KEY); window.dispatchEvent(new Event("winjolt-auth-change"));
 }

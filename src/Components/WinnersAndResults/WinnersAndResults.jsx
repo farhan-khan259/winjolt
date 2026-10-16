@@ -1,7 +1,11 @@
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 import { Header, Footer } from "../Homepage/Homepage";
 import { Link } from "react-router-dom";
 import "./WinnersAndResults.css";
 export default function WinnersAndResults() {
+  const [results,setResults]=useState([]); const [error,setError]=useState("");
+  useEffect(()=>{api.get("/results").then((response)=>setResults(response.items)).catch((requestError)=>setError(requestError.message));},[]);
   const cards = [
     [
       "Verified winner records",
@@ -31,12 +35,12 @@ export default function WinnersAndResults() {
         <section className="content-page">
           <article className="winner-empty">
             <b>🏆</b>
-            <h2>No winners have been drawn.</h2>
+            <h2>{results.length?`${results.length} verified result${results.length===1?"":"s"}`:"No winners have been drawn."}</h2>
             <p>
-              Live prize competitions have not started. Draw dates, winner
-              verification and prize-delivery evidence will appear here when
-              available.
+              Only independently verified and published draw records appear here.
             </p>
+            {error&&<p role="alert">{error}</p>}
+            {results.map((result)=><div className="xp-notice" key={result.draw_id}><b>{result.competition?.title}</b><p>Winning ticket {String(result.winning_ticket?.number).padStart(5,"0")} · Published {new Date(result.published_at).toLocaleString("en-GB")}</p></div>)}
             <Link className="xp-button" to="/how-it-works">HOW DRAWS WORK →</Link>
           </article>
           <div className="standard-cards">

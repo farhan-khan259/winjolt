@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { PageShell } from "../CommonPages/CommonPages";
+import { api } from "../../services/api";
 import "./ContactUs.css";
 export default function ContactUs() {
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
   return (
     <PageShell
       className="contact-page"
@@ -11,7 +13,7 @@ export default function ContactUs() {
       subtitle="Talk to the WinJolt support team."
     >
       <section className="info-content contact-content">
-        <form onSubmit={(e) => { e.preventDefault(); setSent(true); e.currentTarget.reset(); }}>
+        <form onSubmit={async (e) => { e.preventDefault(); const form=e.currentTarget; const data=new FormData(form); try{setError(""); await api.post("/support-cases",{name:data.get("Your name"),email:data.get("Email address"),category:data.get("Enquiry category"),message:data.get("Message"),type:"ENQUIRY"}); setSent(true); form.reset();}catch(requestError){setError(requestError.message);} }}>
           {[
             ["Your name", "Enter your name"],
             ["Email address", "Enter email address"],
@@ -20,17 +22,17 @@ export default function ContactUs() {
           ].map(([l, p]) => (
             <label className="form-field" key={l}>
               {l}
-              <input type={l === "Email address" ? "email" : "text"} placeholder={p} required />
+              <input name={l} type={l === "Email address" ? "email" : "text"} placeholder={p} required />
             </label>
           ))}
           <button className="info-action" type="submit">SEND MESSAGE →</button>
           {sent && <div className="info-note" role="status">Your message has been sent.</div>}
+          {error && <div className="info-note" role="alert">{error}</div>}
         </form>
         <article className="info-panel">
           <h2>SECURITY &amp; PRIVACY</h2>
           <p>
-            No login, payments or personal information are submitted in this
-            website.
+            Your enquiry is stored securely for the support team and handled under the published privacy policy.
           </p>
         </article>
       </section>

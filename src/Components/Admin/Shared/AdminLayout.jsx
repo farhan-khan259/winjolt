@@ -193,7 +193,7 @@ export function PageHeading({
     const key = clean(label);
     if (explicitTo || destinations[key]) return navigate(explicitTo || destinations[key]);
     if (key.includes("export") || key.includes("report")) return downloadExport(label);
-    if (key.includes("save")) { localStorage.setItem(`winjolt-draft:${location.pathname}`, new Date().toISOString()); setSaved(true); window.setTimeout(()=>setSaved(false), 1800); return; }
+    if (key.includes("save")) { const form=document.querySelector(".admin-main form"); if(form){form.requestSubmit();setSaved(true);window.setTimeout(()=>setSaved(false),1800);} return; }
     navigate(`${location.pathname}?action=${encodeURIComponent(key)}`);
   };
   return (

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { api } from "../../services/api";
 import "./Homepage.css";
 
 import carImage from "../../Assets/Pictures/car-card.jpg";
@@ -10,12 +11,7 @@ import toolsImage from "../../Assets/Pictures/tools-card.jpg";
 import wheelImage from "../../Assets/Pictures/jolt-wheel.png";
 import logoImage from "../../Assets/Pictures/winjolt-logo-transparent.png";
 
-const competitions = [
-  { title: "Performance Car + Cash", image: carImage, path: "/competitions/performance-car" },
-  { title: "£10,000 Cash Prize", image: cashImage, path: "/competitions/cash-prize" },
-  { title: "Gaming & Tech Bundle", image: gamingImage, path: "/competitions/gaming-and-tech" },
-  { title: "Ultimate Tools Collection", image: toolsImage, path: "/competitions/ultimate-tools-collection" },
-];
+const imagesBySlug = { "performance-car": carImage, "cash-prize": cashImage, "gaming-and-tech": gamingImage, "ultimate-tools-collection": toolsImage };
 
 const steps = [
   [
@@ -120,17 +116,17 @@ function CompetitionCard({ competition }) {
   return (
     <article className="competition-card">
       <div className="competition-image">
-        <img src={competition.image} alt="" />
+        <img src={competition.image || imagesBySlug[competition.slug] || heroImage} alt="" />
       </div>
       <p className="card-kicker">FEATURED COMPETITION</p>
       <h3>{competition.title}</h3>
       <div className="price-row">
         <span>FROM</span>
-        <strong>£0.99</strong>
+        <strong>{new Intl.NumberFormat("en-GB",{style:"currency",currency:competition.currency||"GBP"}).format((competition.priceMinor||0)/100)}</strong>
       </div>
       <p className="card-note">COMPETITIONS OPEN · ENTER NOW</p>
       <div className="card-rule" />
-      <ArrowButton href={competition.path}>VIEW COMPETITION</ArrowButton>
+      <ArrowButton href={competition.path || `/competitions/${competition.slug}`}>VIEW COMPETITION</ArrowButton>
     </article>
   );
 }
@@ -207,7 +203,12 @@ export function Footer() {
 }
 
 export default function Homepage() {
+  const [searchParams]=useSearchParams();
   const [newsletterJoined, setNewsletterJoined] = useState(false);
+  const [newsletterError,setNewsletterError]=useState("");
+  const [competitions,setCompetitions]=useState([]); const [catalogueError,setCatalogueError]=useState("");
+  useEffect(()=>{api.get("/competitions?limit=4").then((result)=>setCompetitions(result.items)).catch((error)=>setCatalogueError(error.message));},[]);
+  useEffect(()=>{const token=searchParams.get("newsletter_token");if(token)api.post("/newsletter/confirm",{token}).then(()=>setNewsletterJoined(true)).catch((error)=>setNewsletterError(error.message));},[searchParams]);
   return (
     <div className="homepage" id="top">
       <Header />
@@ -252,9 +253,10 @@ export default function Homepage() {
           </h2>
           <div className="competition-grid">
             {competitions.map((item) => (
-              <CompetitionCard key={item.label} competition={item} />
+              <CompetitionCard key={item.publicId} competition={item} />
             ))}
           </div>
+          {competitions.length===0&&<p>{catalogueError||"No live or scheduled competitions are currently available."}</p>}
         </section>
 
         <section className="instant-section" id="instant-wins">
@@ -300,7 +302,7 @@ export default function Homepage() {
           </div>
           <form
             className="newsletter"
-            onSubmit={(event) => { event.preventDefault(); setNewsletterJoined(true); event.currentTarget.reset(); }}
+            onSubmit={async(event) => { event.preventDefault(); const form=event.currentTarget;try{setNewsletterError("");await api.post("/newsletter/subscribe",{email:new FormData(form).get("email"),consent:true,source:"HOMEPAGE"});setNewsletterJoined(true);form.reset();}catch(error){setNewsletterError(error.message);} }}
           >
             <div>
               <p className="yellow-label">JOIN THE WINJOLT CLUB</p>
@@ -312,13 +314,15 @@ export default function Homepage() {
             <div className="newsletter-form">
               <input
                 type="email"
+                name="email"
                 aria-label="Email address"
                 placeholder="Enter your email address"
                 required
               />
               <button className="action-button yellow" type="submit">JOIN THE LIST <span aria-hidden="true">→</span></button>
             </div>
-            {newsletterJoined && <p role="status">Thanks — you’ve joined the mailing list.</p>}
+            {newsletterJoined && <p role="status">Thanks — check your email to confirm.</p>}
+            {newsletterError && <p role="alert">{newsletterError}</p>}
           </form>
         </section>
       </main>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../../services/api";
 import { Footer, Header } from "../Homepage/Homepage";
 import "./ExperiencePages.css";
 import wheel from "../../Assets/Pictures/jolt-wheel.png";
@@ -333,12 +334,13 @@ export function TicketPage() {
   const [competition, setCompetition] = useState("");
   const [ticket, setTicket] = useState("");
   const [message, setMessage] = useState("");
-  const checkEntry = () => {
+  const checkEntry = async () => {
     if (!competition.trim() || !ticket.trim()) {
       setMessage("Enter both the competition reference and ticket number.");
       return;
     }
-    setMessage("No matching published entry was found. Check the references and try again.");
+    try { const result=await api.post("/ticket-checker",{competition_id:competition.trim(),ticket_number:ticket.trim()}); setMessage(`${result.ticket_number}: ${result.result.replaceAll("_"," ")}. Verified draw ${result.draw_id}.`); }
+    catch(error){setMessage(error.message);}
   };
   return (
     <Page

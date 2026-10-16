@@ -6,6 +6,7 @@ export default function GamingandTech() {
   return (
     <PrizeDetail
       prize={{
+        slug: "gaming-and-tech",
         title: "Gaming & Tech Bundle",
         category: "Tech",
         image: gamingImage,

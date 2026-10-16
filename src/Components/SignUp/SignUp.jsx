@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createAuthenticatedSession } from "../../auth";
+import { registerCustomer } from "../../auth";
 import logo from "../../Assets/Pictures/winjolt-logo-transparent.png";
 import { Footer, Header } from "../Homepage/Homepage";
 import "./SignUp.css";
@@ -20,25 +20,28 @@ const Field = ({ label, placeholder, type = "text", ...props }) => (
 export default function SignUp() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const submit = (e) => {
+  const [submitting, setSubmitting] = useState(false);
+  const submit = async (e) => {
     e.preventDefault();
+    setError("");
     const data = new FormData(e.currentTarget);
-    const dob = new Date(
-      `${data.get("year")}-${data.get("month")}-${data.get("day")}`,
-    );
-    const now = new Date();
-    let age = now.getFullYear() - dob.getFullYear();
-    if (now < new Date(now.getFullYear(), dob.getMonth(), dob.getDate())) age--;
-    if (!Number.isFinite(dob.getTime()) || age < 18) {
-      setError("Registration is only available to customers aged 18 or over.");
-      return;
-    }
     if (data.get("password") !== data.get("confirmPassword")) {
       setError("The passwords you entered do not match.");
       return;
     }
-    createAuthenticatedSession();
-    navigate("/registration-confirmation");
+    const dateOfBirth = `${data.get("year")}-${String(data.get("month")).padStart(2, "0")}-${String(data.get("day")).padStart(2, "0")}`;
+    try {
+      setSubmitting(true);
+      await registerCustomer({
+        first_name: data.get("firstName"), last_name: data.get("lastName"), date_of_birth: dateOfBirth,
+        email: data.get("email"), phone: data.get("phone"), password: data.get("password"),
+        address: { line1: data.get("address1"), line2: data.get("address2"), city: data.get("city"), county: data.get("county"), postcode: data.get("postcode"), country: data.get("country") },
+        accept_terms: data.get("acceptTerms") === "on", marketing_consent: data.get("marketingConsent") === "on",
+        terms_version: "prelaunch-v1", privacy_version: "prelaunch-v1",
+      });
+      navigate("/registration-confirmation");
+    } catch (requestError) { setError(requestError.message); }
+    finally { setSubmitting(false); }
   };
   return (
     <div className="signup-page" id="top">
@@ -73,10 +76,12 @@ export default function SignUp() {
               <legend>1. PERSONAL DETAILS</legend>
               <div className="signup-grid">
                 <Field
+                  name="firstName"
                   label="FIRST NAME *"
                   placeholder="As shown on official records"
                 />
                 <Field
+                  name="lastName"
                   label="LAST NAME *"
                   placeholder="As shown on official records"
                 />
@@ -117,31 +122,35 @@ export default function SignUp() {
               <legend>2. CONTACT &amp; RESIDENTIAL ADDRESS</legend>
               <div className="signup-grid">
                 <Field
+                  name="email"
                   label="EMAIL ADDRESS *"
                   type="email"
                   placeholder="you@example.com"
                 />
                 <Field
+                  name="phone"
                   label="MOBILE PHONE *"
                   type="tel"
                   placeholder="UK contact number"
                 />
               </div>
               <Field
+                name="address1"
                 label="ADDRESS LINE 1 *"
                 placeholder="House number and street"
               />
               <Field
+                name="address2"
                 label="ADDRESS LINE 2 (OPTIONAL)"
                 placeholder="Flat, apartment, building"
               />
               <div className="signup-grid">
-                <Field label="TOWN OR CITY *" placeholder="Town / city" />
-                <Field label="COUNTY (OPTIONAL)" placeholder="County" />
+                <Field name="city" label="TOWN OR CITY *" placeholder="Town / city" />
+                <Field name="county" label="COUNTY (OPTIONAL)" placeholder="County" />
               </div>
               <div className="signup-grid">
-                <Field label="POSTCODE *" placeholder="UK postcode" />
-                <Field label="COUNTRY *" placeholder="United Kingdom" />
+                <Field name="postcode" label="POSTCODE *" placeholder="UK postcode" />
+                <Field name="country" label="COUNTRY *" placeholder="United Kingdom" defaultValue="United Kingdom" />
               </div>
             </fieldset>
             <fieldset>
@@ -163,14 +172,14 @@ export default function SignUp() {
                 />
               </div>
               <label className="signup-check">
-                <input type="checkbox" required />
+                <input name="acceptTerms" type="checkbox" required />
                 <span>
                   I confirm I am 18+ and agree to the Terms &amp; Conditions and
                   acknowledge the Privacy Notice. *
                 </span>
               </label>
               <label className="signup-check">
-                <input type="checkbox" />
+                <input name="marketingConsent" type="checkbox" />
                 <span>
                   Optional: Email me WinJolt news and offers. This is not
                   required to register.
@@ -182,8 +191,8 @@ export default function SignUp() {
                 {error}
               </p>
             )}
-            <button className="signup-submit" type="submit">
-              CREATE ACCOUNT →
+            <button className="signup-submit" type="submit" disabled={submitting}>
+              {submitting ? "CREATING ACCOUNT…" : "CREATE ACCOUNT →"}
             </button>
             <p className="signup-login">
               Already registered? <Link to="/sign-in">Sign in</Link>
