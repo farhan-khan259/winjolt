@@ -93,10 +93,11 @@ export default function CommandCentre() {
           </Panel>
           <Panel
             title="Entry activity"
-            subtitle="Paid and free entries · no connected data"
+            subtitle="Paid and qualifying free entries from the backend"
           >
             <div className="empty-chart">
-              <strong>No entry activity in the selected period</strong>
+              <strong>{(metrics.paid_entries || 0) + (metrics.free_entries || 0)} tickets issued</strong>
+              <p>{metrics.paid_entries || 0} paid · {metrics.free_entries || 0} qualifying free</p>
             </div>
           </Panel>
         </div>
@@ -126,13 +127,7 @@ export default function CommandCentre() {
             title="Draw schedule"
             subtitle="Upcoming draws and verification windows"
           >
-            <div className="soft-row">
-              <strong>◎ No draws scheduled</strong>
-              <p>
-                Draw timing and evidence become available after an authorised
-                campaign is published.
-              </p>
-            </div>
+            {campaigns.filter((campaign)=>campaign.drawAt).length ? campaigns.filter((campaign)=>campaign.drawAt).map((campaign)=><div className="soft-row" key={campaign.publicId}><strong>◎ {campaign.title}</strong><p>{new Date(campaign.drawAt).toLocaleString("en-GB")} · {campaign.status}</p></div>) : <div className="soft-row"><strong>◎ No draws scheduled</strong><p>Add a draw time to an authorised campaign.</p></div>}
           </Panel>
         </div>
       </div>

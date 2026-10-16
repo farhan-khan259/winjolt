@@ -40,7 +40,7 @@ export default function CompetitionManagement() {
       <div className="two-col">
         <Panel
           title="All competition campaigns"
-          subtitle="Draft concepts · No campaign is currently published"
+          subtitle={`${count(["LIVE"])} live · ${count(["SCHEDULED"])} scheduled · ${count(["DRAFT", "REVIEW_REQUIRED", "APPROVED"])} awaiting publication`}
         >
           <div className="campaign-list">
             {rows.map((r) => (

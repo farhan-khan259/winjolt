@@ -1,20 +1,12 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { AccountNav, Action, PageShell } from "../CommonPages/CommonPages";
-import car from "../../Assets/Pictures/car-card.jpg";
-import cash from "../../Assets/Pictures/cash-card.jpg";
-import gaming from "../../Assets/Pictures/gaming-card.jpg";
 import "./MyWinjoltDashboard.css";
-
-const prizes = [
-  ["Performance Car + Cash", car],
-  ["£10,000 Cash Prize", cash],
-  ["Gaming & Tech Bundle", gaming],
-];
 export default function MyWinjoltDashboard() {
   const [stats, setStats] = useState({ entries: 0, orders: 0, prizes: 0, wallet_balance_minor: 0 });
+  const [competitions, setCompetitions] = useState([]);
   const [error, setError] = useState("");
-  useEffect(() => { api.get("/accounts/dashboard").then(setStats).catch((requestError) => setError(requestError.message)); }, []);
+  useEffect(() => { Promise.all([api.get("/accounts/dashboard"), api.get("/competitions?limit=3")]).then(([dashboard, catalogue]) => { setStats(dashboard); setCompetitions(catalogue.items); }).catch((requestError) => setError(requestError.message)); }, []);
   return (
     <PageShell
       preview
@@ -50,16 +42,17 @@ export default function MyWinjoltDashboard() {
           </article>
           <section className="prize-list">
             <h2>EXPLORE UPCOMING PRIZES</h2>
-            {prizes.map(([name, image]) => (
-              <article className="prize-row" key={name}>
-                <img src={image} alt="" />
+            {competitions.map((competition) => (
+              <article className="prize-row" key={competition.publicId}>
+                {competition.images?.[0] && <img src={competition.images[0]} alt={competition.title} />}
                 <div>
-                  <h3>{name}</h3>
-                  <p>No active entry</p>
+                  <h3>{competition.title}</h3>
+                  <p>{competition.status === "LIVE" ? "Open for entries" : `Opens ${new Date(competition.startsAt).toLocaleDateString("en-GB")}`}</p>
                 </div>
-                <Action outline href="/competitions">DETAILS</Action>
+                <Action outline href={`/competitions/${competition.slug}`}>DETAILS</Action>
               </article>
             ))}
+            {!error && competitions.length === 0 && <div className="info-note">No live or upcoming competitions are available.</div>}
           </section>
         </div>
       </section>

@@ -119,7 +119,7 @@ function CompetitionCard({ competition }) {
         <span>FROM</span>
         <strong>{new Intl.NumberFormat("en-GB",{style:"currency",currency:competition.currency||"GBP"}).format((competition.priceMinor||0)/100)}</strong>
       </div>
-      <p className="card-note">COMPETITIONS OPEN · ENTER NOW</p>
+      <p className="card-note">{competition.status === "LIVE" ? "COMPETITION OPEN · ENTER NOW" : `UPCOMING · OPENS ${new Date(competition.startsAt).toLocaleDateString("en-GB")}`}</p>
       <div className="card-rule" />
       <ArrowButton href={competition.path || `/competitions/${competition.slug}`}>VIEW COMPETITION</ArrowButton>
     </article>
