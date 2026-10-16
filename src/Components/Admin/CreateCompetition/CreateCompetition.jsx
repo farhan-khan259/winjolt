@@ -9,14 +9,23 @@ import {
   Panel,
   StatGrid,
 } from "../Shared/AdminLayout";
-import car from "../../../Assets/Pictures/car-card.jpg";
 import "./CreateCompetition.css";
 export default function CreateCompetition() {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [previewImage, setPreviewImage] = useState(car);
+  const [previewImage, setPreviewImage] = useState("");
+  const [preview, setPreview] = useState({ competitionTitle: "", prizeCategory: "", prizeDescription: "", entryPrice: "", entryCap: "", startsAt: "", closesAt: "", drawAt: "", rulesText: "", freeEntryInstructions: "", eligibilityChecks: [] });
   const [saving, setSaving] = useState(false);
+  const updatePreview = (event) => {
+    const { name, value, checked, type } = event.target;
+    if (!name || type === "file") return;
+    if (name === "eligibilityChecks") {
+      setPreview((current) => ({ ...current, eligibilityChecks: checked ? [...current.eligibilityChecks, value] : current.eligibilityChecks.filter((item) => item !== value) }));
+      return;
+    }
+    setPreview((current) => ({ ...current, [name]: value }));
+  };
   const chooseImage = (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -72,8 +81,8 @@ export default function CreateCompetition() {
             value: "DRAFT",
             note: "Not open for entries",
           },
-          { label: "PRICE / ENTRY", value: "—", note: "Set before approval" },
-          { label: "ENTRY LIMIT", value: "—", note: "Set per rules" },
+          { label: "PRICE / ENTRY", value: preview.entryPrice === "" ? "—" : `£${Number(preview.entryPrice).toFixed(2)}`, note: "Draft entry price" },
+          { label: "ENTRY LIMIT", value: preview.entryCap || "—", note: "Draft ticket capacity" },
           {
             label: "PUBLISH GATE",
             value: "BLOCKED",
@@ -84,7 +93,7 @@ export default function CreateCompetition() {
       <FilterBar filters={["Campaign type", "Category", "Date range"]} />
       <div className="two-col builder-cols">
         <Panel title="Step 1 · Prize and campaign details">
-          <form onSubmit={saveDraft}>
+          <form onSubmit={saveDraft} onChange={updatePreview}>
           <div className="form-grid">
             <label>
               COMPETITION TITLE
@@ -169,21 +178,26 @@ export default function CreateCompetition() {
           </form>
         </Panel>
         <Panel title="Prize preview">
-          <img className="preview-image" src={previewImage} alt="Campaign prize preview" />
-          <span className="status">Draft</span>
+          {previewImage ? <img className="preview-image" src={previewImage} alt={preview.competitionTitle || "Campaign prize preview"} /> : <div className="preview-image preview-image-empty">Upload a campaign image to preview it here</div>}
+          <div className="preview-heading">
+            <div><h2>{preview.competitionTitle || "Your competition title"}</h2><p>{preview.prizeCategory || "Prize category"}</p></div>
+            <span className="status">Draft</span>
+          </div>
+          <p className="preview-description">{preview.prizeDescription || "Your prize description will appear here as you type."}</p>
+          <div className="preview-facts"><div><span>ENTRY PRICE</span><strong>{preview.entryPrice === "" ? "Not set" : `£${Number(preview.entryPrice).toFixed(2)}`}</strong></div><div><span>ENTRY CAP</span><strong>{preview.entryCap || "Not set"}</strong></div></div>
           <p className="preview-copy">
             Competition cannot go live before all approval checks pass.
           </p>
           <div className="requirement-list">
             {[
-              "Prize provenance & valuation",
-              "Rules & entry route sign-off",
-              "Verified result controls",
-              "Payment gateway acceptance",
-            ].map((x) => (
-              <div key={x}>
-                <strong>{x}</strong>
-                <span>Not yet confirmed</span>
+              ["Prize details & image", Boolean(preview.competitionTitle && preview.prizeCategory && preview.prizeDescription && imageFile), "Complete", "Title, category, description and image required"],
+              ["Rules & free-entry route", Boolean(preview.rulesText && preview.freeEntryInstructions), "Complete", "Rules and free-entry instructions required"],
+              ["Eligibility & draw controls", Boolean(preview.startsAt && preview.closesAt && preview.drawAt && preview.eligibilityChecks.length === 4), "Complete", "Dates and all four checks required"],
+              ["Payment gateway acceptance", false, "Complete", "Approval required after draft is saved"],
+            ].map(([label, complete, ready, pending]) => (
+              <div key={label}>
+                <strong>{complete ? "✓ " : "○ "}{label}</strong>
+                <span>{complete ? ready : pending}</span>
               </div>
             ))}
           </div>
