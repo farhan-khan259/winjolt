@@ -31,6 +31,10 @@ export async function authenticateAdmin(email, password, mfaCode) {
   return storeSession(await api.post("/admin/auth/login", { email, password, mfa_code: mfaCode }), true);
 }
 
+export async function requestAdminOtp(email, password) {
+  return api.post("/admin/auth/otp/request", { email, password });
+}
+
 export function clearAuthenticatedSession() {
   sessionStorage.removeItem(AUTH_TOKEN_KEY); sessionStorage.removeItem(USER_KEY); window.dispatchEvent(new Event("winjolt-auth-change"));
 }
