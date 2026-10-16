@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { StandardAdminPage } from "../Shared/AdminPatterns";
 import "./Customers.css";
 
@@ -14,7 +13,5 @@ export default function Customers(){
     details={["Profile & consent","Entry / order history","Account restrictions","Data rights requests"].map(x=>[x,"Role-authorised access and audit logging required."])}
     sideTitle="Privacy & participation"
     sideItems={["Data minimisation","Identity and age checks","Spending and exclusion","Access and erasure requests"].map(x=>[`○ ${x}`,"Controlled production workflow required"])}
-  >
-    <div className="customer-workflow-links"><Link className="customer-profile-link" to="/admin/customer-profile">OPEN CUSTOMER 360° PROFILE <span>→</span></Link><Link className="customer-profile-link age-check-link" to="/admin/automatic-age-checks">OPEN AUTOMATIC 18+ AGE CHECKS <span>→</span></Link></div>
-  </StandardAdminPage>;
+  />;
 }

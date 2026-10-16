@@ -21,7 +21,7 @@ const recordLabel = item => item._label || item.title || item.publicId || item.e
 const recordDetail = item => item._detail || [item.status,item.category,item.sourceRoute,item.type,item.amountMinor!=null?`£${(item.amountMinor/100).toFixed(2)}`:null,item.createdAt?new Date(item.createdAt).toLocaleString("en-GB"):null].filter(Boolean).join(" · ");
 
 export function StandardAdminPage({ heading, stats, filters, mainTitle, mainSubtitle, tabs, empty, details=[], sideTitle, sideSubtitle="Approval gates and controls for the production system", sideItems=[], children }) {
-  const { pathname } = useLocation(); const [params] = useSearchParams();
+  const { pathname } = useLocation(); const navigate=useNavigate(); const [params] = useSearchParams();
   const [records,setRecords] = useState(null); const [loadError,setLoadError] = useState(""); const [message,setMessage] = useState(""); const [busy,setBusy] = useState(false); const [reload,setReload] = useState(0);
   const endpoint = endpoints[pathname];
   const load = useCallback(() => { if (!endpoint) return; setLoadError(""); const query=new URLSearchParams({limit:"100"}); const q=params.get("q"); if(q) query.set("q",q); if(reload) query.set("refresh",String(reload)); api.get(`${endpoint}?${query}`).then(result=>setRecords(result.items||result)).catch(error=>setLoadError(error.message)); },[endpoint,params,reload]);
@@ -37,6 +37,8 @@ export function StandardAdminPage({ heading, stats, filters, mainTitle, mainSubt
     if(action==="verify-prize"){const why=reason("Verify prize evidence");if(why)mutate(()=>api.post(`/admin/prizes/${item.publicId}/verify`,{reason:why}),"Prize verified.");}
     if(action==="support"){const status=ask("New case status: OPEN, IN_REVIEW, AWAITING_CUSTOMER, RESOLVED, CLOSED or APPEALED",item.status);const why=status&&reason("Update support case");if(why)mutate(()=>api.patch(`/admin/support-cases/${item.publicId}`,{status,reason:why}),"Support case updated.");}
     if(action==="customer"){const status=ask("New customer status: ACTIVE, SUSPENDED, SELF_EXCLUDED or REVOKED",item.status);const why=status&&reason("Change customer access");if(why)mutate(()=>api.patch(`/admin/customers/${item.publicId}`,{status,reason:why}),"Customer status updated.");}
+    if(action==="customer-profile")navigate(`/admin/customer-profile?id=${encodeURIComponent(item.publicId)}`);
+    if(action==="age-check")navigate(`/admin/automatic-age-checks?id=${encodeURIComponent(item.publicId)}`);
     if(action==="staff"){const status=item.status==="ACTIVE"?"REVOKED":"ACTIVE";const why=reason(`${status==="ACTIVE"?"Restore":"Revoke"} staff access`);if(why)mutate(()=>api.patch(`/admin/staff/${item.publicId}`,{status,reason:why}),"Staff access updated.");}
     if(action==="content"){const status=ask("New content status: REVIEW, PUBLISHED or ARCHIVED",item.status);const why=status&&reason("Change content publication state");if(why)mutate(()=>api.patch(`/admin/content/${item._id}`,{status,reason:why}),"Content state updated.");}
     if(action==="execute-draw"&&window.confirm("Execute this locked draw now?"))mutate(()=>api.post(`/admin/draws/${item.publicId}/execute`,{}),"Draw executed and immutable result recorded.");
@@ -49,7 +51,7 @@ export function StandardAdminPage({ heading, stats, filters, mainTitle, mainSubt
     if(pathname==="/admin/winners-claims"&&item.status!=="FULFILLED")return [["Update claim","claim"]];
     if(pathname==="/admin/prize-inventory"&&item.status==="VERIFICATION_REQUIRED")return [["Verify evidence","verify-prize"]];
     if(pathname==="/admin/support-complaints"&&item.status!=="CLOSED")return [["Update case","support"]];
-    if(pathname==="/admin/customers")return [["Change status","customer"]];
+    if(pathname==="/admin/customers")return [["Open Customer 360° Profile","customer-profile"],["Open Automatic 18+ Age Checks","age-check"],["Change status","customer"]];
     if(pathname==="/admin/staff-permissions")return [[item.status==="ACTIVE"?"Revoke":"Restore","staff"]];
     if(pathname==="/admin/website-content")return [["Change status","content"]];
     if(pathname==="/admin/draws-results"){if(item.status==="LEDGER_LOCKED")return [["Execute draw","execute-draw"]];if(item.status==="DRAW_EXECUTED")return [["Verify result","verify-draw"]];if(item.status==="INDEPENDENTLY_VERIFIED")return [["Publish result","publish-draw"]];}

@@ -1,1 +1,2 @@
-/* Screen-specific styles inherit from the shared responsive admin system. */
+.record-cols>.admin-panel{min-width:0}.record-fields input{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.record-cols .detail-list>div{align-items:flex-start;gap:14px}.record-cols .detail-list span{overflow-wrap:anywhere;text-align:right}
+@media(max-width:650px){.record-cols .detail-list>div{flex-direction:column}.record-cols .detail-list span{text-align:left}}
