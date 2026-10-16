@@ -97,6 +97,13 @@
   text-align: left;
   width: 100%;
 }
+.admin-login-panel .admin-login-back {
+  background: transparent;
+  border: 1px solid #cbd8e8;
+  color: #315679;
+  margin-top: 10px;
+  text-align: center;
+}
 .admin-login-panel a {
   color: #315679;
   display: inline-block;
