@@ -105,6 +105,32 @@
   gap: 17px;
   grid-template-columns: repeat(4, 1fr);
 }
+.draw-page {
+  max-width: 1460px;
+}
+.draw-section-heading {
+  margin: 0 0 22px;
+}
+.draw-section-heading h2 {
+  color: #ffda13;
+  font-size: 22px;
+  margin: 0 0 7px;
+}
+.draw-section-heading p {
+  color: #aec2dc;
+  margin: 0;
+}
+.verified-heading,
+.how-competitions-heading {
+  margin-top: 48px;
+}
+.draw-competition-grid,
+.how-competition-grid {
+  align-items: stretch;
+}
+.compact-notice {
+  margin-top: 18px;
+}
 .xp-card {
   background: #0a315f;
   border: 1px solid #1a578e;

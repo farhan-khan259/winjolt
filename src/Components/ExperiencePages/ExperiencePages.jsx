@@ -34,16 +34,18 @@ const Button = ({ children, blue = false, href, ...props }) => {
   );
 };
 function PrizeCard({ item }) {
+  const instant = Boolean(item.instant?.enabled);
+  const isLive = item.status === "LIVE";
   return (
     <article className="xp-card">
       {item.images?.[0] ? <img src={item.images[0]} alt={item.title} /> : <div className="xp-image-placeholder">No image available</div>}
-      <p>⚡ INSTANT WIN</p>
+      <p>{instant ? "⚡ INSTANT WIN" : "FEATURED COMPETITION"}</p>
       <h3>{item.title}</h3>
       <div>
         <span>ENTRY FROM</span>
         <b>{new Intl.NumberFormat("en-GB",{style:"currency",currency:item.currency||"GBP"}).format(item.priceMinor/100)}</b>
       </div>
-      <small>COMPETITIONS OPEN&nbsp; • &nbsp;ENTER NOW</small>
+      <small>{isLive ? "COMPETITION OPEN · ENTER NOW" : `DRAW ${new Date(item.drawAt).toLocaleDateString("en-GB")}`}</small>
       <i />
       <Button href={`/competitions/${item.slug}`}>VIEW COMPETITION</Button>
     </article>
@@ -360,23 +362,25 @@ export function TicketPage() {
   );
 }
 export function LiveDrawsPage() {
-  const [results,setResults]=useState([]); const [error,setError]=useState(""); const [loading,setLoading]=useState(true);
-  useEffect(()=>{api.get("/results").then(result=>setResults(result.items)).catch(requestError=>setError(requestError.message)).finally(()=>setLoading(false));},[]);
+  const [results,setResults]=useState([]); const [competitions,setCompetitions]=useState([]); const [error,setError]=useState(""); const [loading,setLoading]=useState(true);
+  useEffect(()=>{Promise.all([api.get("/results"),api.get("/competitions?limit=50")]).then(([drawData,competitionData])=>{setResults(drawData.items);setCompetitions(competitionData.items);}).catch(requestError=>setError(requestError.message)).finally(()=>setLoading(false));},[]);
   return (
     <Page
       eyebrow="WINJOLT / LIVE DRAWS"
       title="LIVE DRAWS"
       subtitle="Scheduled and completed draw records."
     >
-      <section className="content-page">
-        {loading&&<p className="xp-notice">Loading published draw records…</p>}{error&&<p className="xp-notice" role="alert">{error}</p>}
-        {!loading&&!error&&results.length===0&&<p className="xp-notice">No independently verified draw result has been published.</p>}
-        <div className="draw-list">{results.map(result=><article key={result.draw_id}><h2>{result.competition?.title}</h2><p>Winning ticket {result.winning_ticket?.number} · Published {new Date(result.published_at).toLocaleString("en-GB")}</p></article>)}</div>
+      <section className="content-page draw-page">
+        {loading&&<p className="xp-notice">Loading scheduled and published draw records…</p>}{error&&<p className="xp-notice" role="alert">{error}</p>}
+        {!loading&&!error&&<><div className="draw-section-heading"><h2>UPCOMING DRAWS</h2><p>Scheduled competitions loaded from the live catalogue.</p></div><div className="xp-grid draw-competition-grid">{competitions.map(item=><PrizeCard key={item.publicId} item={item}/>)}</div>{competitions.length===0&&<p className="xp-notice">No upcoming competition draws are scheduled.</p>}
+        <div className="draw-section-heading verified-heading"><h2>VERIFIED DRAW RECORDS</h2><p>Only independently verified and published results appear here.</p></div><div className="draw-list">{results.map(result=><article key={result.draw_id}><h2>{result.competition?.title}</h2><p>Winning ticket {result.winning_ticket?.number} · Published {new Date(result.published_at).toLocaleString("en-GB")}</p></article>)}</div>{results.length===0&&<p className="xp-notice compact-notice">No independently verified draw result has been published.</p>}</>}
       </section>
     </Page>
   );
 }
 export function HowPage() {
+  const [competitions,setCompetitions]=useState([]); const [error,setError]=useState(""); const [loading,setLoading]=useState(true);
+  useEffect(()=>{api.get("/competitions?limit=50").then(result=>setCompetitions(result.items)).catch(requestError=>setError(requestError.message)).finally(()=>setLoading(false));},[]);
   return (
     <Page
       eyebrow="WINJOLT / HOW IT WORKS"
@@ -399,6 +403,9 @@ export function HowPage() {
             </article>
           ))}
         </div>
+        <div className="draw-section-heading how-competitions-heading"><h2>CHOOSE A LIVE OR UPCOMING COMPETITION</h2><p>Every card below is loaded from the database and links to its published details.</p></div>
+        {loading&&<p className="xp-notice compact-notice">Loading competitions…</p>}{error&&<p className="xp-notice compact-notice" role="alert">{error}</p>}
+        <div className="xp-grid how-competition-grid">{competitions.map(item=><PrizeCard key={item.publicId} item={item}/>)}</div>
       </section>
     </Page>
   );
