@@ -5,10 +5,6 @@ import { isAdminAuthenticated, isAuthenticated } from './auth';
 import Homepage from './Components/Homepage/Homepage';
 import Competetions from './Components/Competetions/Competetions';
 import PrizeDetail from './Components/PrizeDetail/PrizeDetail';
-import PerformanceCar from './Components/PerformanceCar/PerformanceCar';
-import CashPrize from './Components/CashPrize/CashPrize';
-import GamingandTech from './Components/GamingandTech/GamingandTech';
-import UltimateToolsCollection from './Components/UltimateToolsCollection/UltimateToolsCollection';
 import InstantWins from './Components/InstantWins/InstantWins';
 import GamesAndExperiences from './Components/GamesAndExperiences/GamesAndExperiences';
 import BingoFutureLicense from './Components/BingoFutureLicense/BingoFutureLicense';
@@ -125,11 +121,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/competitions" element={<Competetions />} />
-        <Route path="/competitions/performance-car" element={<PerformanceCar />} />
-        <Route path="/competitions/cash-prize" element={<CashPrize />} />
-        <Route path="/competitions/gaming-and-tech" element={<GamingandTech />} />
-        <Route path="/competitions/ultimate-tools-collection" element={<UltimateToolsCollection />} />
-        <Route path="/competitions/:slug" element={<PrizeDetail prize={{ title: "Competition", category: "Prize", image: null }} />} />
+        <Route path="/competitions/:slug" element={<PrizeDetail />} />
         <Route path="/instant-wins" element={<InstantWins />} />
          <Route path="/games-and-experiences" element={<GamesAndExperiences />} />
         <Route path="/bingo-future-license" element={<BingoFutureLicense />} />

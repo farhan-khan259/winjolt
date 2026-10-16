@@ -6,7 +6,8 @@ function tokenFor(path) {
 
 async function request(path, options = {}) {
   const token = tokenFor(path);
-  const headers = { Accept: "application/json", ...(options.body ? { "Content-Type": "application/json" } : {}), ...(token ? { Authorization: `Bearer ${token}` } : {}), ...options.headers };
+  const multipart = typeof FormData !== "undefined" && options.body instanceof FormData;
+  const headers = { Accept: "application/json", ...(options.body && !multipart ? { "Content-Type": "application/json" } : {}), ...(token ? { Authorization: `Bearer ${token}` } : {}), ...options.headers };
   let response;
   try { response = await fetch(`${API_URL}${path}`, { ...options, headers }); }
   catch { throw new Error("The WinJolt service is unavailable. Please try again."); }
@@ -29,5 +30,13 @@ export const api = {
   get: (path) => request(path),
   post: (path, value, options = {}) => request(path, { method: "POST", body: body(value), ...options }),
   patch: (path, value, options = {}) => request(path, { method: "PATCH", body: body(value), ...options }),
+  upload: (path, formData, options = {}) => request(path, { method: "POST", body: formData, ...options }),
+  assetUrl: (id) => `${API_URL}/assets/${encodeURIComponent(id)}`,
+  adminAssetObjectUrl: async (id) => {
+    const token = tokenFor("/admin/assets");
+    const response = await fetch(`${API_URL}/admin/assets/${encodeURIComponent(id)}`, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+    if (!response.ok) throw new Error("Campaign image is unavailable.");
+    return URL.createObjectURL(await response.blob());
+  },
   idempotencyKey: () => window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
 };

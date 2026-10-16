@@ -2,18 +2,15 @@ import { useEffect, useState } from "react";
 import { api } from "../../../services/api";
 import {
   AdminLayout,
+  AdminImage,
   DesignFooter,
   PageHeading,
   Panel,
   StatGrid,
 } from "../Shared/AdminLayout";
-import car from "../../../Assets/Pictures/car-card.jpg";
-import cash from "../../../Assets/Pictures/cash-card.jpg";
-import gaming from "../../../Assets/Pictures/gaming-card.jpg";
 import "./CommandCentre.css";
 import { Link, useNavigate } from "react-router-dom";
 
-const campaignImages = [car, cash, gaming];
 export default function CommandCentre() {
   const navigate = useNavigate();
   const [metrics, setMetrics] = useState({}); const [campaigns, setCampaigns] = useState([]); const [audits,setAudits]=useState([]); const [error, setError] = useState("");
@@ -77,10 +74,10 @@ export default function CommandCentre() {
                 <span>STATUS</span>
                 <span>ACTIONS</span>
               </div>
-              {campaigns.map((c, index) => (
+              {campaigns.map((c) => (
                 <div className="table-row" key={c.publicId}>
                   <div className="prize-cell">
-                    <img src={c.images?.[0] || campaignImages[index % campaignImages.length]} alt="" />
+                    <AdminImage src={c.images?.[0]} alt="" />
                     <div>
                       <strong>{c.title}</strong>
                       <small>Prize campaign · entries pending</small>
@@ -88,7 +85,7 @@ export default function CommandCentre() {
                   </div>
                   <small>{c.category}</small>
                   <span className={`status ${c.status.toLowerCase()}`}>{c.status}</span>
-                  <Link className="action-link" to="/admin/campaign-control-centre">Review →</Link>
+                  <Link className="action-link" to={`/admin/campaign-control-centre?id=${encodeURIComponent(c.publicId)}`}>Review →</Link>
                 </div>
               ))}
             </div>

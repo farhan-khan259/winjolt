@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../../../services/api";
 import {
   AdminLayout,
@@ -11,16 +12,47 @@ import {
 import car from "../../../Assets/Pictures/car-card.jpg";
 import "./CreateCompetition.css";
 export default function CreateCompetition() {
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(car);
+  const [saving, setSaving] = useState(false);
+  const chooseImage = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) { setMessage("Choose a JPEG, PNG or WebP image."); event.target.value = ""; return; }
+    if (file.size > 10 * 1024 * 1024) { setMessage("The campaign image must be 10 MB or smaller."); event.target.value = ""; return; }
+    setImageFile(file); setPreviewImage(URL.createObjectURL(file)); setMessage("");
+  };
   const saveDraft = async (event) => {
     event.preventDefault();
-    const values = Object.fromEntries(new FormData(event.currentTarget));
+    const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form));
     try {
+      setSaving(true);
       setMessage("Saving draft…");
       const slug = values.competitionTitle.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-      await api.post("/admin/competitions", { title: values.competitionTitle, slug, category: values.prizeCategory, description: values.prizeDescription, main_prize: { kind: values.prizeCategory?.toUpperCase(), title: values.competitionTitle, secured: false, evidenceRefs: [] }, price_minor: Math.round(Number(values.entryPrice) * 100), ticket_range: { start: 1, end: Number(values.entryCap), padWidth: String(values.entryCap).length }, max_entries_per_user: Number(values.customerCap), max_entries_per_order: Number(values.orderCap), starts_at: new Date(values.startsAt).toISOString(), closes_at: new Date(values.closesAt).toISOString(), draw_at: new Date(values.drawAt).toISOString(), rules_version: values.rulesVersion, rules_text: values.rulesText, free_entry_instructions: values.freeEntryInstructions });
-      setMessage("Campaign draft saved to the server. Publication remains blocked until all evidence and approvals pass."); event.currentTarget.reset();
-    } catch (error) { setMessage(error.message); }
+      const matches = await api.get(`/admin/competitions?limit=10&q=${encodeURIComponent(slug)}`);
+      const existing = matches.items.find(item => item.slug === slug);
+      if (existing) { navigate(`/admin/campaign-control-centre?id=${encodeURIComponent(existing.publicId)}`); return; }
+      let images = [];
+      if (imageFile) {
+        setMessage("Uploading campaign image…");
+        const upload = new FormData(); upload.append("file", imageFile); upload.append("purpose", "CAMPAIGN_MEDIA"); upload.append("access", "PUBLIC");
+        const uploaded = await api.upload("/admin/assets", upload); images = [api.assetUrl(uploaded.item.id)];
+      }
+      setMessage("Creating ticket inventory and saving campaign…");
+      const result = await api.post("/admin/competitions", { title: values.competitionTitle, slug, category: values.prizeCategory, description: values.prizeDescription, images, main_prize: { kind: values.prizeCategory?.toUpperCase(), title: values.competitionTitle, secured: false, evidenceRefs: [] }, price_minor: Math.round(Number(values.entryPrice) * 100), ticket_range: { start: 1, end: Number(values.entryCap), padWidth: String(values.entryCap).length }, max_entries_per_user: Number(values.customerCap), max_entries_per_order: Number(values.orderCap), starts_at: new Date(values.startsAt).toISOString(), closes_at: new Date(values.closesAt).toISOString(), draw_at: new Date(values.drawAt).toISOString(), rules_version: values.rulesVersion, rules_text: values.rulesText, free_entry_instructions: values.freeEntryInstructions });
+      setMessage("Campaign draft saved to the server. Publication remains blocked until all evidence and approvals pass.");
+      form.reset();
+      navigate(`/admin/campaign-control-centre?id=${encodeURIComponent(result.item.publicId)}`);
+    } catch (error) {
+      if (error.code === "COMPETITION_ALREADY_EXISTS" && error.details?.existing_id) {
+        navigate(`/admin/campaign-control-centre?id=${encodeURIComponent(error.details.existing_id)}`);
+        return;
+      }
+      setMessage(error.message);
+    } finally { setSaving(false); }
   };
 
   return (
@@ -71,6 +103,11 @@ export default function CreateCompetition() {
             <label className="wide">
               PRIZE DESCRIPTION
               <textarea className="field" name="prizeDescription" placeholder="Enter exact prize specifications, conditions and delivery information" />
+            </label>
+            <label className="wide campaign-upload">
+              CAMPAIGN / PRIZE IMAGE
+              <input className="field" name="campaignImage" type="file" accept="image/jpeg,image/png,image/webp" onChange={chooseImage} />
+              <span>JPEG, PNG or WebP · maximum 10 MB. The uploaded image will be shown on competition cards and details.</span>
             </label>
             <label>
               ENTRY PRICE
@@ -127,12 +164,12 @@ export default function CreateCompetition() {
               </label>
             ))}
           </div>
-          <button className="save-button" type="submit">Save campaign as draft →</button>
+          <button className="save-button" type="submit" disabled={saving}>{saving ? "Saving campaign…" : "Save campaign as draft →"}</button>
           {message && <p role="status">{message}</p>}
           </form>
         </Panel>
         <Panel title="Prize preview">
-          <img className="preview-image" src={car} alt="Blue performance car" />
+          <img className="preview-image" src={previewImage} alt="Campaign prize preview" />
           <span className="status">Draft</span>
           <p className="preview-copy">
             Competition cannot go live before all approval checks pass.

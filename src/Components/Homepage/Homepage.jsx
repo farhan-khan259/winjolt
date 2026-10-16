@@ -3,15 +3,10 @@ import { Link, useSearchParams } from "react-router-dom";
 import { api } from "../../services/api";
 import "./Homepage.css";
 
-import carImage from "../../Assets/Pictures/car-card.jpg";
-import cashImage from "../../Assets/Pictures/cash-card.jpg";
 import gamingImage from "../../Assets/Pictures/gaming-card.jpg";
 import heroImage from "../../Assets/Pictures/hero-prize-montage.jpg";
-import toolsImage from "../../Assets/Pictures/tools-card.jpg";
 import wheelImage from "../../Assets/Pictures/jolt-wheel.png";
 import logoImage from "../../Assets/Pictures/winjolt-logo-transparent.png";
-
-const imagesBySlug = { "performance-car": carImage, "cash-prize": cashImage, "gaming-and-tech": gamingImage, "ultimate-tools-collection": toolsImage };
 
 const steps = [
   [
@@ -116,7 +111,7 @@ function CompetitionCard({ competition }) {
   return (
     <article className="competition-card">
       <div className="competition-image">
-        <img src={competition.image || imagesBySlug[competition.slug] || heroImage} alt="" />
+        {competition.images?.[0] ? <img src={competition.images[0]} alt={competition.title} /> : <div className="competition-image-missing">Image unavailable</div>}
       </div>
       <p className="card-kicker">FEATURED COMPETITION</p>
       <h3>{competition.title}</h3>

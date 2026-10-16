@@ -3,31 +3,11 @@ import { api } from "../../services/api";
 import { Footer, Header } from "../Homepage/Homepage";
 import "./Competetions.css";
 
-import carImage from "../../Assets/Pictures/car-card.jpg";
-import cashImage from "../../Assets/Pictures/cash-card.jpg";
-import gamingImage from "../../Assets/Pictures/gaming-card.jpg";
-import toolsImage from "../../Assets/Pictures/tools-card.jpg";
-import phoneImage from "../../Assets/Pictures/instant-phone.jpg";
-import earbudsImage from "../../Assets/Pictures/instant-earbuds.jpg";
-import instantCashImage from "../../Assets/Pictures/instant-cash.jpg";
-import giftcardImage from "../../Assets/Pictures/instant-giftcard.jpg";
-
-const imageBySlug = { "performance-car": carImage, "cash-prize": cashImage, "gaming-and-tech": gamingImage, "ultimate-tools-collection": toolsImage, "smartphone-instant-win": phoneImage, "wireless-earbuds-instant-win": earbudsImage, "cash-instant-win": instantCashImage, "gift-card-instant-win": giftcardImage };
-
-const categories = [
-  "All",
-  "Cars",
-  "Cash",
-  "Technology",
-  "Tools",
-  "Instant Wins",
-];
-
 function PrizeCard({ prize }) {
   return (
     <article className="catalogue-card">
       <div className="catalogue-image">
-        <img src={prize.image || imageBySlug[prize.slug] || carImage} alt="" />
+        {prize.image ? <img src={prize.image} alt={prize.title} /> : <div className="catalogue-image-missing">Image unavailable</div>}
         
       </div>
       <p className="catalogue-kicker">
@@ -41,7 +21,7 @@ function PrizeCard({ prize }) {
         <strong>{new Intl.NumberFormat("en-GB", { style: "currency", currency: prize.currency || "GBP" }).format((prize.priceMinor || 0) / 100)}</strong>
       </div>
       <p className="catalogue-note">
-        COMPETITIONS OPEN&nbsp; • &nbsp;ENTER NOW
+        {prize.status === "LIVE" ? "COMPETITION OPEN · ENTER NOW" : `UPCOMING · OPENS ${new Date(prize.startsAt).toLocaleString("en-GB")}`}
       </p>
       <div className="catalogue-rule" />
       <a href={prize.path || `/competitions/${prize.slug}`} className="catalogue-button">
@@ -57,7 +37,8 @@ export default function Competetions() {
   const [prizes, setPrizes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  useEffect(() => { api.get("/competitions?limit=50").then(({ items }) => setPrizes(items.map((item) => ({ ...item, instant: item.instant?.enabled, image: item.images?.[0] || imageBySlug[item.slug] })))).catch((requestError) => setError(requestError.message)).finally(() => setLoading(false)); }, []);
+  useEffect(() => { api.get("/competitions?limit=50").then(({ items }) => setPrizes(items.map((item) => ({ ...item, instant: item.instant?.enabled, image: item.images?.[0] })))).catch((requestError) => setError(requestError.message)).finally(() => setLoading(false)); }, []);
+  const categories = useMemo(()=>["All",...new Set(prizes.map(prize=>prize.category).filter(Boolean))],[prizes]);
   const displayedPrizes = useMemo(
     () =>
       prizes.filter(

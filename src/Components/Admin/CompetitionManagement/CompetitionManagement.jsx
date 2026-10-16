@@ -3,18 +3,15 @@ import { Link } from "react-router-dom";
 import { api } from "../../../services/api";
 import {
   AdminLayout,
+  AdminImage,
   DesignFooter,
   FilterBar,
   PageHeading,
   Panel,
   StatGrid,
 } from "../Shared/AdminLayout";
-import car from "../../../Assets/Pictures/car-card.jpg";
-import cash from "../../../Assets/Pictures/cash-card.jpg";
-import gaming from "../../../Assets/Pictures/gaming-card.jpg";
 import "./CompetitionManagement.css";
 
-const campaignImages = [car, cash, gaming];
 export default function CompetitionManagement() {
   const [rows, setRows] = useState([]); const [error, setError] = useState("");
   useEffect(() => { api.get("/admin/competitions?limit=100").then((result) => setRows(result.items)).catch((requestError) => setError(requestError.message)); }, []);
@@ -46,17 +43,17 @@ export default function CompetitionManagement() {
           subtitle="Draft concepts · No campaign is currently published"
         >
           <div className="campaign-list">
-            {rows.map((r, index) => (
+            {rows.map((r) => (
               <div className="campaign-row" key={r.publicId}>
                 <div className="prize-cell">
-                  <img src={r.images?.[0] || campaignImages[index % campaignImages.length]} alt="" />
+                  <AdminImage src={r.images?.[0]} alt="" />
                   <div>
                     <strong>{r.title}</strong>
                     <small>{r.category} &nbsp;·&nbsp; {r.publicId}</small>
                   </div>
                 </div>
                 <span className="status">{r.status}</span>
-                <Link className="action-link" to="/admin/campaign-control-centre">Edit →</Link>
+                <Link className="action-link" to={`/admin/campaign-control-centre?id=${encodeURIComponent(r.publicId)}`}>Manage →</Link>
               </div>
             ))}
           </div>

@@ -1,15 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../services/api";
 import { Footer, Header } from "../Homepage/Homepage";
 import "./ExperiencePages.css";
 import wheel from "../../Assets/Pictures/jolt-wheel.png";
-import phone from "../../Assets/Pictures/instant-phone.jpg";
-import earbuds from "../../Assets/Pictures/instant-earbuds.jpg";
-import cash from "../../Assets/Pictures/instant-cash.jpg";
-import giftcard from "../../Assets/Pictures/instant-giftcard.jpg";
-import car from "../../Assets/Pictures/car-card.jpg";
-import cashCard from "../../Assets/Pictures/cash-card.jpg";
 
 function Page({ eyebrow, title, subtitle, children }) {
   return (
@@ -39,25 +33,19 @@ const Button = ({ children, blue = false, href, ...props }) => {
     <button type="button" {...props} className={className}>{children} <b>→</b></button>
   );
 };
-const instantItems = [
-  ["Smartphone Instant Win", phone],
-  ["Wireless Earbuds Instant Win", earbuds],
-  ["£100 Cash Instant Win", cash],
-  ["Gift Card Instant Win", giftcard],
-];
 function PrizeCard({ item }) {
   return (
     <article className="xp-card">
-      <img src={item[1]} alt="" />
+      {item.images?.[0] ? <img src={item.images[0]} alt={item.title} /> : <div className="xp-image-placeholder">No image available</div>}
       <p>⚡ INSTANT WIN</p>
-      <h3>{item[0]}</h3>
+      <h3>{item.title}</h3>
       <div>
         <span>ENTRY FROM</span>
-        <b>£0.50</b>
+        <b>{new Intl.NumberFormat("en-GB",{style:"currency",currency:item.currency||"GBP"}).format(item.priceMinor/100)}</b>
       </div>
       <small>COMPETITIONS OPEN&nbsp; • &nbsp;ENTER NOW</small>
       <i />
-      <Button href="/instant-win-result">VIEW COMPETITION</Button>
+      <Button href={`/competitions/${item.slug}`}>VIEW COMPETITION</Button>
     </article>
   );
 }
@@ -93,9 +81,9 @@ function StandardCards({ cards }) {
 export function InstantWinsPage() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
-  const visibleItems = instantItems.filter(([title]) =>
-    title.toLowerCase().includes(query.trim().toLowerCase()),
-  );
+  const [items,setItems]=useState([]); const [loading,setLoading]=useState(true); const [error,setError]=useState("");
+  useEffect(()=>{api.get("/competitions?limit=50").then(result=>setItems(result.items.filter(item=>item.instant?.enabled&&item.instant?.status==="ACTIVE"))).catch(requestError=>setError(requestError.message)).finally(()=>setLoading(false));},[]);
+  const visibleItems = items.filter(item => item.title.toLowerCase().includes(query.trim().toLowerCase()));
   return (
     <Page
       eyebrow="WINJOLT / INSTANT WINS"
@@ -116,10 +104,12 @@ export function InstantWinsPage() {
         </div>
         <div className="xp-grid">
           {visibleItems.map((item) => (
-            <PrizeCard key={item[0]} item={item} />
+            <PrizeCard key={item.publicId} item={item} />
           ))}
         </div>
-        {visibleItems.length === 0 && <p className="xp-notice">No instant-win competitions match your search.</p>}
+        {loading&&<p className="xp-notice">Loading active instant-win competitions…</p>}
+        {error&&<p className="xp-notice" role="alert">{error}</p>}
+        {!loading&&!error&&visibleItems.length === 0 && <p className="xp-notice">No active instant-win competitions are currently available.</p>}
         <p className="xp-notice">
           Competition prices, images, entry limits and closing dates are shown
           on each competition page.
@@ -370,6 +360,8 @@ export function TicketPage() {
   );
 }
 export function LiveDrawsPage() {
+  const [results,setResults]=useState([]); const [error,setError]=useState(""); const [loading,setLoading]=useState(true);
+  useEffect(()=>{api.get("/results").then(result=>setResults(result.items)).catch(requestError=>setError(requestError.message)).finally(()=>setLoading(false));},[]);
   return (
     <Page
       eyebrow="WINJOLT / LIVE DRAWS"
@@ -377,23 +369,9 @@ export function LiveDrawsPage() {
       subtitle="Scheduled and completed draw records."
     >
       <section className="content-page">
-        <div className="draw-list">
-          {[
-            "UPCOMING DRAWS",
-            "VERIFIED DRAW RECORDS",
-            "PRIZE FULFILMENT",
-            "RESULT SEARCH",
-          ].map((x) => (
-            <article key={x}>
-              <h2>{x}</h2>
-              <p>No published winners yet</p>
-            </article>
-          ))}
-        </div>
-        <div className="draw-prizes">
-          <PrizeCard item={["Performance Car + Cash", car]} />
-          <PrizeCard item={["£10,000 Cash Prize", cashCard]} />
-        </div>
+        {loading&&<p className="xp-notice">Loading published draw records…</p>}{error&&<p className="xp-notice" role="alert">{error}</p>}
+        {!loading&&!error&&results.length===0&&<p className="xp-notice">No independently verified draw result has been published.</p>}
+        <div className="draw-list">{results.map(result=><article key={result.draw_id}><h2>{result.competition?.title}</h2><p>Winning ticket {result.winning_ticket?.number} · Published {new Date(result.published_at).toLocaleString("en-GB")}</p></article>)}</div>
       </section>
     </Page>
   );
@@ -420,10 +398,6 @@ export function HowPage() {
               <p>Process and requirements shown before taking part</p>
             </article>
           ))}
-        </div>
-        <div className="draw-prizes">
-          <PrizeCard item={["Performance Car + Cash", car]} />
-          <PrizeCard item={["£10,000 Cash Prize", cashCard]} />
         </div>
       </section>
     </Page>

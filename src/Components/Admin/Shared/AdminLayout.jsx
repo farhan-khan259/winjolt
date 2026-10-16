@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { NavLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import logo from "../../../Assets/Pictures/winjolt-logo-transparent.png";
-import { clearAdminSession } from "../../../auth";
+import { clearAdminSession, getCurrentAdmin } from "../../../auth";
+import { api } from "../../../services/api";
 import "./AdminLayout.css";
 
 const groups = [
@@ -55,6 +56,7 @@ export function AdminLayout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [globalQuery, setGlobalQuery] = useState("");
   const navigate = useNavigate();
+  const currentAdmin = getCurrentAdmin();
   const searchableLinks = groups.flatMap(([, links]) => links).filter(([, , to]) => to !== "#");
   const runGlobalSearch = (event) => {
     event.preventDefault();
@@ -140,8 +142,8 @@ export function AdminLayout({ children }) {
           </form>
           <span className="demo-pill">LIVE SYSTEM</span>
           <div className="admin-user">
-            <strong>OPERATIONS ADMIN</strong>
-            <span>Restricted staff access</span>
+            <strong>{currentAdmin?.first_name ? `${currentAdmin.first_name} ${currentAdmin.last_name || ""}` : "OPERATIONS ADMIN"}</strong>
+            <span>{currentAdmin?.email || "Restricted staff access"}</span>
             <button type="button" onClick={()=>{clearAdminSession();navigate("/admin/login",{replace:true})}}>SIGN OUT</button>
           </div>
         </header>
@@ -165,6 +167,9 @@ export function PageHeading({
   secondary = "Export preview",
   primaryTo,
   secondaryTo,
+  onPrimary,
+  onSecondary,
+  busy = false,
 }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -179,7 +184,7 @@ export function PageHeading({
     "draws & results": "/admin/draws-results", "instant wins": "/admin/instant-wins", "help & policies": "/help-centre",
     "view reports": "/admin/analytics", "view licence checklist": "/admin/audit-compliance",
     "review entry rules": "/admin/free-entry-processing", "review configuration": "/admin/settings",
-    "create content": "/admin/website-content", "invite staff": "/admin/staff-permissions",
+    "create content": "/admin/website-content", "invite staff": "/admin/staff-permissions", "review controls": "/admin/settings",
   };
   const clean = (label) => label.toLowerCase().replace(/[+←→]/g, "").trim();
   const downloadExport = (label) => {
@@ -189,11 +194,12 @@ export function PageHeading({
     anchor.href = url; anchor.download = `${title.toLowerCase().replace(/[^a-z0-9]+/g,"-")}-${clean(label).replace(/\s+/g,"-")}.txt`;
     anchor.click(); URL.revokeObjectURL(url);
   };
-  const act = (label, explicitTo) => {
+  const act = (label, explicitTo, handler) => {
+    if (handler) return handler();
     const key = clean(label);
     if (explicitTo || destinations[key]) return navigate(explicitTo || destinations[key]);
     if (key.includes("export") || key.includes("report")) return downloadExport(label);
-    if (key.includes("save")) { const form=document.querySelector(".admin-main form"); if(form){form.requestSubmit();setSaved(true);window.setTimeout(()=>setSaved(false),1800);} return; }
+    if (key.includes("save")) { const form=document.querySelector(".admin-main form"); if(form){form.requestSubmit();setSaved(true);window.setTimeout(()=>setSaved(false),1800);return;} return navigate("/admin/competitions"); }
     navigate(`${location.pathname}?action=${encodeURIComponent(key)}`);
   };
   return (
@@ -204,8 +210,8 @@ export function PageHeading({
         <p>{subtitle}</p>
       </div>
       <div className="heading-actions">
-        <button className="btn secondary" onClick={() => act(secondary, secondaryTo)}>{secondary}</button>
-        <button className="btn primary" onClick={() => act(primary, primaryTo)}>{saved ? "Saved ✓" : primary}</button>
+        {secondary && <button className="btn secondary" type="button" onClick={() => act(secondary, secondaryTo, onSecondary)} disabled={busy}>{secondary}</button>}
+        {primary && <button className="btn primary" type="button" onClick={() => act(primary, primaryTo, onPrimary)} disabled={busy}>{busy ? "WORKING…" : saved ? "Saved ✓" : primary}</button>}
       </div>
     </div>
   );
@@ -255,6 +261,13 @@ export function Panel({ title, subtitle, children, className = "" }) {
       {children}
     </section>
   );
+}
+
+export function AdminImage({ src, fallback, alt = "", ...props }) {
+  const placeholder="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360'%3E%3Crect width='100%25' height='100%25' fill='%23eaf0f7'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%235b7089' font-family='Arial' font-size='28'%3ENo uploaded image%3C/text%3E%3C/svg%3E";
+  const safeFallback=fallback||placeholder; const [displaySource,setDisplaySource]=useState(src||safeFallback); const [recoveryAttempted,setRecoveryAttempted]=useState(false);
+  const recover=async()=>{if(recoveryAttempted){setDisplaySource(safeFallback);return;}setRecoveryAttempted(true);const id=src?.match(/\/assets\/([^/?#]+)/)?.[1];if(!id){setDisplaySource(safeFallback);return;}try{setDisplaySource(await api.adminAssetObjectUrl(id));}catch{setDisplaySource(safeFallback);}};
+  return <img {...props} src={displaySource||safeFallback} alt={alt} onError={recover}/>;
 }
 
 export function DesignFooter() {

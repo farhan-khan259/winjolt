@@ -1,6 +1,18 @@
 .control-cols {
   grid-template-columns: minmax(0, 1.8fr) minmax(300px, 1fr);
 }
+.campaign-state-row {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  margin-top: 18px;
+}
+.campaign-state-row .status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 88px;
+}
 .campaign-hero {
   display: block;
   width: 100%;
@@ -8,6 +20,35 @@
   object-fit: cover;
   border-radius: 7px;
   margin: 20px 0 14px;
+}
+.campaign-readiness-panel {
+  display: flex;
+  flex-direction: column;
+}
+.publication-sequence {
+  margin-top: 22px;
+  padding: 24px;
+  background: var(--admin-soft);
+  border-radius: 10px;
+}
+.publication-sequence strong {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 18px;
+  color: var(--admin-ink);
+}
+.publication-sequence ol {
+  margin: 0;
+  padding-left: 23px;
+  color: var(--admin-muted);
+  line-height: 1.55;
+}
+.readiness-actions {
+  display: flex;
+  margin-top: 18px;
+}
+.readiness-actions .btn {
+  width: 100%;
 }
 .tabs {
   display: grid;
@@ -33,6 +74,9 @@
   }
 }
 @media (max-width: 520px) {
+  .publication-sequence {
+    padding: 20px;
+  }
   .campaign-hero {
     height: 170px;
   }

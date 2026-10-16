@@ -1,3 +1,13 @@
-import {AdminLayout,DesignFooter,FilterBar,PageHeading,Panel,StatGrid} from '../Shared/AdminLayout';import {SoftItems} from '../Shared/AdminPatterns';import car from '../../../Assets/Pictures/car-card.jpg';import cash from '../../../Assets/Pictures/cash-card.jpg';import gaming from '../../../Assets/Pictures/gaming-card.jpg';import './PrizeInventory.css';
-import { Link } from 'react-router-dom';
-export default function PrizeInventory(){let rows=[['Performance car + cash','Car',car,'Draft'],['£10,000 cash prize','Cash',cash,'Unverified'],['Gaming & technology','Technology',gaming,'Draft']];return <AdminLayout><PageHeading eyebrow="WINJOLT CONTROL / ASSETS & PROCUREMENT" title="Prize inventory" subtitle="Record ownership, supplier provenance, valuation, imagery and fulfilment conditions for every prize." secondary="Help & policies" primary="+ Add prize"/><StatGrid items={[{label:'PRIZES CATALOGUED',value:'3',note:'Draft inventory'},{label:'VERIFIED STOCK',value:'0',note:'No ownership evidence'},{label:'RESERVED PRIZES',value:'0',note:'No active campaigns'},{label:'FULFILLED PRIZES',value:'0',note:'No winners yet'}]}/><FilterBar filters={['All statuses','Date range','Export']}/><div className="two-col standard-cols"><Panel title="Prize procurement register" subtitle="Operational records and current status"><div className="campaign-list">{rows.map(r=><div className="campaign-row" key={r[0]}><div className="prize-cell"><img src={r[2]} alt=""/><div><strong>{r[0]}</strong><small>{r[1]} · Ownership verification pending</small></div></div><span className={`status ${r[3]==='Unverified'?'blocked':''}`}>{r[3]}</span><Link className="action-link" to="/admin/prize-asset-verification">Inspect →</Link></div>)}</div></Panel><Panel title="Prize verification" subtitle="Approval gates and controls for the production system"><SoftItems items={['Prove legal control','Photograph actual item','Document prize value','Fulfilment readiness'].map(x=>[`○ ${x}`,'Evidence required before publication'])}/></Panel></div><DesignFooter/></AdminLayout>}
+import { StandardAdminPage } from "../Shared/AdminPatterns";
+import "./PrizeInventory.css";
+
+export default function PrizeInventory(){
+  return <StandardAdminPage
+    heading={{eyebrow:"WINJOLT CONTROL / ASSETS & PROCUREMENT",title:"Prize inventory",subtitle:"Record ownership, supplier provenance, valuation, imagery and fulfilment conditions for every prize.",secondary:"Help & policies",primary:"+ Add prize"}}
+    stats={[["PRIZES CATALOGUED","0","Authoritative inventory"],["VERIFIED STOCK","0","Evidence approved"],["RESERVED PRIZES","0","Assigned to campaigns"],["FULFILLED PRIZES","0","Delivered to winners"]].map(([label,value,note])=>({label,value,note}))}
+    filters={["All statuses","Date range","Export"]}
+    mainTitle="Prize procurement register" mainSubtitle="Operational inventory records and current verification state"
+    empty={["No prizes in inventory","Use Add prize to create the first controlled asset record."]}
+    sideTitle="Prize verification" sideItems={["Prove legal control","Photograph actual item","Document prize value","Fulfilment readiness"].map(x=>[`○ ${x}`,"Evidence required before publication"])}
+  />;
+}
