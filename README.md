@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+For Render deployment, see [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

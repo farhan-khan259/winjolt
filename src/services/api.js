@@ -1,4 +1,7 @@
-const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:5000/api/v1").replace(/\/$/, "");
+const DEFAULT_API_URL = process.env.NODE_ENV === "production"
+  ? "https://winjolt-backend.onrender.com/api/v1"
+  : "http://localhost:5000/api/v1";
+const API_URL = (process.env.REACT_APP_API_URL || DEFAULT_API_URL).replace(/\/$/, "");
 
 function tokenFor(path) {
   return sessionStorage.getItem(path.startsWith("/admin") ? "winjolt-admin-token" : "winjolt-auth-token");
