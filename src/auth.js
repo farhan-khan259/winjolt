@@ -27,12 +27,8 @@ export async function authenticateCustomer(email, password) {
   return storeSession(await api.post("/accounts/login", { email, password }));
 }
 
-export async function authenticateAdmin(email, password, mfaCode) {
-  return storeSession(await api.post("/admin/auth/login", { email, password, mfa_code: mfaCode }), true);
-}
-
-export async function requestAdminOtp(email, password) {
-  return api.post("/admin/auth/otp/request", { email, password });
+export async function authenticateAdmin(email, password) {
+  return storeSession(await api.post("/admin/auth/login", { email, password }), true);
 }
 
 export function clearAuthenticatedSession() {
