@@ -1,3 +1,5 @@
+import { hydrateCompetitionImages } from "./competitionImages";
+
 const DEFAULT_API_URL = process.env.NODE_ENV === "production"
   ? "https://winjolt-backend.onrender.com/api/v1"
   : "http://localhost:5000/api/v1";
@@ -25,7 +27,7 @@ async function request(path, options = {}) {
     error.code = payload?.error?.code; error.details = payload?.error?.details; error.status = response.status;
     throw error;
   }
-  return payload;
+  return hydrateCompetitionImages(payload);
 }
 
 const body = (value) => JSON.stringify(value);
